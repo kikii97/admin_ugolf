@@ -52,7 +52,7 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="help-outline"></ion-icon>
@@ -86,7 +86,7 @@
                         </span>
                         <span class="title">Sign Out</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
 
@@ -97,12 +97,12 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
-                <div class="search">
+                {{-- <div class="search">
                     <label>
                         <input type="text" placeholder="Search here">
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
-                </div>
+                </div> --}}
 
                 <div class="user">
                     <img src="assets/imgs/customer01.jpg" alt="">
