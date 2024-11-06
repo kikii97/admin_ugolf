@@ -1,0 +1,50 @@
+/* Background and Container Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    /* font-family: Arial, sans-serif; */
+    background: linear-gradient(180deg, #D058B9, #78296D);
+    /* Darker shade at the bottom */
+}
+
+.container {
+    text-align: center;
+    color: white;
+    font-family: 'Kufam', sans-serif;
+}
+
+/* Heading Style */
+h1 {
+    /* font-family: 'Kufam', sans-serif; */
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+/* Button Style */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #903582;
+    background-color: white;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Ticket Icon Style */
+.btn img {
+    margin-right: 8px;
+}
