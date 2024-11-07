@@ -6346,6 +6346,7 @@
 body {
     margin: 0;
     font-family: var(--bs-body-font-family);
+    /* font-family: 'Kufam', sans-serif; */
     font-size: var(--bs-body-font-size);
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
@@ -11324,7 +11325,8 @@ fieldset:disabled .btn {
     background-color: var(--bs-card-bg);
     background-clip: border-box;
     border: var(--bs-card-border-width) solid var(--bs-card-border-color);
-    border-radius: var(--bs-card-border-radius);
+    /* border-radius: var(--bs-card-border-radius); */
+    border-radius: 20px;
     box-shadow: var(--bs-card-box-shadow)
 }
 
@@ -23279,7 +23281,7 @@ fieldset:disabled .btn {
 .sidebar-nav #sidebarnav .sidebar-item.selected>.sidebar-link {
     border-radius: 0 60px 60px 0;
     color: #fff !important;
-    background: linear-gradient(to right, #8971ea, #7f72ea, #7574ea, #6a75e9, #5f76e8);
+    background: linear-gradient(to right, #78296D, #8C2D79, #A03385, #B43A92, #D058B9);
     box-shadow: 0 7px 12px 0 rgba(95, 118, 232, .21);
     opacity: 1
 }
