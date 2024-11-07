@@ -5,7 +5,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Location</h4>
+                <h4 style="font-family: 'Kufam', sans-serif;" class="page-title text-truncate text-dark font-weight-medium mb-1">Location</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -17,9 +17,11 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
-                    <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                        <span style="margin-left: 12px;">Add</span>
-                    </button>
+                    <a href="#">
+                        <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
+                            <span style="margin-left: 12px;">Add</span>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>

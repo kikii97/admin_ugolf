@@ -25,7 +25,6 @@ Route::get('/lokasi', function () {
     return view('location');
 });
 
-
 Route::get('/loketing', [LoketingController::class, 'create'])->name('loketing.create');
 Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.store');
 

@@ -6346,7 +6346,6 @@
 body {
     margin: 0;
     font-family: var(--bs-body-font-family);
-    /* font-family: 'Kufam', sans-serif; */
     font-size: var(--bs-body-font-size);
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
@@ -23269,13 +23268,14 @@ fieldset:disabled .btn {
 
 .sidebar-nav #sidebarnav .sidebar-item .sidebar-link.active,
 .sidebar-nav #sidebarnav .sidebar-item .sidebar-link:hover {
-    opacity: 1
+    opacity: 1;
+    color: #D058B9;
 }
 
 .sidebar-nav #sidebarnav .sidebar-item .sidebar-link .hide-menu {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .sidebar-nav #sidebarnav .sidebar-item.selected>.sidebar-link {
