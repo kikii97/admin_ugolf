@@ -29,13 +29,15 @@ Route::get('/lokasi', function () {
     return view('location');
 });
 
+Route::get('/lokasi/create', function () {
+    return view('lokasi/index');
+});
+
 Route::get('/loketing', [LoketingController::class, 'create'])->name('loketing.create');
 Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.store');
 
-
 // Route for displaying ticket details
 Route::get('/loketing/detail', [DetailController::class, 'showDetails'])->name('details');
-
 
 Route::get('/loketing', [LoketingController::class, 'index']);
 Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');

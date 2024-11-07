@@ -17,14 +17,7 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
-<<<<<<< HEAD
-                    <a href="{{ route('loket.data') }}" class="btn form-control border-0 custom-shadow custom-radius" style="background-color:pink">
-                        <span style="text-align:center;">Add</span>
-                    </a>
-                </div>
-            </div>            
-=======
-                    <a href="/loketing">
+                    <a href="{{ route('loket.data') }}">
                         <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
                             <span style="margin-left: 12px;">Add</span>
                         </button>
@@ -32,7 +25,6 @@
                 </div>
             </div>
             
->>>>>>> 561d1ecaf11a13cd63bc80dfc77dde954cd40019
         </div>
     </div>
 

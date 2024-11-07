@@ -17,7 +17,7 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
-                    <a href="#">
+                    <a href="lokasi/create">
                         <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
                             <span style="margin-left: 12px;">Add</span>
                         </button>
