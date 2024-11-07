@@ -38,4 +38,4 @@ Route::get('/loketing/detail', [DetailController::class, 'showDetails'])->name('
 
 
 Route::get('/loketing', [LoketingController::class, 'index']);
-Route::get('/loketing/create', [LoketingController::class, 'getLoketData'])->name('loket.data');
+Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');

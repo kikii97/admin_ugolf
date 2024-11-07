@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loketing</title>
+    <title>Lokasi</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
@@ -19,8 +19,8 @@
             margin: 0;
         }
 
-               /* Header title styling */
-               .judul {
+        /* Header title styling */
+        .judul {
             width: 100%;
             max-width: 776px;
             height: 70px;
@@ -30,11 +30,8 @@
             padding: 20px 0;
             font-size: 28px;
             font-weight: bold;
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
             letter-spacing: 5px;
         }
-
-
 
         /* Table styling */
         .table-container {
@@ -80,39 +77,23 @@
 
     <!-- Header title -->
     <div class="judul">
-        LOKETING
+        LOKASI
     </div>
 
     <!-- Table container for displaying data -->
     <div class="table-container">
-        <h3>Data Loket</h3>
+        <h3>Data Lokasi Loket</h3>
         <table class="table table-striped" id="loket-table">
             <thead>
                 <tr>
-                    <th>Kode Loket</th>
-                    <th>Harga Tiket</th>
-                    <th>Action</th>
+                    <th>No</th>
+                    <th>Loket</th>
+                    <th>Alamat</th>
                 </tr>
             </thead>
         </table>
     </div>
 
-    <!-- Detail Modal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel" style="margin-left: 40%; font-weight: bold;">Loket Detail</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="detailList">
-                    <!-- Data will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
     <!-- Form for inputting data -->
     <div class="table-container">
