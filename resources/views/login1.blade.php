@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UGOLF</title>
-    <!-- Google Fonts Kufam -->
-    <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laravel</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=kufam:600,800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+    <!-- Custom CSS -->
     <style>
         /* Prevent scrolling */
         html,
@@ -21,7 +28,7 @@
 
         /* Styling for the body */
         body {
-            /* background: linear-gradient(0deg, rgba(123, 43, 112, 1) 35%, rgba(226, 100, 209, 1) 100%); */
+            background: linear-gradient(0deg, rgba(123, 43, 112, 1) 35%, rgba(226, 100, 209, 1) 100%);
             font-family: 'Kufam', sans-serif;
             display: flex;
             justify-content: center;
@@ -146,7 +153,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div>
         <!-- SVG element positioned in the top right corner -->
         <svg class="svg-container" width="645" height="797" viewBox="0 0 645 797" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -192,11 +199,15 @@
                 </linearGradient>
             </defs>
         </svg>
-        <h1>UGOLF</h1>
-        <a href="#" class="btn">
-            <img src="assets/images/Ticket.png" alt="Ticket Icon" width="25">
-            BELI TIKET
-        </a>
+        <div class="ugolf-text">
+            UGOLF
+        </div>
+        <button class="center-button">
+            <a href="/qty" style="color: #7D2B71; " class="button-text-container">
+                {{-- <img src="assets/images/Ticket.png" alt="Ticket Image" class="ticket-image"> --}}
+                {{-- Beli Tiket --}}
+            </a>
+        </button>
     </div>
 </body>
 
