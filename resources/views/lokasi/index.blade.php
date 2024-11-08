@@ -30,8 +30,10 @@
             padding: 20px 0;
             font-size: 28px;
             font-weight: bold;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
             letter-spacing: 5px;
         }
+
 
         /* Table styling */
         .table-container {
@@ -80,21 +82,6 @@
         LOKASI
     </div>
 
-    <!-- Table container for displaying data -->
-    <div class="table-container">
-        <h3>Data Lokasi Loket</h3>
-        <table class="table table-striped" id="loket-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Loket</th>
-                    <th>Alamat</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-
-
     <!-- Form for inputting data -->
     <div class="table-container">
         <h3>Input Data Loket</h3>
@@ -104,8 +91,8 @@
                 <input type="text" class="form-control" id="kodeLoket" placeholder="Masukkan Kode Loket">
             </div>
             <div class="mb-3">
-                <label for="hargaTiket" class="form-label">Harga Tiket</label>
-                <input type="number" class="form-control" id="hargaTiket" placeholder="Masukkan Harga Tiket">
+                <label for="hargaTiket" class="form-label">Lokasi / Alamat</label>
+                <input type="number" class="form-control" id="lokasi" placeholder="Masukkan Alamat Loket">
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
@@ -125,24 +112,34 @@
                 ajax: '{{ route('loket.data') }}',
                 columns: [
                     { data: 'kode_loket', name: 'kode_loket' },
-                    { data: 'harga_tiket', name: 'harga_tiket' },
+                    { data: 'lokasi', name: 'lokasi' },
                 ]
             });
 
-            // Form submission logic
-            $('#loketForm').on('submit', function(e) {
-                e.preventDefault();
-                const kodeLoket = $('#kodeLoket').val();
-                const hargaTiket = $('#hargaTiket').val();
+            $('#lokasiForm').on('submit', function(e) {
+    e.preventDefault();
+    const kodeLokasi = $('#kodeLokasi').val();
+    const lokasi = $('#lokasi').val();
 
-                if (kodeLoket && hargaTiket) {
-                    alert(`Kode Loket: ${kodeLoket}\nHarga Tiket: ${hargaTiket}`);
-                    $('#kodeLoket').val('');
-                    $('#hargaTiket').val('');
-                } else {
-                    alert('Silakan isi semua data sebelum menyimpan.');
-                }
-            });
+    $.ajax({
+        url: '{{ route("lokasi.store") }}',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            kode_lokasi: kodeLokasi,
+            lokasi: lokasi
+        },
+        success: function(response) {
+            alert(response.success);
+            $('#lokasiForm')[0].reset();
+            $('#lokasi-table').DataTable().ajax.reload();
+        },
+        error: function(xhr) {
+            alert('Error: ' + xhr.responseJSON.message);
+        }
+    });
+});
+
         });
     </script>
 </body>

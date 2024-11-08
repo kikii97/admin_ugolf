@@ -17,7 +17,11 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
+<<<<<<< HEAD
+                    <a href="/loketing">
+=======
                     <a href="{{ route('loket.data') }}">
+>>>>>>> ad05b734b37fbf0d856ccfcb20ab6203dbf4f04b
                         <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
                             <span style="margin-left: 12px;">Add</span>
                         </button>

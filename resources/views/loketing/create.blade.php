@@ -19,8 +19,8 @@
             margin: 0;
         }
 
-               /* Header title styling */
-               .judul {
+        /* Header title styling */
+        .judul {
             width: 100%;
             max-width: 776px;
             height: 70px;
@@ -33,8 +33,6 @@
             clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
             letter-spacing: 5px;
         }
-
-
 
         /* Table styling */
         .table-container {
@@ -55,14 +53,6 @@
             margin-bottom: 20px;
         }
 
-        .icon-detail {
-            background-color: #112337;
-        }
-
-        .icon-edit {
-            background-color: #000000;
-        }
-
         /* Button styling */
         .btn-primary {
             background: linear-gradient(180deg, rgba(143, 53, 129, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
@@ -74,6 +64,47 @@
         .btn-primary:hover {
             background: linear-gradient(180deg, rgba(168, 55, 143, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
         }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .judul {
+                font-size: 22px;
+                padding: 15px 0;
+                height: auto;
+            }
+
+            .table-container {
+                padding: 15px;
+                margin-top: 20px;
+            }
+
+            .table-container h3 {
+                font-size: 16px;
+            }
+
+            #loketForm .form-label,
+            #loketForm input,
+            .btn-primary {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .judul {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+
+            .table-container h3 {
+                font-size: 14px;
+            }
+
+            #loketForm .form-label,
+            #loketForm input,
+            .btn-primary {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -82,37 +113,6 @@
     <div class="judul">
         LOKETING
     </div>
-
-    <!-- Table container for displaying data -->
-    <div class="table-container">
-        <h3>Data Loket</h3>
-        <table class="table table-striped" id="loket-table">
-            <thead>
-                <tr>
-                    <th>Kode Loket</th>
-                    <th>Harga Tiket</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-
-    <!-- Detail Modal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel" style="margin-left: 40%; font-weight: bold;">Loket Detail</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="detailList">
-                    <!-- Data will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
     <!-- Form for inputting data -->
     <div class="table-container">
