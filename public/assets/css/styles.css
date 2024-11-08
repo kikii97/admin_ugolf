@@ -1,24 +1,88 @@
-/* Background and Container Styles */
+/* General layout */
+html,
 body {
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
-    /* font-family: Arial, sans-serif; */
     background: linear-gradient(180deg, #D058B9, #78296D);
-    /* Darker shade at the bottom */
+    font-family: 'Kufam', sans-serif;
+}
+
+/* SVG container styling */
+.svg-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 35%;
+    /* Slightly larger size */
+    height: auto;
+    animation: floatRight 6s ease-in-out infinite;
+}
+
+.svg-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 35%;
+    /* Slightly larger size */
+    height: auto;
+    animation: floatLeft 6s ease-in-out infinite;
+}
+
+/* Floating animations */
+@keyframes floatRight {
+
+    0%,
+    100% {
+        transform: translateX(0px);
+    }
+
+    60% {
+        transform: translateX(50px);
+    }
+}
+
+@keyframes floatLeft {
+
+    0%,
+    100% {
+        transform: translateX(0px);
+    }
+
+    60% {
+        transform: translateX(-50px);
+    }
+}
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+
+    .svg-right,
+    .svg-left {
+        max-width: 30%;
+        /* Adjusted for larger screens */
+    }
+}
+
+@media (max-width: 768px) {
+
+    .svg-right,
+    .svg-left {
+        max-width: 60%;
+    }
 }
 
 .container {
     text-align: center;
     color: white;
-    font-family: 'Kufam', sans-serif;
 }
 
 /* Heading Style */
 h1 {
-    /* font-family: 'Kufam', sans-serif; */
     font-size: 48px;
     margin-bottom: 20px;
 }
@@ -27,7 +91,6 @@ h1 {
 .btn {
     display: inline-flex;
     align-items: center;
-    text-align: center;
     padding: 12px 24px;
     font-size: 18px;
     font-weight: bold;
