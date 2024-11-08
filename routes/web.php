@@ -39,8 +39,6 @@ Route::get('/loketing/detail', [DetailController::class, 'showDetails'])->name('
 Route::get('/loketing', [LoketingController::class, 'index']);
 Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
 
-
-
-Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+Route::get('/tambahlokasi', [LokasiController::class, 'index'])->name('lokasi.index');
 Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
 Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');

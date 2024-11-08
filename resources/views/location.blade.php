@@ -9,7 +9,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="index.html" class="text-muted">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Location</li>
                         </ol>
                     </nav>
@@ -17,7 +17,7 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
-                    <a href="lokasi/create">
+                    <a href="/tambahlokasi">
                         <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
                             <span style="margin-left: 12px;">Add</span>
                         </button>

@@ -12,184 +12,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins&display=swap');
-
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box
-        }
-
         body {
-            /* background-color: #eee; */
             height: 100vh;
             font-family: 'Poppins', sans-serif;
-        }
-
-        .h2 {
-            font-family: 'Kufam', sans-serif;
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #ffffff;
-            font-style: italic
-        }
-
-        .h4 {
-            font-family: 'Poppins', sans-serif
-        }
-
-        .wrapper {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 30px 40px;
-            background: rgba(255, 255, 255, 0.1);
-            /* Transparan */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .input-field {
-            border-radius: 30px;
-            padding: 10px;
-            /* Increase the padding for more spacing */
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: #400485;
-            margin-bottom: 15px;
-            background: rgba(235, 189, 225, 0.881);
-            /* Add spacing between form fields */
-        }
-
-        .input-form::placeholder {
-            color: #400485a4;
-        }
-
-        input {
-            background: transparent;
-            border: none;
-            outline: none;
-            box-shadow: none;
-            width: 100%;
-            padding: 8px 10px;
-            font-family: 'Poppins', sans-serif;
-            color: #400485;
-        }
-
-        .fa-eye-slash.btn {
-            border: none;
-            outline: none;
-            box-shadow: none
-        }
-
-        a {
-            text-decoration: none;
-            color: #ffffff;
-        }
-
-        a:hover {
-            text-decoration: none;
-            color: #000000
-        }
-
-        .option {
-            position: relative;
-            padding-left: 30px;
-            cursor: pointer
-        }
-
-        .option label.text-muted {
-            display: block;
-            cursor: pointer
-        }
-
-        .option input {
-            display: none
-        }
-
-        .checkmark {
-            position: absolute;
-            top: 3px;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            /* background-color: #fff; */
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            cursor: pointer
-        }
-
-        .option input:checked~.checkmark:after {
-            display: block
-        }
-
-        .option .checkmark:after {
-            content: "";
-            width: 13px;
-            height: 13px;
-            display: block;
-            background: #ffffff;
-            position: absolute;
-            top: 48%;
-            left: 53%;
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: 300ms ease-in-out 0s
-        }
-
-        .option input[type="radio"]:checked~.checkmark {
-            /* background: #fff; */
-            transition: 300ms ease-in-out 0s;
-            border: 1px solid #ffffff
-        }
-
-        .option input[type="radio"]:checked~.checkmark:after {
-            transform: translate(-50%, -50%) scale(1)
-        }
-
-        .btn.btn-block {
-            border-radius: 30px;
-            background-color: #400485;
-            margin-top: 20px;
-        }
-
-        .btn.btn-block:hover {
-            background-color: #55268be0
-        }
-
-        @media(max-width: 575px) {
-            .wrapper {
-                margin: 10px
-            }
-        }
-
-        @media(max-width:424px) {
-            .wrapper {
-                padding: 30px 10px;
-                margin: 5px
-            }
-
-            .option {
-                position: relative;
-                padding-left: 22px
-            }
-
-            .option label.text-muted {
-                font-size: 0.95rem
-            }
-
-            .checkmark {
-                position: absolute;
-                top: 2px
-            }
-
-            .option .checkmark:after {
-                top: 50%
-            }
-
-            #forgot {
-                font-size: 0.95rem
-            }
         }
     </style>
 </head>
@@ -251,15 +76,17 @@
             <form class="pt-3">
                 <div class="form-group py-2">
                     <div class="input-field"> <span class="far fa-user p-2"></span>
-                        <input class="input-form" type="text" placeholder="Username or Email Address" required class="">
+                        <input class="input-form" type="text" placeholder="Username or Email Address" required
+                            class="">
                     </div>
                 </div>
                 <div class="form-group py-1 pb-2">
                     <div class="input-field">
                         <span class="fas fa-lock p-2"></span>
-                        <input class="input-form" type="text" placeholder="Enter your Password" required class="">
-                        <button class="btn" style="background: transparent;">
-                            <span style="color: #400485;" class="far fa-eye-slash"></span>
+                        <input class="input-form" type="text" placeholder="Enter your Password" required
+                            class="">
+                        <button style="padding: 6px; background-color: transparent;" class="btn" style="background: transparent;">
+                            <span style="color: #400485; margin-right: 10px;" class="far fa-eye-slash"></span>
                         </button>
                     </div>
                 </div>
@@ -274,7 +101,7 @@
                 </div>
                 <a href="/dashboard" class="btn btn-block text-center my-3">
                     Log in
-                </a>                
+                </a>
             </form>
         </div>
     </div>

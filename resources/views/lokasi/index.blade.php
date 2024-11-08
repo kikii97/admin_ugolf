@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,6 +76,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header title -->
@@ -110,37 +112,43 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('loket.data') }}',
-                columns: [
-                    { data: 'kode_loket', name: 'kode_loket' },
-                    { data: 'lokasi', name: 'lokasi' },
+                columns: [{
+                        data: 'kode_loket',
+                        name: 'kode_loket'
+                    },
+                    {
+                        data: 'lokasi',
+                        name: 'lokasi'
+                    },
                 ]
             });
 
             $('#lokasiForm').on('submit', function(e) {
-    e.preventDefault();
-    const kodeLokasi = $('#kodeLokasi').val();
-    const lokasi = $('#lokasi').val();
+                e.preventDefault();
+                const kodeLokasi = $('#kodeLokasi').val();
+                const lokasi = $('#lokasi').val();
 
-    $.ajax({
-        url: '{{ route("lokasi.store") }}',
-        type: 'POST',
-        data: {
-            _token: '{{ csrf_token() }}',
-            kode_lokasi: kodeLokasi,
-            lokasi: lokasi
-        },
-        success: function(response) {
-            alert(response.success);
-            $('#lokasiForm')[0].reset();
-            $('#lokasi-table').DataTable().ajax.reload();
-        },
-        error: function(xhr) {
-            alert('Error: ' + xhr.responseJSON.message);
-        }
-    });
-});
+                $.ajax({
+                    url: '{{ route('lokasi.store') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        kode_lokasi: kodeLokasi,
+                        lokasi: lokasi
+                    },
+                    success: function(response) {
+                        alert(response.success);
+                        $('#lokasiForm')[0].reset();
+                        $('#lokasi-table').DataTable().ajax.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Error: ' + xhr.responseJSON.message);
+                    }
+                });
+            });
 
         });
     </script>
 </body>
+
 </html>
