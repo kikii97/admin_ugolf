@@ -1,154 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UGOLF</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
     <!-- Google Fonts Kufam -->
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
 
     <style>
-        /* Prevent scrolling */
-        html,
-        body {
-            margin: 0;
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins&display=swap');
+
+        * {
             padding: 0;
-            height: 100%;
-            overflow: hidden;
+            margin: 0;
+            box-sizing: border-box
         }
 
-        /* Styling for the body */
         body {
-            /* background: linear-gradient(0deg, rgba(123, 43, 112, 1) 35%, rgba(226, 100, 209, 1) 100%); */
+            background-color: #eee;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .wrapper {
+            max-width: 500px;
+            border-radius: 10px;
+            margin: 50px auto;
+            padding: 30px 40px;
+        }
+
+        .h2 {
             font-family: 'Kufam', sans-serif;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #400485;
+            font-style: italic
+        }
+
+        .h4 {
+            font-family: 'Poppins', sans-serif
+        }
+
+        .input-field {
+            border-radius: 5px;
+            padding: 5px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-        }
-
-        .svg-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            max-width: 50%;
-            height: auto;
-            animation: floatRight 6s ease-in-out infinite;
-        }
-
-        .svg-left {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            max-width: 50%;
-            height: auto;
-            animation: floatLeft 6s ease-in-out infinite;
-        }
-
-        /* Floating animations */
-        @keyframes floatRight {
-
-            0%,
-            100% {
-                transform: translateX(0px);
-            }
-
-            60% {
-                transform: translateX(50px);
-            }
-        }
-
-        @keyframes floatLeft {
-
-            0%,
-            100% {
-                transform: translateX(0px);
-            }
-
-            60% {
-                transform: translateX(-50px);
-            }
-        }
-
-        /* Styling for the button */
-        .center-button {
-            width: 500px;
-            height: 120px;
-            background-color: white;
-            color: #7D2B71;
-            padding: 15px 30px;
-            font-size: 40px;
-            font-weight: 800;
-            line-height: 52px;
-            border-radius: 120px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            border: 1px solid #400485;
+            color: #400485
+        }
+
+        .input-field:hover {
+            color: #7b4ca0;
+            border: 1px solid #7b4ca0
+        }
+
+        input {
             border: none;
-            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+            outline: none;
+            box-shadow: none;
+            width: 100%;
+            padding: 0px 2px;
+            font-family: 'Poppins', sans-serif
         }
 
-        .center-button:hover {
-            background-color: #e08dd3;
-            color: white;
+        .fa-eye-slash.btn {
+            border: none;
+            outline: none;
+            box-shadow: none
         }
 
-        /* Styling for the UGOLF text */
-        .ugolf-text {
-            color: white;
-            font-weight: 800;
-            margin-bottom: 40px;
-            font-size: 96px;
-            line-height: 124.8px;
-            text-align: center;
+        a {
+            text-decoration: none;
+            color: #400485;
+            font-weight: 700
         }
 
-        /* Styling for the image inside the button */
-        .ticket-image {
-            width: 70px;
-            height: 70px;
+        a:hover {
+            text-decoration: none;
+            color: #7b4ca0
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        .option {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer
+        }
 
-            .svg-container,
-            .svg-left {
-                max-width: 60%;
+        .option label.text-muted {
+            display: block;
+            cursor: pointer
+        }
+
+        .option input {
+            display: none
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 3px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        .option input:checked~.checkmark:after {
+            display: block
+        }
+
+        .option .checkmark:after {
+            content: "";
+            width: 13px;
+            height: 13px;
+            display: block;
+            background: #400485;
+            position: absolute;
+            top: 48%;
+            left: 53%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: 300ms ease-in-out 0s
+        }
+
+        .option input[type="radio"]:checked~.checkmark {
+            background: #fff;
+            transition: 300ms ease-in-out 0s;
+            border: 1px solid #400485
+        }
+
+        .option input[type="radio"]:checked~.checkmark:after {
+            transform: translate(-50%, -50%) scale(1)
+        }
+
+        .btn.btn-block {
+            border-radius: 20px;
+            background-color: #400485;
+            color: #fff
+        }
+
+        .btn.btn-block:hover {
+            background-color: #55268be0
+        }
+
+        @media(max-width: 575px) {
+            .wrapper {
+                margin: 10px
+            }
+        }
+
+        @media(max-width:424px) {
+            .wrapper {
+                padding: 30px 10px;
+                margin: 5px
             }
 
-            .ugolf-text {
-                font-size: 128px;
+            .option {
+                position: relative;
+                padding-left: 22px
             }
 
-            .center-button {
-                width: 400px;
-                height: 100px;
-                font-size: 32px;
-                padding: 10px 20px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .center-button {
-                width: 300px;
-                height: 90px;
-                font-size: 32px;
-                padding: 10px 20px;
+            .option label.text-muted {
+                font-size: 0.95rem
             }
 
-            .ugolf-text {
-                font-size: 72px;
+            .checkmark {
+                position: absolute;
+                top: 2px
+            }
+
+            .option .checkmark:after {
+                top: 50%
+            }
+
+            #forgot {
+                font-size: 0.95rem
             }
         }
     </style>
 </head>
 
-<body>
+<body oncontextmenu='return false' class='snippet-body'>
     <div class="container">
         <!-- SVG element positioned in the top right corner -->
-        <svg class="svg-container" width="645" height="797" viewBox="0 0 645 797" fill="none"
+        <svg class="svg-right" width="745" height="897" viewBox="0 0 645 797" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M872.95 337.805C836.732 419.41 716.401 399.793 632.857 431.28C559.407 458.962 492.256 539.027 419.923 508.544C347.806 478.151 355.813 375.444 327.369 302.537C301.66 236.638 250.433 177.983 263.866 108.534C279.208 29.2107 327.29 -47.4302 401.317 -79.7954C474.745 -111.899 558.234 -85.7305 630.899 -51.9363C697.375 -21.0203 742.581 34.6241 781.26 96.9041C828.384 172.781 909.184 256.165 872.95 337.805Z"
@@ -171,7 +214,7 @@
         </svg>
 
         <!-- SVG element positioned in the bottom left corner -->
-        <svg class="svg-left" width="572" height="574" viewBox="0 0 572 574" fill="none"
+        <svg class="svg-left" width="845" height="797" viewBox="0 0 572 574" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M62.3372 100.316C148.59 77.2634 208.88 183.233 285.844 228.483C353.509 268.266 457.988 270.255 479.681 345.691C501.311 420.902 416.348 479.161 377.465 547.078C342.32 608.466 328.836 685.165 266.35 718.319C194.981 756.187 105.141 766.888 33.469 729.597C-37.6225 692.607 -69.6804 611.197 -89.0061 533.424C-106.686 462.274 -91.7636 392.152 -67.5792 322.942C-38.1148 238.622 -23.9537 123.379 62.3372 100.316Z"
@@ -192,12 +235,38 @@
                 </linearGradient>
             </defs>
         </svg>
-        <h1>UGOLF</h1>
-        <a href="#" class="btn">
+        <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
+        {{-- <a href="#" class="btn">
             <img src="assets/images/Ticket.png" alt="Ticket Icon" width="25">
             BELI TIKET
-        </a>
+        </a> --}}
+        <div class="">
+            {{-- <div class="h2 text-center">UGOLF</div> --}}
+            <form class="pt-3">
+                <div class="form-group py-2">
+                    <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
+                            placeholder="Username or Email Address" required class=""> </div>
+                </div>
+                <div class="form-group py-1 pb-2">
+                    <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text"
+                            placeholder="Enter your Password" required class=""> <button
+                            class="btn bg-white text-muted">
+                            <span class="far fa-eye-slash"></span> </button> </div>
+                </div>
+                <div class="d-flex align-items-start">
+                    <div class="remember"> <label class="option text-muted"> Remember me <input type="radio"
+                                name="radio">
+                            <span class="checkmark"></span> </label> </div>
+                    <div class="ml-auto"> <a href="#" id="forgot">Forgot Password?</a> </div>
+                </div> <button class="btn btn-block text-center my-3">Log in</button>
+                <div class="text-center pt-3 text-muted">Not a member? <a href="#">Sign up</a></div>
+            </form>
+        </div>
     </div>
 </body>
 
-</html>
+<script type='text/javascript' src=''></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'>
+</script>
+<script type='text/javascript'></script>

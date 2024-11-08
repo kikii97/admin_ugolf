@@ -40,83 +40,84 @@
                         </div>
                         <div class="table-responsive">
                             <table id="zero_config" class="table table-striped table-bordered no-wrap">
-                                <thead>
-                                    <tr>
-                                        <th>Status</th>
-                                        <th>Title</th>
-                                        <th>ID</th>
-                                        <th>Product</th>
-                                        <th>Created by</th>
-                                        <th>Date</th>
-                                        <th>Agent</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><span class="fs-6">In Progress</span></td>
-                                        <td><a href="javascript:void(0)" class="font-weight-medium link">Elegant
-                                                Theme
-                                                Side Menu Open OnClick</a></td>
-                                        <td><a href="javascript:void(0)" class="font-bold link">276377</a></td>
-                                        <td>Elegant Admin</td>
-                                        <td>Eric Pratt</td>
-                                        <td>2018/05/01</td>
-                                        <td>Fazz</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="fs-6">Closed</span></td>
-                                        <td><a href="javascript:void(0)" class="font-weight-medium link">AdminX
-                                                Theme
-                                                Side Menu Open OnClick</a></td>
-                                        <td><a href="javascript:void(0)" class="font-bold link">1234251</a></td>
-                                        <td>AdminX Admin</td>
-                                        <td>Nirav Joshi</td>
-                                        <td>2018/05/11</td>
-                                        <td>Steve</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="fs-6">Opened</span></td>
-                                        <td><a href="javascript:void(0)" class="font-weight-medium link">Admin-Pro
-                                                Theme Side Menu Open OnClick</a></td>
-                                        <td><a href="javascript:void(0)" class="font-bold link">1020345</a></td>
-                                        <td>Admin-Pro</td>
-                                        <td>Vishal Bhatt</td>
-                                        <td>2018/04/01</td>
-                                        <td>John</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="fs-6">In Progress</span></td>
-                                        <td><a href="javascript:void(0)" class="font-weight-medium link">Elegant
-                                                Theme
-                                                Side Menu Open OnClick</a></td>
-                                        <td><a href="javascript:void(0)" class="font-bold link">7810203</a></td>
-                                        <td>Elegant Admin</td>
-                                        <td>Eric Pratt</td>
-                                        <td>2018/01/01</td>
-                                        <td>Fazz</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="fs-6">In Progress</span></td>
-                                        <td><a href="javascript:void(0)" class="font-weight-medium link">AdminX
-                                                Theme
-                                                Side Menu Open OnClick</a></td>
-                                        <td><a href="javascript:void(0)" class="font-bold link">2103450</a></td>
-                                        <td>AdminX Admin</td>
-                                        <td>Nirav Joshi</td>
-                                        <td>2018/05/01</td>
-                                        <td>John</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="fs-6">In Progress</span></td>
-                                        <td><a href="javascript:void(0)" class="font-weight-medium link">Admin-Pro
-                                                Theme Side Menu Open OnClick</a></td>
-                                        <td><a href="javascript:void(0)" class="font-bold link">2140530</a></td>
-                                        <td>Admin-Pro</td>
-                                        <td>Vishal Bhatt</td>
-                                        <td>2018/07/01</td>
-                                        <td>Steve</td>
-                                    </tr>
-                                </tbody>
+                                <h4 class="card-title">Default Ordering</h4>
+                                <h6 class="card-subtitle">With DataTables you can alter the ordering characteristics of
+                                    the table at initialisation time. Using the<code> order | option</code> order
+                                    initialisation parameter, you can set the table to display the data in exactly the
+                                    order that you want.</h6>
+                                <div class="table-responsive">
+                                    <table id="default_order" class="table border table-striped table-bordered text-nowrap"
+                                        style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Ashton Cox</td>
+                                                <td>Junior Technical Author</td>
+                                                <td>San Francisco</td>
+                                                <td>66</td>
+                                                <td>2009/01/12</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cedric Kelly</td>
+                                                <td>Senior Javascript Developer</td>
+                                                <td>Edinburgh</td>
+                                                <td>22</td>
+                                                <td>2012/03/29</td>
+                                                <td>$433,060</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Airi Satou</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>33</td>
+                                                <td>2008/11/28</td>
+                                                <td>$162,700</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Brielle Williamson</td>
+                                                <td>Integration Specialist</td>
+                                                <td>New York</td>
+                                                <td>61</td>
+                                                <td>2012/12/02</td>
+                                                <td>$372,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Paul Byrd</td>
+                                                <td>Chief Financial Officer (CFO)</td>
+                                                <td>New York</td>
+                                                <td>64</td>
+                                                <td>2010/06/09</td>
+                                                <td>$725,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Angelica Ramos</td>
+                                                <td>Chief Executive Officer (CEO)</td>
+                                                <td>London</td>
+                                                <td>47</td>
+                                                <td>2009/10/09</td>
+                                                <td>$1,200,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fiona Green</td>
+                                                <td>Chief Operating Officer (COO)</td>
+                                                <td>San Francisco</td>
+                                                <td>48</td>
+                                                <td>2010/03/11</td>
+                                                <td>$850,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </table>
                             <ul class="pagination float-end">
                                 <li class="page-item disabled">
