@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+{{-- <html dir="ltr" lang="in"> --}}
 
 <head>
     <meta charset="UTF-8">
@@ -21,23 +21,16 @@
         }
 
         body {
-            background-color: #eee;
+            /* background-color: #eee; */
             height: 100vh;
             font-family: 'Poppins', sans-serif;
-        }
-
-        .wrapper {
-            max-width: 500px;
-            border-radius: 10px;
-            margin: 50px auto;
-            padding: 30px 40px;
         }
 
         .h2 {
             font-family: 'Kufam', sans-serif;
             font-size: 3.5rem;
             font-weight: bold;
-            color: #400485;
+            color: #ffffff;
             font-style: italic
         }
 
@@ -45,28 +38,42 @@
             font-family: 'Poppins', sans-serif
         }
 
+        .wrapper {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            /* Transparan */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
         .input-field {
-            border-radius: 5px;
-            padding: 5px;
+            border-radius: 30px;
+            padding: 10px;
+            /* Increase the padding for more spacing */
             display: flex;
             align-items: center;
             cursor: pointer;
-            border: 1px solid #400485;
-            color: #400485
+            color: #400485;
+            margin-bottom: 15px;
+            background: rgba(235, 189, 225, 0.881);
+            /* Add spacing between form fields */
         }
 
-        .input-field:hover {
-            color: #7b4ca0;
-            border: 1px solid #7b4ca0
+        .input-form::placeholder {
+            color: #400485a4;
         }
 
         input {
+            background: transparent;
             border: none;
             outline: none;
             box-shadow: none;
             width: 100%;
-            padding: 0px 2px;
-            font-family: 'Poppins', sans-serif
+            padding: 8px 10px;
+            font-family: 'Poppins', sans-serif;
+            color: #400485;
         }
 
         .fa-eye-slash.btn {
@@ -77,13 +84,12 @@
 
         a {
             text-decoration: none;
-            color: #400485;
-            font-weight: 700
+            color: #ffffff;
         }
 
         a:hover {
             text-decoration: none;
-            color: #7b4ca0
+            color: #000000
         }
 
         .option {
@@ -107,7 +113,7 @@
             left: 0;
             height: 20px;
             width: 20px;
-            background-color: #fff;
+            /* background-color: #fff; */
             border: 1px solid #ddd;
             border-radius: 50%;
             cursor: pointer
@@ -122,7 +128,7 @@
             width: 13px;
             height: 13px;
             display: block;
-            background: #400485;
+            background: #ffffff;
             position: absolute;
             top: 48%;
             left: 53%;
@@ -132,9 +138,9 @@
         }
 
         .option input[type="radio"]:checked~.checkmark {
-            background: #fff;
+            /* background: #fff; */
             transition: 300ms ease-in-out 0s;
-            border: 1px solid #400485
+            border: 1px solid #ffffff
         }
 
         .option input[type="radio"]:checked~.checkmark:after {
@@ -142,9 +148,9 @@
         }
 
         .btn.btn-block {
-            border-radius: 20px;
+            border-radius: 30px;
             background-color: #400485;
-            color: #fff
+            margin-top: 20px;
         }
 
         .btn.btn-block:hover {
@@ -235,31 +241,40 @@
                 </linearGradient>
             </defs>
         </svg>
-        <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
         {{-- <a href="#" class="btn">
             <img src="assets/images/Ticket.png" alt="Ticket Icon" width="25">
             BELI TIKET
         </a> --}}
-        <div class="">
+        <div class="wrapper">
+            <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
             {{-- <div class="h2 text-center">UGOLF</div> --}}
             <form class="pt-3">
                 <div class="form-group py-2">
-                    <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
-                            placeholder="Username or Email Address" required class=""> </div>
+                    <div class="input-field"> <span class="far fa-user p-2"></span>
+                        <input class="input-form" type="text" placeholder="Username or Email Address" required class="">
+                    </div>
                 </div>
                 <div class="form-group py-1 pb-2">
-                    <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text"
-                            placeholder="Enter your Password" required class=""> <button
-                            class="btn bg-white text-muted">
-                            <span class="far fa-eye-slash"></span> </button> </div>
+                    <div class="input-field">
+                        <span class="fas fa-lock p-2"></span>
+                        <input class="input-form" type="text" placeholder="Enter your Password" required class="">
+                        <button class="btn" style="background: transparent;">
+                            <span style="color: #400485;" class="far fa-eye-slash"></span>
+                        </button>
+                    </div>
                 </div>
                 <div class="d-flex align-items-start">
-                    <div class="remember"> <label class="option text-muted"> Remember me <input type="radio"
-                                name="radio">
-                            <span class="checkmark"></span> </label> </div>
-                    <div class="ml-auto"> <a href="#" id="forgot">Forgot Password?</a> </div>
-                </div> <button class="btn btn-block text-center my-3">Log in</button>
-                <div class="text-center pt-3 text-muted">Not a member? <a href="#">Sign up</a></div>
+                    <div class="remember">
+                        <label class="option"> Remember me <input type="radio" name="radio">
+                            <span class="checkmark"></span> </label>
+                    </div>
+                    <div class="ml-auto">
+                        <a href="#" id="forgot">Forgot Password?</a>
+                    </div>
+                </div>
+                <a href="/dashboard" class="btn btn-block text-center my-3">
+                    Log in
+                </a>                
             </form>
         </div>
     </div>

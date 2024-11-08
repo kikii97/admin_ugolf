@@ -89,12 +89,12 @@ h1 {
 
 /* Button Style */
 .btn {
-    display: inline-flex;
+    /* display: inline-flex; */
     align-items: center;
     padding: 12px 24px;
     font-size: 18px;
-    font-weight: bold;
-    color: #903582;
+    /* font-weight: bold; */
+    color: #ffffff;
     background-color: white;
     border-radius: 50px;
     border: none;

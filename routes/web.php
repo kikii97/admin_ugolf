@@ -13,10 +13,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/login1', function () {
-    return view('login1');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
