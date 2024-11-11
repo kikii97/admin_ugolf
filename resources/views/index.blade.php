@@ -123,7 +123,39 @@
                         </li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu text-muted active">Applications</span></li>
+                        {{-- Merchant --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/merchant" aria-expanded="false">
+                                <i data-feather="shopping-bag" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Merchant</span>
+                            </a>
+                        </li>
 
+                        {{-- Terminal --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/terminal" aria-expanded="false">
+                                <i data-feather="tablet" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Terminal</span>
+                            </a>
+                        </li>
+
+                        {{-- Payment Type --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/payment-type" aria-expanded="false">
+                                <i data-feather="credit-card" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Payment Type</span>
+                            </a>
+                        </li>
+
+                        {{-- Transaction --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/transaction" aria-expanded="false">
+                                <i data-feather="dollar-sign" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
+                            </a>
+                        </li>
+
+                        {{-- Harga Tiket --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/tiket" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-top:-4px;"
@@ -135,12 +167,13 @@
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Ticket Price</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        {{-- Lokasi --}}
+                        {{-- <li class="sidebar-item">
                             <a class="sidebar-link" href="/lokasi" aria-expanded="false">
                                 <i data-feather="map-pin" class="feather-icon" style="margin-top:-4px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Location</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu text-muted active">Logout</span></li>

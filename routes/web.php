@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\LoketingController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\LokasiController;
@@ -16,6 +18,26 @@ Route::get('/login', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
+});
+
+Route::get('/merchant', [MerchantController::class, 'index']);
+Route::post('/merchant', [MerchantController::class, 'store']);
+Route::put('/merchant/{id}', [MerchantController::class, 'update']);
+
+Route::get('/terminal', [TerminalController::class, 'index']);
+Route::post('/terminal', [TerminalController::class, 'store']);
+Route::put('/terminal/{id}', [TerminalController::class, 'update']);
+
+Route::get('/terminal', function () {
+    return view('terminal');
+});
+
+Route::get('/payment-type', function () {
+    return view('payment_type');
+});
+
+Route::get('/transaction', function () {
+    return view('transaction');
 });
 
 Route::get('/tiket', function () {
