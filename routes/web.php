@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\TerminalController;
+use App\Http\Controllers\TrxController;
 use App\Http\Controllers\LoketingController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\LokasiController;
@@ -20,13 +21,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/merchant', [MerchantController::class, 'index']);
+Route::get('/merchant/index', [MerchantController::class, 'index']);
 Route::post('/merchant', [MerchantController::class, 'store']);
 Route::put('/merchant/{id}', [MerchantController::class, 'update']);
 
 Route::get('/terminal', [TerminalController::class, 'index']);
 Route::post('/terminal', [TerminalController::class, 'store']);
 Route::put('/terminal/{id}', [TerminalController::class, 'update']);
+
+Route::get('/trx', [TerminalController::class, 'index']);
+Route::post('/trx', [TerminalController::class, 'store']);
+Route::put('/trx/{id}', [TerminalController::class, 'update']);
 
 Route::get('/terminal', function () {
     return view('terminal');

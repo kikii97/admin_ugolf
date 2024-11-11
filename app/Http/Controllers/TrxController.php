@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Merchant;
+use App\Models\Trx;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\DataTables;
 
-class MerchantController extends Controller
+class TrxController extends Controller
 {
     public function index()
     {
         
-        return view('merchant.index');
+        return view('transaction');
     }
 
     public function store(Request $request)
     {
         // Mengirim permintaan API untuk menambahkan customer baru
-        $response = Http::withToken(session('token'))->post(config('app.api_url') . '/merchant', $request->all());
+        $response = Http::withToken(session('token'))->post(config('app.api_url') . '/trx', $request->all());
 
         // Memeriksa apakah respons berhasil
         if ($response->successful()) {
@@ -43,7 +43,7 @@ class MerchantController extends Controller
 
     public function edit($id)
     {
-        $response = Http::withToken(session('token'))->get(config('http://localhost') . '/merchant/' . $id);
+        $response = Http::withToken(session('token'))->get(config('http://localhost') . '/trx/' . $id);
 
         if ($response->successful()) {
             $data = $response->json();
