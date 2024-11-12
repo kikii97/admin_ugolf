@@ -32,10 +32,6 @@ Route::get('/trx', [TerminalController::class, 'index']);
 Route::post('/trx', [TerminalController::class, 'store']);
 Route::put('/trx/{id}', [TerminalController::class, 'update']);
 
-Route::get('/terminal', function () {
-    return view('terminal');
-});
-
 Route::get('/payment-type', function () {
     return view('payment_type');
 });
@@ -63,12 +59,6 @@ Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.st
 Route::get('/loketing', [LoketingController::class, 'index']);
 Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
 
-<<<<<<< HEAD
-
-
-// Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
-=======
 Route::get('/tambahlokasi', [LokasiController::class, 'index'])->name('lokasi.index');
->>>>>>> d7853b28a2ce014ee517e7f73a8540fb9da8f256
 Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
 Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');

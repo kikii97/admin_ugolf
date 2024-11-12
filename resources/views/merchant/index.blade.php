@@ -120,10 +120,10 @@
                 </div>
                 <div class="modal-body" style="padding: 20px;">
                     <!-- Add Merchant Form -->
-                    <form action="/merchant" method="post" id="addMerchantForm">
+                    <form id="addMerchantForm">
                         <div class="mb-3">
                             <label for="merchantCode" class="form-label">Merchant Code</label>
-                            <input value="{{ old('merchant_code') }}" type="text" class="form-control" id="merchantCode" name="merchant_code" readonly>
+                            <input type="text" class="form-control" id="merchantCode" name="merchant_code" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="merchantName" class="form-label">Merchant Name</label>
@@ -219,66 +219,66 @@
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-    // Fetch merchant_code when the modal is opened
-    // Fetch merchant_code when the modal is opened
-$('#addMerchantModal').on('show.bs.modal', function() {
-    $.ajax({
-        url: 'http://192.168.43.138/api/merchant/code', // API endpoint to get merchant code
-        type: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + '{{ session('token') }}' // If authentication is required
-        },
-        success: function(response) {
-            if (response.status === 'success') {
-                // Set the merchant_code in the input field
-                // $('#merchantCode').val(response.merchant_code); // Pre-fill the merchant_code field
-                document.getElementId('merchant_code').value = data.merchant_code;
-            } else {
-                alert('Failed to fetch merchant code');
-            }
-        },
-        error: function() {
-            alert('Error occurred while fetching merchant code');
-        }
-    });
-});
+    <script>
+        $(document).ready(function() {
+            // Fetch merchant_code when the modal is opened
+            // Fetch merchant_code when the modal is opened
+            $('#addMerchantModal').on('show.bs.modal', function() {
+                $.ajax({
+                    url: 'http://192.168.43.138/api/merchant/code', // API endpoint to get merchant code
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' +
+                            '{{ session('token') }}' // If authentication is required
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Set the merchant_code in the input field
+                            $('#merchantCode').val(response
+                            .merchant_code); // Pre-fill the merchant_code field
+                        } else {
+                            alert('Failed to fetch merchant code');
+                        }
+                    },
+                    error: function() {
+                        alert('Error occurred while fetching merchant code');
+                    }
+                });
+            });
 
 
-    // When the form is submitted
-    $('#saveMerchantBtn').click(function() {
-        var merchantData = {
-            merchant_code: $('#merchantCode').val(),  // The merchant_code is now pre-filled
-            merchant_name: $('#merchantName').val(),
-            merchant_address: $('#merchantAddress').val(),
-            description: $('#description').val()
-        };
+            // When the form is submitted
+            $('#saveMerchantBtn').click(function() {
+                var merchantData = {
+                    merchant_code: $('#merchantCode').val(), // The merchant_code is now pre-filled
+                    merchant_name: $('#merchantName').val(),
+                    merchant_address: $('#merchantAddress').val(),
+                    description: $('#description').val()
+                };
 
-        $.ajax({
-            url: 'http://192.168.43.138/api/merchant', // API endpoint for creating a merchant
-            type: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + '{{ session('token') }}'
-            },
-            data: merchantData,
-            success: function(response) {
-                if (response.status) {
-                    alert('Merchant added successfully');
-                    $('#addMerchantModal').modal('hide');
-                    $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-                } else {
-                    alert('Failed to add merchant: ' + response.message);
-                }
-            },
-            error: function() {
-                alert('Error occurred while adding merchant');
-            }
+                $.ajax({
+                    url: 'http://192.168.43.138/api/merchant', // API endpoint for creating a merchant
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    },
+                    data: merchantData,
+                    success: function(response) {
+                        if (response.status) {
+                            alert('Merchant added successfully');
+                            $('#addMerchantModal').modal('hide');
+                            $('#merchant-table').DataTable().ajax.reload(); // Reload table data
+                        } else {
+                            alert('Failed to add merchant: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error occurred while adding merchant');
+                    }
+                });
+            });
         });
-    });
-});
-
-</script>
+    </script>
 
     <!-- Script untuk inisialisasi DataTables -->
     <script>
