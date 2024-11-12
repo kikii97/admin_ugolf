@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoketingController;
-use App\Http\Controllers\DetailController;
 use App\Http\Controllers\LokasiController;
 
 
@@ -37,14 +36,12 @@ Route::get('/lokasi/create', function () {
 Route::get('/loketing', [LoketingController::class, 'create'])->name('loketing.create');
 Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.store');
 
-// Route for displaying ticket details
-Route::get('/loketing/detail', [DetailController::class, 'showDetails'])->name('details');
 
 Route::get('/loketing', [LoketingController::class, 'index']);
 Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
 
 
 
-Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+// Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
 Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
 Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');

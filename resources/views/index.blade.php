@@ -107,6 +107,7 @@
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Ticket Price</span>
                             </a>
                         </li>
+                        
                         <li class="sidebar-item"> 
                             <a class="sidebar-link" href="/lokasi" aria-expanded="false">
                                 <i data-feather="map-pin" class="feather-icon" style="margin-top:-4px;"></i>
