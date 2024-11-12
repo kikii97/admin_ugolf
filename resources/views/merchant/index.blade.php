@@ -120,10 +120,10 @@
                 </div>
                 <div class="modal-body" style="padding: 20px;">
                     <!-- Add Merchant Form -->
-                    <form id="addMerchantForm">
+                    <form action="/merchant" method="post" id="addMerchantForm">
                         <div class="mb-3">
                             <label for="merchantCode" class="form-label">Merchant Code</label>
-                            <input type="text" class="form-control" id="merchantCode" name="merchant_code" readonly>
+                            <input value="{{ old('merchant_code') }}" type="text" class="form-control" id="merchantCode" name="merchant_code" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="merchantName" class="form-label">Merchant Name</label>
@@ -233,7 +233,8 @@ $('#addMerchantModal').on('show.bs.modal', function() {
         success: function(response) {
             if (response.status === 'success') {
                 // Set the merchant_code in the input field
-                $('#merchantCode').val(response.merchant_code); // Pre-fill the merchant_code field
+                // $('#merchantCode').val(response.merchant_code); // Pre-fill the merchant_code field
+                document.getElementId('merchant_code').value = data.merchant_code;
             } else {
                 alert('Failed to fetch merchant code');
             }
