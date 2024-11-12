@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\TerminalController;
+use App\Http\Controllers\TrxController;
 use App\Http\Controllers\LoketingController;
 use App\Http\Controllers\LokasiController;
 
@@ -13,12 +16,32 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/login1', function () {
-    return view('login1');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
+});
+
+Route::get('/merchant/index', [MerchantController::class, 'index']);
+Route::post('/merchant', [MerchantController::class, 'store']);
+Route::put('/merchant/{id}', [MerchantController::class, 'update']);
+
+Route::get('/terminal', [TerminalController::class, 'index']);
+Route::post('/terminal', [TerminalController::class, 'store']);
+Route::put('/terminal/{id}', [TerminalController::class, 'update']);
+
+Route::get('/trx', [TerminalController::class, 'index']);
+Route::post('/trx', [TerminalController::class, 'store']);
+Route::put('/trx/{id}', [TerminalController::class, 'update']);
+
+// Route::get('/terminal', function () {
+//     return view('terminal');
+// });
+
+Route::get('/payment-type', function () {
+    return view('payment_type');
+});
+
+Route::get('/transaction', function () {
+    return view('transaction');
 });
 
 Route::get('/tiket', function () {
@@ -40,8 +63,12 @@ Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.st
 Route::get('/loketing', [LoketingController::class, 'index']);
 Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
 
+<<<<<<< HEAD
 
 
 // Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+=======
+Route::get('/tambahlokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+>>>>>>> d7853b28a2ce014ee517e7f73a8540fb9da8f256
 Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
 Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');

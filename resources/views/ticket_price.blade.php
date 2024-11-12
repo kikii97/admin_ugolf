@@ -1,6 +1,7 @@
 @extends('index')
 
 @section('content')
+<<<<<<< HEAD
 
 <style>
 body {
@@ -155,6 +156,32 @@ body {
                     </ol>
                 </nav>
             </div>
+=======
+    <!-- Bread crumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                <h4 style="font-family: 'Kufam', sans-serif;" class="page-title text-truncate text-dark font-weight-medium mb-1">Ticket List</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0 p-0">
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
+                            <li class="breadcrumb-item text-muted active" aria-current="page">Ticket List</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-5 align-self-center">
+                <div class="customize-input float-end">
+                    <a href="{{ route('loket.data') }}">
+                        <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
+                            <span style="margin-left: 12px;">Add</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            
+>>>>>>> d7853b28a2ce014ee517e7f73a8540fb9da8f256
         </div>
         <div class="col-5 align-self-center">
             <div class="customize-input float-end">
