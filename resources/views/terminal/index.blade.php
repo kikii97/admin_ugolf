@@ -51,6 +51,7 @@
                                         <th>Kode</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
+                                        <th>Status</th>
                                         <th>Deskripsi</th>
                                         <th>Action</th>
                                     </tr>
@@ -83,7 +84,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.0.115/api/terminal',
+                url: 'http://192.168.43.138/api/terminal',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
@@ -119,6 +120,10 @@
                 {
                     data: 'terminal_address',
                     name: 'terminal_address'
+                },
+                {
+                    data: 'status_terminal',
+                    name: 'status_terminal'
                 },
                 {
                     data: 'description',

@@ -43,7 +43,7 @@ class MerchantController extends Controller
 
     public function edit($id)
     {
-        $response = Http::withToken(session('token'))->get(config('http://localhost') . '/merchant/' . $id);
+        $response = Http::withToken(session('token'))->get(config('app.api_url') . '/merchant/' . $id);
 
         if ($response->successful()) {
             $data = $response->json();

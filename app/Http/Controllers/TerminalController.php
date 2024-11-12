@@ -15,7 +15,7 @@ class TerminalController extends Controller
     public function index()
     {
         
-        return view('terminal');
+        return view('terminal.index');
     }
 
     public function store(Request $request)
