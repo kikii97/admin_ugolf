@@ -130,6 +130,10 @@
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Merchant</span>
                             </a>
                         </li>
+<<<<<<< HEAD
+                        
+                        <li class="sidebar-item"> 
+=======
 
                         {{-- Terminal --}}
                         <li class="sidebar-item">
@@ -165,6 +169,7 @@
 
                         {{-- Lokasi --}}
                         {{-- <li class="sidebar-item">
+>>>>>>> d7853b28a2ce014ee517e7f73a8540fb9da8f256
                             <a class="sidebar-link" href="/lokasi" aria-expanded="false">
                                 <i data-feather="map-pin" class="feather-icon" style="margin-top:-4px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Location</span>

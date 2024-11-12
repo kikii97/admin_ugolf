@@ -5,7 +5,6 @@ use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\TrxController;
 use App\Http\Controllers\LoketingController;
-use App\Http\Controllers\DetailController;
 use App\Http\Controllers\LokasiController;
 
 
@@ -60,12 +59,16 @@ Route::get('/lokasi/create', function () {
 Route::get('/loketing', [LoketingController::class, 'create'])->name('loketing.create');
 Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.store');
 
-// Route for displaying ticket details
-Route::get('/loketing/detail', [DetailController::class, 'showDetails'])->name('details');
 
 Route::get('/loketing', [LoketingController::class, 'index']);
 Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
 
+<<<<<<< HEAD
+
+
+// Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+=======
 Route::get('/tambahlokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+>>>>>>> d7853b28a2ce014ee517e7f73a8540fb9da8f256
 Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
 Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
