@@ -14,7 +14,7 @@
     <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet">
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <title>UGOLF Dashboard</title>
+    <title>UGOLF</title>
 </head>
 
 <body>
@@ -29,12 +29,13 @@
     <!-- Main wrapper -->
     <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-        
+
         <!-- Topbar header -->
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-lg">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="nav-toggler d-block d-lg-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <a class="nav-toggler d-block d-lg-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
                     <div class="navbar-brand">
                         <a href="#">
                             <img src="../assets/images/freedashDark.svg" alt="UGOLF Logo" class="img-fluid">
@@ -50,7 +51,8 @@
                         <li class="nav-item d-none d-md-block">
                             <a class="nav-link" href="javascript:void(0)">
                                 <div class="customize-input">
-                                    <select class="custom-select form-control bg-white custom-radius custom-shadow border-0">
+                                    <select
+                                        class="custom-select form-control bg-white custom-radius custom-shadow border-0">
                                         <option selected>EN</option>
                                         <option value="1">IN</option>
                                     </select>
@@ -62,15 +64,14 @@
                         <li class="nav-item dropdown">
                             <!-- Gunakan gambar profil dari pengguna yang sedang login -->
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">
-                                 <!-- Cek apakah pengguna memiliki gambar profil -->
-            <img src="" 
-            alt="user" class="rounded-circle" width="40">
+                                <!-- Cek apakah pengguna memiliki gambar profil -->
+                                <img src="" alt="user" class="rounded-circle" width="40">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{ route('profile') }}">Edit Profile</a>
                                 <!-- Jika ada menu logout, tambahkan di sini -->
                                 <a class="dropdown-item" href="{{ route('profile.logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
                             </div>
@@ -80,8 +81,8 @@
                     <form id="logout-form" action="{{ route('profile.logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-                    
-                    
+
+
                 </div>
             </nav>
         </header>
@@ -93,8 +94,11 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/dashboard" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" viewBox="0 0 23 23" fill="currentColor">
-                                    <path d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" viewBox="0 0 23 23"
+                                    fill="currentColor">
+                                    <path
+                                        d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z">
+                                    </path>
                                 </svg>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Dashboard</span>
                             </a>
@@ -107,11 +111,8 @@
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Merchant</span>
                             </a>
                         </li>
-<<<<<<< HEAD
-=======
 
                         {{-- Terminal --}}
->>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/terminal" aria-expanded="false">
                                 <i data-feather="tablet" class="feather-icon"></i>
@@ -125,19 +126,12 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/transaction" aria-expanded="false">
-                                <i data-feather="dollar-sign" class="feather-icon"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
                             <a class="sidebar-link" href="/cms" aria-expanded="false">
                                 <i data-feather="file-text" class="feather-icon"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content System</span>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content
+                                    System</span>
                             </a>
                         </li>
-<<<<<<< HEAD
-=======
 
                         {{-- Lokasi --}}
                         {{-- <li class="sidebar-item">
@@ -147,11 +141,11 @@
                             </a>
                         </li> --}}
 
->>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu text-muted">Logout</span></li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#logoutModal" aria-expanded="false">
+                            <a class="sidebar-link" href="javascript:void(0)" data-bs-toggle="modal"
+                                data-bs-target="#logoutModal" aria-expanded="false">
                                 <i data-feather="log-out" class="feather-icon"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Logout</span>
                             </a>

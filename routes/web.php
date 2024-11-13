@@ -27,16 +27,16 @@ Route::get('/terminal', [TerminalController::class, 'index']);
 Route::post('/terminal', [TerminalController::class, 'store']);
 Route::put('/terminal/{id}', [TerminalController::class, 'update']);
 
-Route::get('/trx', [TerminalController::class, 'index']);
-Route::post('/trx', [TerminalController::class, 'store']);
-Route::put('/trx/{id}', [TerminalController::class, 'update']);
-
-Route::get('/terminal', function () {
-    return view('terminal/index');
-});
+// Route::get('/trx', [TerminalController::class, 'index']);
+// Route::post('/trx', [TerminalController::class, 'store']);
+// Route::put('/trx/{id}', [TerminalController::class, 'update']);
 
 Route::get('/payment-type', function () {
     return view('payment_type');
+});
+
+Route::get('/cms', function () {
+    return view('cms');
 });
 
 Route::get('/transaction', function () {
