@@ -93,7 +93,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.0.115/api/trx',
+                url: 'http://192.168.43.45/api/trx',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },

@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\TrxController;
-use App\Http\Controllers\LoketingController;
-use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () {
@@ -32,16 +31,16 @@ Route::get('/trx', [TerminalController::class, 'index']);
 Route::post('/trx', [TerminalController::class, 'store']);
 Route::put('/trx/{id}', [TerminalController::class, 'update']);
 
-// Route::get('/terminal', function () {
-//     return view('terminal');
-// });
+Route::get('/terminal', function () {
+    return view('terminal/index');
+});
 
 Route::get('/payment-type', function () {
     return view('payment_type');
 });
 
 Route::get('/transaction', function () {
-    return view('transaction');
+    return view('transaction/transaction');
 });
 
 Route::get('/tiket', function () {
@@ -56,19 +55,8 @@ Route::get('/lokasi/create', function () {
     return view('lokasi/index');
 });
 
-Route::get('/loketing', [LoketingController::class, 'create'])->name('loketing.create');
-Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.store');
-
-
-Route::get('/loketing', [LoketingController::class, 'index']);
-Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
-
-<<<<<<< HEAD
-
-
-// Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
-=======
-Route::get('/tambahlokasi', [LokasiController::class, 'index'])->name('lokasi.index');
->>>>>>> d7853b28a2ce014ee517e7f73a8540fb9da8f256
-Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
-Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
+// Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
+// });
