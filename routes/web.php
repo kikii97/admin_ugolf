@@ -35,6 +35,10 @@ Route::get('/payment-type', function () {
     return view('payment_type');
 });
 
+Route::get('/cms', [TerminalController::class, 'index']);
+Route::post('/cms', [TerminalController::class, 'store']);
+Route::put('/cms/{id}', [TerminalController::class, 'update']);
+
 Route::get('/transaction', function () {
     return view('transaction/transaction');
 });
