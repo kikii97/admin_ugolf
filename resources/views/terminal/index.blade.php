@@ -48,7 +48,7 @@
                                         {{-- <th><input type="checkbox" id="select-all"></th> --}}
                                         <th class="d-flex justify-content-center align-items-center">No</th>
                                         <th>Merchant Kode</th>
-                                        <th>Kode</th>
+                                        <th>Terminal Kode</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th>Status</th>
@@ -76,6 +76,8 @@
     <!-- DataTables Bootstrap 4 integration -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Add Iconify CDN in the head section -->
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
     <!-- Script untuk inisialisasi DataTables -->
     <script>

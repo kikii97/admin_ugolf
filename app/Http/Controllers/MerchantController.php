@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\DataTables;
+use Faker\Factory as Faker;
 
 class MerchantController extends Controller
 {
     public function index()
     {
-        
+
         return view('merchant.index');
     }
 
@@ -51,6 +52,16 @@ class MerchantController extends Controller
         }
 
         return redirect()->route('customer.index')->withErrors('Gagal mengambil data customer.');
+    }
+
+    public function create()
+    {
+        // Mengenerate merchant_code menggunakan Faker
+        $faker = Faker::create();
+        $merchant_code = $faker->unique()->numerify('MC-####');
+
+        // Kirim $merchant_code ke view
+        return view('merchant.index', compact('merchant_code'));
     }
 
     public function update($id, Request $request)

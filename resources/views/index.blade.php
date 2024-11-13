@@ -107,6 +107,11 @@
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Merchant</span>
                             </a>
                         </li>
+<<<<<<< HEAD
+=======
+
+                        {{-- Terminal --}}
+>>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/terminal" aria-expanded="false">
                                 <i data-feather="tablet" class="feather-icon"></i>
@@ -131,6 +136,18 @@
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content System</span>
                             </a>
                         </li>
+<<<<<<< HEAD
+=======
+
+                        {{-- Lokasi --}}
+                        {{-- <li class="sidebar-item">
+                            <a class="sidebar-link" href="/lokasi" aria-expanded="false">
+                                <i data-feather="map-pin" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Location</span>
+                            </a>
+                        </li> --}}
+
+>>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu text-muted">Logout</span></li>
                         <li class="sidebar-item">
