@@ -123,7 +123,7 @@
                     <form id="addMerchantForm">
                         <div class="mb-3">
                             <label for="merchantCode" class="form-label">Merchant Code</label>
-                            <input type="text" class="form-control" id="merchantCode" name="merchant_code" readonly>
+                            <input type="text" class="form-control" id="merchantCode" required>
                         </div>
                         <div class="mb-3">
                             <label for="merchantName" class="form-label">Merchant Name</label>
@@ -216,6 +216,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
@@ -284,15 +285,16 @@
     <script>
         let selectedMerchantId = null;
 
-        // // Save New Merchant
-        // $('#saveMerchantBtn').click(function() {
-        //     var merchantData = {
-        //         merchant_code: $('#merchantCode').val(), // Make sure you're using the correct field
-        //         merchant_name: $('#merchantName').val(),
-        //         merchant_address: $('#merchantAddress').val(),
-        //         description: $('#description').val()
-        //     };
+        // Save New Merchant
+        $('#saveMerchantBtn').click(function() {
+            var merchantData = {
+                merchant_code: $('#merchantCode').val(), // Make sure you're using the correct field
+                merchant_name: $('#merchantName').val(),
+                merchant_address: $('#merchantAddress').val(),
+                description: $('#description').val()
+            };
 
+<<<<<<< HEAD
         //     $.ajax({
         //         url: 'http://192.168.43.45/api/merchant',
         //         type: 'POST',
@@ -317,6 +319,32 @@
         //         }
         //     });
         // });
+
+            $.ajax({
+                url: 'http://192.168.43.45/api/merchant',
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                },
+                data: merchantData,
+                success: function(response) {
+                    if (response.status) {
+                        // Make sure this line updates the correct field
+                        $('#merchantCode').val(response.data
+                        .merchant_code); // Update the field in the modal with the merchant code from the API
+                        alert('Merchant added successfully');
+                        $('#addMerchantModal').modal('hide');
+                        $('#merchant-table').DataTable().ajax.reload(); // Reload table data
+                    } else {
+                        alert('Failed to add merchant: ' + response.message);
+                    }
+                },
+                error: function() {
+                    alert('Error occurred while adding merchant');
+                }
+            });
+        });
+>>>>>>> b6bb072de10b937d7cabd8cf1652667f5b856f11
 
         // Edit Merchant
         $('#merchant-table').on('click', '.btn-edit', function() {
