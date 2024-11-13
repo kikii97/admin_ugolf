@@ -31,13 +31,6 @@ Route::get('/trx', [TerminalController::class, 'index']);
 Route::post('/trx', [TerminalController::class, 'store']);
 Route::put('/trx/{id}', [TerminalController::class, 'update']);
 
-<<<<<<< HEAD
-Route::get('/terminal', function () {
-    return view('terminal/index');
-});
-
-=======
->>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
 Route::get('/payment-type', function () {
     return view('payment_type');
 });
@@ -58,26 +51,8 @@ Route::get('/lokasi/create', function () {
     return view('lokasi/index');
 });
 
-<<<<<<< HEAD
 // Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
 // });
-=======
-
-Route::get('/cms', function () {
-    return view('cms');
-});
-
-// Route::get('/loketing', [LoketingController::class, 'create'])->name('loketing.create');
-// Route::get('/loketing', [LoketingController::class, 'store'])->name('loketing.store');
-
-
-// Route::get('/loketing', [LoketingController::class, 'index']);
-// Route::get('/loketing/create', [LoketingController::class, 'create'])->name('loket.data');
-
-// Route::get('/tambahlokasi', [LokasiController::class, 'index'])->name('lokasi.index');
-// Route::get('/lokasi/data', [LokasiController::class, 'getData'])->name('lokasi.data');
-// Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
->>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217

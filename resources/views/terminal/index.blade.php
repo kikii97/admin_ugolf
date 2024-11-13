@@ -86,7 +86,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.43.45/api/terminal',
+                url: '{{ env('API_URL') }}/terminal',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },

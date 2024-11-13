@@ -223,10 +223,9 @@
     <script>
         $(document).ready(function() {
             // Fetch merchant_code when the modal is opened
-            // Fetch merchant_code when the modal is opened
             $('#addMerchantModal').on('show.bs.modal', function() {
                 $.ajax({
-                    url: 'http://192.168.43.45/api/merchant/code', // API endpoint to get merchant code
+                    url: '{{ env('API_URL') }}/merchant/code', // API endpoint to get merchant code
                     type: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' +
@@ -246,7 +245,6 @@
                     }
                 });
             });
-
 
             // When the form is submitted
             $('#saveMerchantBtn').click(function() {
@@ -279,7 +277,7 @@
             }
 =======
                 $.ajax({
-                    url: 'http://192.168.43.45/api/merchant', // API endpoint for creating a merchant
+                    url: '{{ env('API_URL') }}/merchant', // API endpoint for creating a merchant
                     type: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -316,9 +314,8 @@
                 description: $('#description').val()
             };
 
-<<<<<<< HEAD
         //     $.ajax({
-        //         url: 'http://192.168.43.45/api/merchant',
+        //         url: '{{ env('API_URL') }}/merchant',
         //         type: 'POST',
         //         headers: {
         //             'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -343,7 +340,7 @@
         // });
 
             $.ajax({
-                url: 'http://192.168.43.45/api/merchant',
+                url: '{{ env('API_URL') }}/merchant',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -366,14 +363,13 @@
                 }
             });
         });
->>>>>>> b6bb072de10b937d7cabd8cf1652667f5b856f11
 
         // Edit Merchant
         $('#merchant-table').on('click', '.btn-edit', function() {
             const merchantId = $(this).data('id');
 
             $.ajax({
-                url: `http://192.168.43.45/api/merchant/${merchantId}`,
+                url: `{{ env('API_URL') }}/merchant/${merchantId}`,
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -407,7 +403,7 @@
             };
 
             $.ajax({
-                url: `http://192.168.43.45/api/merchant/${selectedMerchantId}`,
+                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
                 type: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -436,7 +432,7 @@
 
         $('#confirmDeleteBtn').click(function() {
             $.ajax({
-                url: `http://192.168.43.45/api/merchant/${selectedMerchantId}`,
+                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
                 type: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -461,7 +457,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.43.45/api/merchant',
+                url: '{{ env('API_URL') }}/merchant',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
