@@ -225,7 +225,7 @@
             // Fetch merchant_code when the modal is opened
             $('#addMerchantModal').on('show.bs.modal', function() {
                 $.ajax({
-                    url: 'http://192.168.43.138/api/merchant/code', // API endpoint to get merchant code
+                    url: 'http://192.168.43.45/api/merchant/code', // API endpoint to get merchant code
                     type: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' +
@@ -257,7 +257,7 @@
                 };
 
                 $.ajax({
-                    url: 'http://192.168.43.138/api/merchant', // API endpoint for creating a merchant
+                    url: 'http://192.168.43.45/api/merchant', // API endpoint for creating a merchant
                     type: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -294,7 +294,7 @@
         //     };
 
         //     $.ajax({
-        //         url: 'http://192.168.43.138/api/merchant',
+        //         url: 'http://192.168.43.45/api/merchant',
         //         type: 'POST',
         //         headers: {
         //             'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -323,7 +323,7 @@
             const merchantId = $(this).data('id');
 
             $.ajax({
-                url: `http://192.168.43.138/api/merchant/${merchantId}`,
+                url: `http://192.168.43.45/api/merchant/${merchantId}`,
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -357,7 +357,7 @@
             };
 
             $.ajax({
-                url: `http://192.168.43.138/api/merchant/${selectedMerchantId}`,
+                url: `http://192.168.43.45/api/merchant/${selectedMerchantId}`,
                 type: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -386,7 +386,7 @@
 
         $('#confirmDeleteBtn').click(function() {
             $.ajax({
-                url: `http://192.168.43.138/api/merchant/${selectedMerchantId}`,
+                url: `http://192.168.43.45/api/merchant/${selectedMerchantId}`,
                 type: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -411,7 +411,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.43.138/api/merchant',
+                url: 'http://192.168.43.45/api/merchant',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
