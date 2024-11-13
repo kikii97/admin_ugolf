@@ -138,7 +138,7 @@
 <script>
     // Function to load CMS data and create fields dynamically
 function loadCmsData() {
-    const url = `http://192.168.43.45/api/cms`;
+    const url = `{{ env('API_URL') }}/cms`;
 
     fetch(url)
         .then(response => response.json())
@@ -156,11 +156,11 @@ function loadCmsData() {
                     rowDiv.classList.add('row', 'mb-3');
 
                     const label = document.createElement('label');
-                    label.classList.add('col-2', 'col-form-label', 'text-grey');
+                    label.classList.add('col-3', 'col-form-label', 'text-grey');
                     label.textContent = cms.cms_name;
 
                     const inputDiv = document.createElement('div');
-                    inputDiv.classList.add('col-10');
+                    inputDiv.classList.add('col-8');
 
                     const input = document.createElement('input');
                     input.type = 'text';
@@ -182,7 +182,7 @@ function loadCmsData() {
 }
 
 function updateCmsValue(cmsCode, cmsValue) {
-    const url = `http://192.168.43.45/api/cms/${cmsCode}`; // Update endpoint to use cms_code
+    const url = `{{ env('API_URL') }}/cms/${cmsCode}`; // Update endpoint to use cms_code
     const requestOptions = {
         method: 'PUT',
         headers: {

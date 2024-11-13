@@ -14,7 +14,7 @@
     <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet">
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <title>UGOLF Dashboard</title>
+    <title>UGOLF</title>
 </head>
 
 <body>
@@ -123,12 +123,6 @@
                             <a class="sidebar-link" href="/payment-type" aria-expanded="false">
                                 <i data-feather="credit-card" class="feather-icon"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Payment Type</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/transaction" aria-expanded="false">
-                                <i data-feather="dollar-sign" class="feather-icon"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
