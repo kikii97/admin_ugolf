@@ -255,27 +255,6 @@
                     description: $('#description').val()
                 };
 
-<<<<<<< HEAD
-        $.ajax({
-            url: 'http://192.168.43.45/api/merchant', // API endpoint for creating a merchant
-            type: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + '{{ session('token') }}'
-            },
-            data: merchantData,
-            success: function(response) {
-                if (response.status) {
-                    alert('Merchant added successfully');
-                    $('#addMerchantModal').modal('hide');
-                    $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-                } else {
-                    alert('Failed to add merchant: ' + response.message);
-                }
-            },
-            error: function() {
-                alert('Error occurred while adding merchant');
-            }
-=======
                 $.ajax({
                     url: '{{ env('API_URL') }}/merchant', // API endpoint for creating a merchant
                     type: 'POST',
@@ -297,7 +276,6 @@
                     }
                 });
             });
->>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
         });
     </script>
 
