@@ -46,10 +46,47 @@
             color: #D058B9;
             /* Change color on hover */
         }
+
+        #notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: none;
+            text-align: center;
+            justify-content: flex-start;
+            /* Tetap di sebelah kiri */
+            align-items: center;
+            text-align: left;
+            /* Teks tetap rata kiri */
+            /* Hidden by default */
+        }
+
+        .alert-success {
+            background-color: #c3e6cb;
+            color: #449e59;
+            border: 1px solid #c3e6cb;
+            height: 80px;
+        }
+
+        .alert-danger {
+            background-color: #f5c6cb;
+            color: #c4616b;
+            border: 1px solid #f5c6cb;
+            height: 80px;
+        }
     </style>
 
     <!-- Bread crumb -->
     <div class="page-breadcrumb">
+        <!-- Notification Element -->
+        <div id="notification" class="alert" style="display: none;">
+            <strong id="notificationTitle">Notification</strong>
+            <p id="notificationMessage"></p>
+        </div>
         <div class="row">
             <div class="col-7 align-self-center">
                 <h4 style="font-family: 'Kufam', sans-serif;"
@@ -121,10 +158,7 @@
                 <div class="modal-body" style="padding: 20px;">
                     <!-- Add Merchant Form -->
                     <form id="addMerchantForm">
-                        <div class="mb-3">
-                            <label for="merchantCode" class="form-label">Merchant Code</label>
-                            <input type="text" class="form-control" id="merchantCode" required>
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="merchantName" class="form-label">Merchant Name</label>
                             <input type="text" class="form-control" id="merchantName" required>
@@ -220,103 +254,17 @@
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            // Fetch merchant_code when the modal is opened
-            $('#addMerchantModal').on('show.bs.modal', function() {
-                $.ajax({
-                    url: '{{ env('API_URL') }}/merchant/code', // API endpoint to get merchant code
-                    type: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' +
-                            '{{ session('token') }}' // If authentication is required
-                    },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            // Set the merchant_code in the input field
-                            $('#merchantCode').val(response
-                            .merchant_code); // Pre-fill the merchant_code field
-                        } else {
-                            alert('Failed to fetch merchant code');
-                        }
-                    },
-                    error: function() {
-                        alert('Error occurred while fetching merchant code');
-                    }
-                });
-            });
-
-            // When the form is submitted
-            $('#saveMerchantBtn').click(function() {
-                var merchantData = {
-                    merchant_code: $('#merchantCode').val(), // The merchant_code is now pre-filled
-                    merchant_name: $('#merchantName').val(),
-                    merchant_address: $('#merchantAddress').val(),
-                    description: $('#description').val()
-                };
-
-                $.ajax({
-                    url: '{{ env('API_URL') }}/merchant', // API endpoint for creating a merchant
-                    type: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + '{{ session('token') }}'
-                    },
-                    data: merchantData,
-                    success: function(response) {
-                        if (response.status) {
-                            alert('Merchant added successfully');
-                            $('#addMerchantModal').modal('hide');
-                            $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-                        } else {
-                            alert('Failed to add merchant: ' + response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('Error occurred while adding merchant');
-                    }
-                });
-            });
-        });
-    </script>
-
     <!-- Script untuk inisialisasi DataTables -->
     <script>
         let selectedMerchantId = null;
 
         // Save New Merchant
         $('#saveMerchantBtn').click(function() {
-            var merchantData = {
-                merchant_code: $('#merchantCode').val(), // Make sure you're using the correct field
+            var merchantData = { // Make sure you're using the correct field
                 merchant_name: $('#merchantName').val(),
                 merchant_address: $('#merchantAddress').val(),
                 description: $('#description').val()
             };
-
-        //     $.ajax({
-        //         url: '{{ env('API_URL') }}/merchant',
-        //         type: 'POST',
-        //         headers: {
-        //             'Authorization': 'Bearer ' + '{{ session('token') }}'
-        //         },
-        //         data: merchantData,
-        //         success: function(response) {
-        //             if (response.status) {
-        //                 // Make sure this line updates the correct field
-        //                 $('#merchantCode').val(response.data
-        //                 .merchant_code); // Update the field in the modal with the merchant code from the API
-        //                 alert('Merchant added successfully');
-        //                 $('#addMerchantModal').modal('hide');
-        //                 $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-        //             } else {
-        //                 alert('Failed to add merchant: ' + response.message);
-        //             }
-        //         },
-        //         error: function() {
-        //             alert('Error occurred while adding merchant');
-        //         }
-        //     });
-        // });
-
             $.ajax({
                 url: '{{ env('API_URL') }}/merchant',
                 type: 'POST',
@@ -325,19 +273,17 @@
                 },
                 data: merchantData,
                 success: function(response) {
-                    if (response.status) {
-                        // Make sure this line updates the correct field
-                        $('#merchantCode').val(response.data
-                        .merchant_code); // Update the field in the modal with the merchant code from the API
-                        alert('Merchant added successfully');
+                    if (response.status === 'success') {
+                        showNotification('success', 'Merchant added successfully');
+                        // $('#merchantCode').val(response.data.merchant_code);
                         $('#addMerchantModal').modal('hide');
                         $('#merchant-table').DataTable().ajax.reload(); // Reload table data
                     } else {
-                        alert('Failed to add merchant: ' + response.message);
+                        showNotification('error', 'Failed to added merchant');
                     }
                 },
                 error: function() {
-                    alert('Error occurred while adding merchant');
+                    showNotification('error', 'Error occurred while add merchant');
                 }
             });
         });
@@ -345,6 +291,7 @@
         // Edit Merchant
         $('#merchant-table').on('click', '.btn-edit', function() {
             const merchantId = $(this).data('id');
+            $('#editMerchantModal').modal('show');
 
             $.ajax({
                 url: `{{ env('API_URL') }}/merchant/${merchantId}`,
@@ -353,20 +300,22 @@
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
                 success: function(response) {
-                    if (response.status) {
+                    if (response.status === 'success') {
                         const merchant = response.data;
+
                         $('#editMerchantCode').val(merchant.merchant_code);
                         $('#editMerchantName').val(merchant.merchant_name);
                         $('#editMerchantAddress').val(merchant.merchant_address);
                         $('#editDescription').val(merchant.description);
                         selectedMerchantId = merchant.merchant_id;
                         $('#editMerchantModal').modal('show');
+                        $('#merchant-table').DataTable().ajax.reload();
                     } else {
-                        alert('Failed to fetch merchant details: ' + response.message);
+                        showNotification('error', 'Failed to update merchant');
                     }
                 },
                 error: function() {
-                    alert('Error occurred while fetching merchant details');
+                    showNotification('error', 'Error occurred while updating merchant');
                 }
             });
         });
@@ -388,16 +337,16 @@
                 },
                 data: updatedData,
                 success: function(response) {
-                    if (response.status) {
-                        alert('Merchant updated successfully');
+                    if (response.status === 'success') {
+                        showNotification('success', 'Merchant updated successfully');
                         $('#editMerchantModal').modal('hide');
                         $('#merchant-table').DataTable().ajax.reload(); // Reload table data
                     } else {
-                        alert('Failed to update merchant: ' + response.message);
+                        showNotification('error', 'Failed to update merchant');
                     }
                 },
                 error: function() {
-                    alert('Error occurred while updating merchant');
+                    showNotification('error', 'Error occurred while updating merchant');
                 }
             });
         });
@@ -416,16 +365,16 @@
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
                 success: function(response) {
-                    if (response.status) {
-                        alert('Merchant deleted successfully');
+                    if (response.status === 'success') {
+                        showNotification('success', 'Merchant deleted successfully');
                         $('#deleteMerchantModal').modal('hide');
-                        $('#merchant-table').DataTable().ajax.reload(); // Reload table data
+                        $('#merchant-table').DataTable().ajax.reload();
                     } else {
-                        alert('Failed to delete merchant: ' + response.message);
+                        showNotification('error', 'Failed to delete merchant');
                     }
                 },
                 error: function() {
-                    alert('Error occurred while deleting merchant');
+                    showNotification('error', 'Error occurred while deleting merchant');
                 }
             });
         });
@@ -491,5 +440,34 @@
                 [1, 'asc'] // Sort by merchant_code (or any other column you prefer)
             ]
         });
+
+        // Notification function
+        function showNotification(type, message) {
+            let notificationTitle = '';
+            let notificationClass = '';
+
+            switch (type) {
+                case 'success':
+                    notificationTitle = 'Sukses!';
+                    notificationClass = 'alert-success';
+                    break;
+                case 'error':
+                    notificationTitle = 'Error!';
+                    notificationClass = 'alert-danger';
+                    break;
+                default:
+                    notificationTitle = 'Notification';
+                    notificationClass = 'alert-info';
+            }
+
+            $('#notificationTitle').text(notificationTitle);
+            $('#notificationMessage').text(message);
+            $('#notification').removeClass('alert-success alert-danger alert-info').addClass(notificationClass)
+                .fadeIn();
+
+            setTimeout(function() {
+                $('#notification').fadeOut();
+            }, 2500);
+        }
     </script>
 @endsection

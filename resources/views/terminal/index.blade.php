@@ -1,8 +1,91 @@
 @extends('index')
 
 @section('content')
+    <style>
+        .btn-gradient-purple {
+            background: linear-gradient(45deg, #78296D, #D058B9);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Adds subtle shadow */
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth transition */
+        }
+
+        .btn-gradient-purple:hover {
+            background: linear-gradient(45deg, #6c2563, #a1448f);
+            /* Darker gradient on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            /* Stronger shadow on hover */
+        }
+
+        .btn-action {
+            background: none;
+            border: none;
+            /* Remove border */
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-action:hover {
+            transform: scale(1.1);
+            /* Slightly enlarge icon on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Add shadow on hover */
+        }
+
+        .iconify {
+            font-size: 22px;
+            color: #6c2563;
+        }
+
+        .iconify:hover {
+            color: #D058B9;
+            /* Change color on hover */
+        }
+
+        #notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: none;
+            text-align: center;
+            justify-content: flex-start;
+            /* Tetap di sebelah kiri */
+            align-items: center;
+            text-align: left;
+            /* Teks tetap rata kiri */
+            /* Hidden by default */
+        }
+
+        .alert-success {
+            background-color: #c3e6cb;
+            color: #449e59;
+            border: 1px solid #c3e6cb;
+            height: 80px;
+        }
+
+        .alert-danger {
+            background-color: #f5c6cb;
+            color: #c4616b;
+            border: 1px solid #f5c6cb;
+            height: 80px;
+        }
+    </style>
     <!-- Bread crumb -->
     <div class="page-breadcrumb">
+        <!-- Notification Element -->
+        <div id="notification" class="alert" style="display: none;">
+            <strong id="notificationTitle">Notification</strong>
+            <p id="notificationMessage"></p>
+        </div>
         <div class="row">
             <div class="col-7 align-self-center">
                 <h4 style="font-family: 'Kufam', sans-serif;"
@@ -18,8 +101,8 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
-                    <a href="#">
-                        <button class="custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addTerminalModal">
+                        <button class="custom-select-set form-control btn-gradient-purple">
                             <span style="margin-left: 12px;">Add</span>
                         </button>
                     </a>
@@ -67,6 +150,125 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="addTerminalModal" tabindex="-1" aria-labelledby="addTerminalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
+            <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
+                <div class="modal-header"
+                    style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    <h5 class="modal-title text-white" id="addTerminalLabel">Add New Terminal</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
+                        style="font-weight: bold; opacity: 1; color: white;"></button>
+                </div>
+                <div class="modal-body" style="padding: 20px;">
+                    <!-- Add Terminal Form -->
+                    <form id="addTerminalForm">
+                        <div class="mb-3">
+                            <label for="merchantCode" class="form-label">Merchant Code</label>
+                            {{-- <select class="form-select" id="merchantCode" required>
+                                <option value="">Select Merchant Code</option>
+                                <!-- Options will be populated by JavaScript -->
+                            </select> --}}
+                            <select class="form-select" name="merchant_id" id="merchantSelect">
+                                <option value="">-- Select Merchant --</option>
+                                @foreach ($merchants as $merchant)
+                                    <option value="{{ $merchant->merchant_id }}">
+                                        {{ $merchant->merchant_code }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="nama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                    <button type="button" id="saveTerminalBtn" class="btn btn-gradient-purple">Save Terminal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Terminal Modal -->
+    <div class="modal fade" id="editTerminalModal" tabindex="-1" aria-labelledby="editTerminalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
+            <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
+                <div class="modal-header"
+                    style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    <h5 class="modal-title text-white" id="editTerminalLabel">Edit Terminal</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
+                        style="font-weight: bold; opacity: 1; color: white;"></button>
+                </div>
+                <div class="modal-body" style="padding: 20px;">
+                    <!-- Edit Terminal Form -->
+                    <form id="editTerminalForm">
+                        <div class="mb-3">
+                            <label for="editMerchantCode" class="form-label">Merchant Code</label>
+                            {{-- <select class="form-select" name="merchant_id" id="editMerchantCode">
+                                <option value="">-- Select Merchant --</option>
+                                @foreach ($merchants as $merchant)
+                                    <option value="{{ $merchant->merchant_id }}">
+                                        {{ $merchant->merchant_code }}
+                                    </option>
+                                @endforeach
+                            </select> --}}
+                            <input type="text" class="form-control" id="editMerchantCode" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTerminalCode" class="form-label">Terminal Code</label>
+                            <input type="text" class="form-control" id="editTerminalCode" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editnama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="editnama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editalamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="editalamat" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                    <button type="button" id="updateTerminalBtn" class="btn btn-gradient-purple">Update
+                        Terminal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Terminal Modal -->
+    <div class="modal fade" id="deleteTerminalModal" tabindex="-1" aria-labelledby="deleteTerminalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
+                <div class="modal-header"
+                    style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                    <h5 class="modal-title text-white" id="deleteTerminalLabel">Delete Terminal</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
+                        style="font-weight: bold; opacity: 1; color: white;"></button>
+                </div>
+                <div class="modal-body" style="padding: 20px;">
+                    <p>Are you sure you want to delete this terminal?</p>
+                </div>
+                <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-gradient-purple">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery -->
@@ -79,8 +281,180 @@
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
+    <script>
+        //     <script>
+        //     $(document).ready(function() {
+        //         // Make AJAX call to fetch merchant data
+        //         $.ajax({
+        //             url: 'http://192.168.43.138/api/merchant',  // Replace with your actual API endpoint
+        //             type: 'GET',
+        //             dataType: 'json',
+        //             success: function(response) {
+        //                 if (response.status) {
+        //                     // Clear existing options in the select box
+        //                     $('#merchantCode').empty();
+
+        //                     // Add a default "Select Merchant" option
+        //                     $('#merchantCode').append('<option value="">-- Select Merchant --</option>');
+
+        //                     // Loop through the merchant data and add each as an option
+        //                     response.data.forEach(function(merchant) {
+        //                         $('#merchantCode').append(
+        //                             `<option value="${merchant.merchant_code}">${merchant.merchant_code}</option>`
+        //                         );
+        //                     });
+        //                 } else {
+        //                     console.error('Failed to fetch merchants:', response.message);
+        //                 }
+        //             },
+        //             error: function(xhr) {
+        //                 console.error('Error occurred:', xhr.statusText);
+        //             }
+        //         });
+        //     });
+        // 
+    </script>
+
+    </script>
+
     <!-- Script untuk inisialisasi DataTables -->
     <script>
+        let selectedId = null;
+
+        // Save New Terminal
+        $('#saveTerminalBtn').click(function() {
+            const terminalData = {
+                merchant_code: $('#merchantCode').val(),
+                // terminal_code: $('#terminalCode').val(),
+                terminal_name: $('#nama').val(),
+                terminal_address: $('#alamat').val(),
+                description: $('#description').val()
+            };
+
+            $.ajax({
+                url: '{{ env('API_URL') }}/terminal',
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                },
+                data: terminalData,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        showNotification('success', 'Terminal added successfully');
+                        $('#addTerminalModal').modal('hide');
+                        $('#terminal-table').DataTable().ajax.reload(); // Reload table data
+                    } else {
+                        showNotification('error', 'Failed to add terminal');
+                    }
+                },
+                error: function() {
+                    showNotification('error', 'Error occurred while adding terminal');
+                }
+            });
+        });
+
+
+        // Edit Terminal
+$('#terminal-table').on('click', '.btn-edit', function() {
+    const terminalId = $(this).data('id');
+    $('#editTerminalModal').modal('show');
+
+    $.ajax({
+        url: `{{ env('API_URL') }}/terminal/${terminalId}`,
+        type: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + '{{ session('token') }}'
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                const terminal = response.data;
+
+                // Use the fields from the response data
+                // $('#editMerchantCode').val(terminal.merchant_code || '-'); // Sets the merchant code
+                $('#editMerchantCode').val(terminal.merchant_code ? terminal.merchant_code : '-');
+                $('#editTerminalCode').val(terminal.terminal_kode || terminal.terminal_code || '');
+                $('#editnama').val(terminal.nama_terminal || terminal.terminal_name || '');
+                $('#editalamat').val(terminal.alamat_terminal || terminal.terminal_address || '');
+                $('#editDescription').val(terminal.deskripsi_terminal || terminal.description || '');
+                
+                // Set selectedId for merchant ID handling
+                selectedId = terminal.merchant_id;
+
+                // Show the modal and refresh the table
+                $('#editTerminalModal').modal('show');
+                $('#terminal-table').DataTable().ajax.reload();
+            } else {
+                showNotification('error', 'Failed to retrieve terminal data');
+            }
+        },
+        error: function() {
+            showNotification('error', 'Error occurred while retrieving terminal data');
+        }
+    });
+});
+
+
+        // Update Terminal
+        $('#updateTerminalBtn').click(function() {
+            const updatedData = {
+                merchant_code: $('#editMerchantCode')
+                    .val(), // Make sure you're using the correct field
+                // terminal_code: $('#editTerminalCode').val(),
+                terminal_name: $('#editnama').val(),
+                terminal_address: $('#editalamat').val(),
+                description: $('#editDescription').val()
+            };
+
+            $.ajax({
+                url: `{{ env('API_URL') }}/terminal/${selectedId}`,
+                type: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                },
+                data: updatedData,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        showNotification('success', 'Terminal updated successfully');
+                        $('#editTerminalModal').modal('hide');
+                        $('#terminal-table').DataTable().ajax.reload(); // Reload table data
+                    } else {
+                        showNotification('error', 'Failed to update terminal');
+                    }
+                },
+                error: function() {
+                    showNotification('error', 'Error occurred while updating terminal');
+                }
+            });
+        });
+
+        // Delete Terminal
+        $('#terminal-table').on('click', '.btn-delete', function() {
+            selectedId = $(this).data('id');
+            $('#deleteTerminalModal').modal('show');
+        });
+
+        $('#confirmDeleteBtn').click(function() {
+            $.ajax({
+                url: `{{ env('API_URL') }}/terminal/${selectedId}`,
+                type: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        showNotification('success', 'Terminal deleted successfully');
+                        $('#deleteTerminalModal').modal('hide');
+                        $('#terminal-table').DataTable().ajax.reload();
+                    } else {
+                        showNotification('error', 'Failed to delete terminal');
+                    }
+                },
+                error: function() {
+                    showNotification('error', 'Error occurred while deleting terminal');
+                }
+            });
+        });
+
         // $(document).ready(function() {
         $('#terminal-table').DataTable({
             processing: true,
@@ -109,7 +483,7 @@
                 },
                 {
                     data: 'merchant_code',
-                    name: 'merchant.merchant_code'
+                    name: 'merchants.merchant_code'
                 },
                 {
                     data: 'terminal_code',
@@ -137,24 +511,48 @@
                     render: function(data) {
                         return `
                     <div class="d-flex">
-                        <button title="Detail" data-id="${data}" class="btn-detail btn-action">
-                            <iconify-icon icon="mdi:file-document-outline"></iconify-icon>
-                        </button>
                         <button title="Edit" data-id="${data}" class="btn-edit btn-action">
-                            <iconify-icon icon="mdi:edit"></iconify-icon>
+                            <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
                         </button>
-                        <button title="Delete" data-id="${data}" class="btn-action btn-delete">
-                            <iconify-icon icon="mdi:delete"></iconify-icon>
+                        <button title="Delete" data-id="${data}" class="btn-delete btn-action">
+                            <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
                         </button>
                     </div>`;
                     }
                 }
             ],
             order: [
-                [1, 'asc'] // Mengurutkan berdasarkan kolom merchant_name, atau sesuai kebutuhan
+                [1, 'asc']
             ]
         });
 
-        // });
+        // Notification function
+        function showNotification(type, message) {
+            let notificationTitle = '';
+            let notificationClass = '';
+
+            switch (type) {
+                case 'success':
+                    notificationTitle = 'Sukses!';
+                    notificationClass = 'alert-success';
+                    break;
+                case 'error':
+                    notificationTitle = 'Error!';
+                    notificationClass = 'alert-danger';
+                    break;
+                default:
+                    notificationTitle = 'Notification';
+                    notificationClass = 'alert-info';
+            }
+
+            $('#notificationTitle').text(notificationTitle);
+            $('#notificationMessage').text(message);
+            $('#notification').removeClass('alert-success alert-danger alert-info').addClass(notificationClass)
+                .fadeIn();
+
+            setTimeout(function() {
+                $('#notification').fadeOut();
+            }, 2500);
+        }
     </script>
 @endsection
