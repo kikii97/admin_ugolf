@@ -284,42 +284,6 @@
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
-    <script>
-        //     <script>
-        //     $(document).ready(function() {
-        //         // Make AJAX call to fetch merchant data
-        //         $.ajax({
-        //             url: 'http://192.168.43.138/api/merchant',  // Replace with your actual API endpoint
-        //             type: 'GET',
-        //             dataType: 'json',
-        //             success: function(response) {
-        //                 if (response.status) {
-        //                     // Clear existing options in the select box
-        //                     $('#merchantCode').empty();
-
-        //                     // Add a default "Select Merchant" option
-        //                     $('#merchantCode').append('<option value="">-- Select Merchant --</option>');
-
-        //                     // Loop through the merchant data and add each as an option
-        //                     response.data.forEach(function(merchant) {
-        //                         $('#merchantCode').append(
-        //                             `<option value="${merchant.merchant_code}">${merchant.merchant_code}</option>`
-        //                         );
-        //                     });
-        //                 } else {
-        //                     console.error('Failed to fetch merchants:', response.message);
-        //                 }
-        //             },
-        //             error: function(xhr) {
-        //                 console.error('Error occurred:', xhr.statusText);
-        //             }
-        //         });
-        //     });
-        // 
-    </script>
-
-    </script>
-
     <!-- Script untuk inisialisasi DataTables -->
     <script>
         let selectedId = null;
@@ -358,44 +322,47 @@
 
 
         // Edit Terminal
-$('#terminal-table').on('click', '.btn-edit', function() {
-    const terminalId = $(this).data('id');
-    $('#editTerminalModal').modal('show');
+        $('#terminal-table').on('click', '.btn-edit', function() {
+            const terminalId = $(this).data('id');
+            $('#editTerminalModal').modal('show');
 
-    $.ajax({
-        url: `{{ env('API_URL') }}/terminal/${terminalId}`,
-        type: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + '{{ session('token') }}'
-        },
-        success: function(response) {
-            if (response.status === 'success') {
-                const terminal = response.data;
+            $.ajax({
+                url: `{{ env('API_URL') }}/terminal/${terminalId}`,
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const terminal = response.data;
 
-                // Use the fields from the response data
-                // $('#editMerchantCode').val(terminal.merchant_code || '-'); // Sets the merchant code
-                $('#editMerchantCode').val(terminal.merchant_code ? terminal.merchant_code : '-');
-                $('#editTerminalCode').val(terminal.terminal_kode || terminal.terminal_code || '');
-                $('#editnama').val(terminal.nama_terminal || terminal.terminal_name || '');
-                $('#editalamat').val(terminal.alamat_terminal || terminal.terminal_address || '');
-                $('#editDescription').val(terminal.deskripsi_terminal || terminal.description || '');
-                
-                // Set selectedId for merchant ID handling
-                selectedId = terminal.merchant_id;
+                        // Use the fields from the response data
+                        // $('#editMerchantCode').val(terminal.merchant_code || '-'); // Sets the merchant code
+                        $('#editMerchantCode').val(terminal.merchant_code ? terminal.merchant_code :
+                            '-');
+                        $('#editTerminalCode').val(terminal.terminal_kode || terminal.terminal_code ||
+                            '');
+                        $('#editnama').val(terminal.nama_terminal || terminal.terminal_name || '');
+                        $('#editalamat').val(terminal.alamat_terminal || terminal.terminal_address ||
+                            '');
+                        $('#editDescription').val(terminal.deskripsi_terminal || terminal.description ||
+                            '');
 
-                // Show the modal and refresh the table
-                $('#editTerminalModal').modal('show');
-                $('#terminal-table').DataTable().ajax.reload();
-            } else {
-                showNotification('error', 'Failed to retrieve terminal data');
-            }
-        },
-        error: function() {
-            showNotification('error', 'Error occurred while retrieving terminal data');
-        }
-    });
-});
+                        // Set selectedId for merchant ID handling
+                        selectedId = terminal.merchant_id;
 
+                        // Show the modal and refresh the table
+                        $('#editTerminalModal').modal('show');
+                        $('#terminal-table').DataTable().ajax.reload();
+                    } else {
+                        showNotification('error', 'Failed to retrieve terminal data');
+                    }
+                },
+                error: function() {
+                    showNotification('error', 'Error occurred while retrieving terminal data');
+                }
+            });
+        });
 
         // Update Terminal
         $('#updateTerminalBtn').click(function() {
@@ -463,7 +430,7 @@ $('#terminal-table').on('click', '.btn-edit', function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.43.138/api/terminal',
+                url: '{{ env('API_URL') }}/terminal',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },

@@ -158,7 +158,7 @@
                 <div class="modal-body" style="padding: 20px;">
                     <!-- Add Merchant Form -->
                     <form id="addMerchantForm">
-                        
+
                         <div class="mb-3">
                             <label for="merchantName" class="form-label">Merchant Name</label>
                             <input type="text" class="form-control" id="merchantName" required>
@@ -242,76 +242,17 @@
     </div>
 
     <!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- DataTables JS -->
-    <script src="../datatables/jquery.datatables.min.js"></script>
-
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <!-- DataTables Bootstrap 4 integration -->
-    <link rel="stylesheet" href="../datatables/datatables.min.css">
-    <script src="../datatables/datatables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            // Fetch merchant_code when the modal is opened
-            $('#addMerchantModal').on('show.bs.modal', function() {
-                $.ajax({
-                    url: 'http://192.168.43.138/api/merchant/code', // API endpoint to get merchant code
-                    type: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' +
-                            '{{ session('token') }}' // If authentication is required
-                    },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            // Set the merchant_code in the input field
-                            $('#merchantCode').val(response
-                            .merchant_code); // Pre-fill the merchant_code field
-                        } else {
-                            alert('Failed to fetch merchant code');
-                        }
-                    },
-                    error: function() {
-                        alert('Error occurred while fetching merchant code');
-                    }
-                });
-            });
-
-            // When the form is submitted
-            $('#saveMerchantBtn').click(function() {
-                var merchantData = {
-                    merchant_code: $('#merchantCode').val(), // The merchant_code is now pre-filled
-                    merchant_name: $('#merchantName').val(),
-                    merchant_address: $('#merchantAddress').val(),
-                    description: $('#description').val()
-                };
-
-                $.ajax({
-                    url: 'http://192.168.43.138/api/merchant', // API endpoint for creating a merchant
-                    type: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + '{{ session('token') }}'
-                    },
-                    data: merchantData,
-                    success: function(response) {
-                        if (response.status) {
-                            alert('Merchant added successfully');
-                            $('#addMerchantModal').modal('hide');
-                            $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-                        } else {
-                            alert('Failed to add merchant: ' + response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('Error occurred while adding merchant');
-                    }
-                });
-            });
-        });
-    </script>
 
     <!-- Script untuk inisialisasi DataTables -->
     <script>
@@ -324,34 +265,8 @@
                 merchant_address: $('#merchantAddress').val(),
                 description: $('#description').val()
             };
-
-        //     $.ajax({
-        //         url: 'http://192.168.43.138/api/merchant',
-        //         type: 'POST',
-        //         headers: {
-        //             'Authorization': 'Bearer ' + '{{ session('token') }}'
-        //         },
-        //         data: merchantData,
-        //         success: function(response) {
-        //             if (response.status) {
-        //                 // Make sure this line updates the correct field
-        //                 $('#merchantCode').val(response.data
-        //                 .merchant_code); // Update the field in the modal with the merchant code from the API
-        //                 alert('Merchant added successfully');
-        //                 $('#addMerchantModal').modal('hide');
-        //                 $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-        //             } else {
-        //                 alert('Failed to add merchant: ' + response.message);
-        //             }
-        //         },
-        //         error: function() {
-        //             alert('Error occurred while adding merchant');
-        //         }
-        //     });
-        // });
-
             $.ajax({
-                url: 'http://192.168.43.138/api/merchant',
+                url: '{{ env('API_URL') }}/merchant',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -379,7 +294,7 @@
             $('#editMerchantModal').modal('show');
 
             $.ajax({
-                url: `http://192.168.43.138/api/merchant/${merchantId}`,
+                url: `{{ env('API_URL') }}/merchant/${merchantId}`,
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -415,7 +330,7 @@
             };
 
             $.ajax({
-                url: `http://192.168.43.138/api/merchant/${selectedMerchantId}`,
+                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
                 type: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -444,7 +359,7 @@
 
         $('#confirmDeleteBtn').click(function() {
             $.ajax({
-                url: `http://192.168.43.138/api/merchant/${selectedMerchantId}`,
+                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
                 type: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -469,7 +384,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.43.138/api/merchant',
+                url: '{{ env('API_URL') }}/merchant',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },

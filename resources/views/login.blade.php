@@ -70,7 +70,7 @@
             <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
 
             <!-- Alert for login error -->
-            @if($errors->has('loginError'))
+            @if ($errors->has('loginError'))
                 <div class="alert alert-danger">
                     {{ $errors->first('loginError') }}
                 </div>
@@ -81,27 +81,18 @@
                 <div class="form-group py-2">
                     <div class="input-field">
                         <span class="far fa-user p-2"></span>
-                        <input class="input-form" type="text" name="email" placeholder="Username or Email Address" value="{{ old('email') }}" required>
+                        <input style="background: transparent;" class="input-form" type="text" name="email"
+                            placeholder="Username" value="{{ old('email') }}" required>
                     </div>
                 </div>
                 <div class="form-group py-1 pb-2">
                     <div class="input-field">
                         <span class="fas fa-lock p-2"></span>
-                        <input class="input-form" type="password" name="password" placeholder="Enter your Password" required>
+                        <input class="input-form" type="password" name="password" placeholder="Password"
+                            required>
                     </div>
                 </div>
                 <!-- Remember me and Forgot Password -->
-                <div class="d-flex align-items-start">
-                    <div class="remember">
-                        <label class="option"> Remember me
-                            <input type="checkbox" name="remember">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="ml-auto">
-                        <a href="#" id="forgot">Forgot Password?</a>
-                    </div>
-                </div>
                 <button type="submit" class="btn btn-block text-center my-3">
                     Log in
                 </button>
