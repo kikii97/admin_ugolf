@@ -198,12 +198,15 @@
     </div>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="../datatables/jquery.datatables.min.js"></script>
+
     <!-- DataTables Bootstrap 4 integration -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="../datatables/datatables.min.css">
+    <script src="../datatables/datatables.bootstrap5.min.js"></script>
+
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 

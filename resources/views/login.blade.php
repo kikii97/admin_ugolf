@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UGOLF</title>
-    <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../bootstrap.alpha/alpha.bootstrap.min.css">
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
