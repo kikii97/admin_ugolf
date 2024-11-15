@@ -13,10 +13,57 @@ use Yajra\DataTables\DataTables;
 class TerminalController extends Controller
 {
     public function index()
-    {
-        
-        return view('terminal.index');
+{
+    // Attempt to fetch merchant data from the API
+    $response = Http::withToken(session('token'))->get('http://192.168.43.138/api/merchant');
+
+    // Check if the response was successful
+    if ($response->successful()) {
+        // Parse the response data and transform it into a collection for easy manipulation
+        $merchants = collect($response->json('data'))->map(function ($item) {
+            return (object) [
+                'merchant_id' => $item['merchant_id'] ?? null,
+                'merchant_code' => $item['merchant_code'] ?? null,
+                // 'merchant_name' => $item['merchant_name'] ?? null,
+                // 'merchant_address' => $item['merchant_address'] ?? null,
+                // 'status_merchant' => $item['status_merchant'] ?? 'inactive', // Default value if not present
+            ];
+        });
+
+        // Pass the merchants data to the view
+        return view('terminal.index', compact('merchants'));
     }
+
+    // Redirect to the view with an error message if the API request fails
+    return redirect()->route('terminal.index')->withErrors('Gagal mengambil data merchant.');
+}
+
+
+    // public function create($id = null)
+    // {
+    //     // Fetch merchant data from the API
+    //     $response = Http::withToken(session('token'))->get(config('app.api_url') . '/merchant');
+
+    //     if ($response->successful()) {
+    //         // Parse the response into collections for easier handling
+    //         $data = $response->json();
+    //         $merchants = collect($data['data'])->map(function ($item) {
+    //             // Return a structured object similar to the previous format
+    //             return (object) [
+    //                 'merchant_id' => $item['merchant_id'],
+    //                 'merchant_code' => $item['merchant_code'],
+    //                 'merchant_name' => $item['merchant_name'],
+    //                 'merchant_address' => $item['merchant_address'],
+    //             ];
+    //         });
+
+    //         // Return the data to the view (no need for barangMasuk data)
+    //         return view('/terminal', compact('merchants'));
+    //     }
+
+    //     // If the API request failed, redirect with an error message
+    //     return redirect('/terminal')->withErrors('Gagal mengambil data merchant.');
+    // }
 
     public function store(Request $request)
     {
