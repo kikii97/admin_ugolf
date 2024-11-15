@@ -138,7 +138,7 @@
 <script>
     // Function to load CMS data and create fields dynamically
 function loadCmsData() {
-    const url = `{{ env('API_URL') }}/cms`;
+    const url = `http://192.168.43.138/api/cms`;
 
     fetch(url)
         .then(response => response.json())
@@ -182,7 +182,7 @@ function loadCmsData() {
 }
 
 function updateCmsValue(cmsCode, cmsValue) {
-    const url = `{{ env('API_URL') }}/cms/${cmsCode}`; // Update endpoint to use cms_code
+    const url = `http://192.168.43.138/api/cms/${cmsCode}`; // Update endpoint to use cms_code
     const requestOptions = {
         method: 'PUT',
         headers: {

@@ -214,9 +214,6 @@
     <!-- DataTables Bootstrap 4 integration -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
@@ -225,7 +222,7 @@
             // Fetch merchant_code when the modal is opened
             $('#addMerchantModal').on('show.bs.modal', function() {
                 $.ajax({
-                    url: '{{ env('API_URL') }}/merchant/code', // API endpoint to get merchant code
+                    url: 'http://192.168.43.138/api/merchant/code', // API endpoint to get merchant code
                     type: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' +
@@ -255,29 +252,8 @@
                     description: $('#description').val()
                 };
 
-<<<<<<< HEAD
-        $.ajax({
-            url: 'http://192.168.43.45/api/merchant', // API endpoint for creating a merchant
-            type: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + '{{ session('token') }}'
-            },
-            data: merchantData,
-            success: function(response) {
-                if (response.status) {
-                    alert('Merchant added successfully');
-                    $('#addMerchantModal').modal('hide');
-                    $('#merchant-table').DataTable().ajax.reload(); // Reload table data
-                } else {
-                    alert('Failed to add merchant: ' + response.message);
-                }
-            },
-            error: function() {
-                alert('Error occurred while adding merchant');
-            }
-=======
                 $.ajax({
-                    url: '{{ env('API_URL') }}/merchant', // API endpoint for creating a merchant
+                    url: 'http://192.168.43.138/api/merchant', // API endpoint for creating a merchant
                     type: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -297,7 +273,6 @@
                     }
                 });
             });
->>>>>>> 2040a0e367080c21fa0b04d742907b9f06169217
         });
     </script>
 
@@ -315,7 +290,7 @@
             };
 
         //     $.ajax({
-        //         url: '{{ env('API_URL') }}/merchant',
+        //         url: 'http://192.168.43.138/api/merchant',
         //         type: 'POST',
         //         headers: {
         //             'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -340,7 +315,7 @@
         // });
 
             $.ajax({
-                url: '{{ env('API_URL') }}/merchant',
+                url: 'http://192.168.43.138/api/merchant',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -369,7 +344,7 @@
             const merchantId = $(this).data('id');
 
             $.ajax({
-                url: `{{ env('API_URL') }}/merchant/${merchantId}`,
+                url: `http://192.168.43.138/api/merchant/${merchantId}`,
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -403,7 +378,7 @@
             };
 
             $.ajax({
-                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
+                url: `http://192.168.43.138/api/merchant/${selectedMerchantId}`,
                 type: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -432,7 +407,7 @@
 
         $('#confirmDeleteBtn').click(function() {
             $.ajax({
-                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
+                url: `http://192.168.43.138/api/merchant/${selectedMerchantId}`,
                 type: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -457,7 +432,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ env('API_URL') }}/merchant',
+                url: 'http://192.168.43.138/api/merchant',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },

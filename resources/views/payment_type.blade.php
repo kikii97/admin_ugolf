@@ -212,7 +212,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ env('API_URL') }}/paymentType',
+                url: 'http://192.168.43.138/api/paymentType',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
@@ -300,7 +300,7 @@
             };
 
             $.ajax({
-                url: '{{ env('API_URL') }}/paymentType', // API endpoint for creating a paymentType
+                url: 'http://192.168.43.138/api/paymentType', // API endpoint for creating a paymentType
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -387,7 +387,7 @@
 
     $('#confirmDeleteBtn').click(function() {
         $.ajax({
-            url: `{{ env('API_URL') }}/paymentType/${selectedMerchantId}`,
+            url: `http://192.168.43.138/api/paymentType/${selectedMerchantId}`,
             type: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + '{{ session('token') }}'

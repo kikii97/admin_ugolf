@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{{-- <html dir="ltr" lang="in"> --}}
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,6 @@
     <title>UGOLF</title>
     <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
-    <!-- Google Fonts Kufam -->
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
 
@@ -66,49 +65,49 @@
                 </linearGradient>
             </defs>
         </svg>
-        {{-- <a href="#" class="btn">
-            <img src="assets/images/Ticket.png" alt="Ticket Icon" width="25">
-            BELI TIKET
-        </a> --}}
+
         <div class="wrapper">
             <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
-            {{-- <div class="h2 text-center">UGOLF</div> --}}
-            <form class="pt-3">
+
+            <!-- Alert for login error -->
+            @if($errors->has('loginError'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('loginError') }}
+                </div>
+            @endif
+
+            <form class="pt-3" action="{{ route('login') }}" method="POST">
+                @csrf <!-- Add CSRF token for security -->
                 <div class="form-group py-2">
-                    <div class="input-field"> <span class="far fa-user p-2"></span>
-                        <input class="input-form" type="text" placeholder="Username or Email Address" required
-                            class="">
+                    <div class="input-field">
+                        <span class="far fa-user p-2"></span>
+                        <input class="input-form" type="text" name="email" placeholder="Username or Email Address" value="{{ old('email') }}" required>
                     </div>
                 </div>
                 <div class="form-group py-1 pb-2">
                     <div class="input-field">
                         <span class="fas fa-lock p-2"></span>
-                        <input class="input-form" type="text" placeholder="Enter your Password" required
-                            class="">
-                        <button style="padding: 6px; background-color: transparent;" class="btn" style="background: transparent;">
-                            <span style="color: #400485; margin-right: 10px;" class="far fa-eye-slash"></span>
-                        </button>
+                        <input class="input-form" type="password" name="password" placeholder="Enter your Password" required>
                     </div>
                 </div>
+                <!-- Remember me and Forgot Password -->
                 <div class="d-flex align-items-start">
                     <div class="remember">
-                        <label class="option"> Remember me <input type="radio" name="radio">
-                            <span class="checkmark"></span> </label>
+                        <label class="option"> Remember me
+                            <input type="checkbox" name="remember">
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                     <div class="ml-auto">
                         <a href="#" id="forgot">Forgot Password?</a>
                     </div>
                 </div>
-                <a href="/dashboard" class="btn btn-block text-center my-3">
+                <button type="submit" class="btn btn-block text-center my-3">
                     Log in
-                </a>
+                </button>
             </form>
         </div>
     </div>
 </body>
 
-<script type='text/javascript' src=''></script>
-<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
-<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'>
-</script>
-<script type='text/javascript'></script>
+</html>

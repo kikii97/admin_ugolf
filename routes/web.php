@@ -5,6 +5,7 @@ use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\TrxController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
@@ -14,6 +15,10 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -58,5 +63,5 @@ Route::get('/lokasi/create', function () {
 // Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
+    Route::post('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
 // });

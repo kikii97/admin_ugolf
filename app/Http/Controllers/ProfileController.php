@@ -35,15 +35,13 @@ class ProfileController extends Controller
                 Rule::unique('users')->ignore(Auth::id()),
             ],
             'password' => 'nullable|string|min:8|confirmed',
+            
         ]);
 
         // Ambil pengguna yang sedang login
         $user = Auth::user();
-
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'User not found.');
-        }
-
+        return redirect()->route('profile')->with('success','Berhasil memperbarui data!');
+        
         // Update nama dan email
         $user->name = $request->name;
         $user->email = $request->email;
@@ -56,8 +54,8 @@ class ProfileController extends Controller
         // Simpan perubahan data pengguna
         $user->save();
 
-        // Redirect kembali ke halaman edit profil dengan pesan sukses
-        return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
+        $request->session()->flash('success', 'Profile updated successfully!');
+    return redirect()->route('profile.update');
     }
 
     // Fungsi untuk logout pengguna
