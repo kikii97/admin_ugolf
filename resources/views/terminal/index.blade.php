@@ -165,14 +165,11 @@
                     <form id="addTerminalForm">
                         <div class="mb-3">
                             <label for="merchantCode" class="form-label">Merchant Code</label>
-                            {{-- <select class="form-select" id="merchantCode" required>
-                                <option value="">Select Merchant Code</option>
-                                <!-- Options will be populated by JavaScript -->
-                            </select> --}}
-                            <select class="form-select" name="merchant_id" id="merchantSelect">
+                            <select class="form-select" name="merchant_id" id="merchantSelect" required>
                                 <option value="">-- Select Merchant --</option>
                                 @foreach ($merchants as $merchant)
-                                    <option value="{{ $merchant->merchant_id }}">
+                                    <option value="{{ $merchant->merchant_id }}"
+                                        data-merchant-code="{{ $merchant->merchant_code }}">
                                         {{ $merchant->merchant_code }} - {{ $merchant->merchant_name }}
                                     </option>
                                 @endforeach
@@ -188,7 +185,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="description" rows="3"></textarea>
                         </div>
                     </form>
                 </div>
@@ -214,14 +211,6 @@
                     <form id="editTerminalForm">
                         <div class="mb-3">
                             <label for="editMerchantCode" class="form-label">Merchant Code</label>
-                            {{-- <select class="form-select" name="merchant_id" id="editMerchantCode">
-                                <option value="">-- Select Merchant --</option>
-                                @foreach ($merchants as $merchant)
-                                    <option value="{{ $merchant->merchant_id }}">
-                                        {{ $merchant->merchant_code }}
-                                    </option>
-                                @endforeach
-                            </select> --}}
                             <input type="text" class="form-control" id="editMerchantCode" disabled>
                         </div>
                         <div class="mb-3">
@@ -290,12 +279,31 @@
 
         // Save New Terminal
         $('#saveTerminalBtn').click(function() {
+            const merchantSelect = $('#merchantSelect');
+            const merchantCode = merchantSelect.find(':selected').data('merchant-code'); // Get the merchant code
+            const terminalName = $('#nama').val();
+            const terminalAddress = $('#alamat').val();
+            const description = $('#description').val() || ''; // If description is empty, send an empty string
+
+            // Log data to ensure it's being sent correctly
+            console.log({
+                merchant_code: merchantCode,
+                terminal_name: terminalName,
+                terminal_address: terminalAddress,
+                description: description
+            });
+
+            // Validate required fields before sending request
+            if (!merchantCode || !terminalName || !terminalAddress) {
+                showNotification('error', 'Merchant Code, Terminal Name, and Terminal Address are required.');
+                return;
+            }
+
             const terminalData = {
-                merchant_code: $('#merchantCode').val(),
-                // terminal_code: $('#terminalCode').val(),
-                terminal_name: $('#nama').val(),
-                terminal_address: $('#alamat').val(),
-                description: $('#description').val()
+                merchant_code: merchantCode,
+                terminal_name: terminalName,
+                terminal_address: terminalAddress,
+                description: description
             };
 
             $.ajax({
@@ -311,87 +319,84 @@
                         $('#addTerminalModal').modal('hide');
                         $('#terminal-table').DataTable().ajax.reload(); // Reload table data
                     } else {
-                        showNotification('error', 'Failed to add terminal');
+                        // Handle error from the API (e.g., merchant not found or duplicate terminal)
+                        showNotification('error', response.message || 'Failed to add terminal');
                     }
                 },
-                error: function() {
-                    showNotification('error', 'Error occurred while adding terminal');
+                error: function(xhr, status, error) {
+                    // Handle unexpected error responses
+                    let errorMessage = 'Error occurred while adding terminal';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    showNotification('error', errorMessage);
                 }
             });
         });
 
-
-        // Edit Terminal
+        // Edit Terminal Functionality
         $('#terminal-table').on('click', '.btn-edit', function() {
-            const terminalId = $(this).data('id');
-            $('#editTerminalModal').modal('show');
+            selectedId = $(this).data('id');
 
             $.ajax({
-                url: `{{ env('API_URL') }}/terminal/${terminalId}`,
+                url: `{{ env('API_URL') }}/terminal/${selectedId}`,
                 type: 'GET',
                 headers: {
-                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    'Authorization': 'Bearer {{ session('token') }}'
                 },
-                success: function(response) {
+                success(response) {
                     if (response.status === 'success') {
                         const terminal = response.data;
-
-                        // Use the fields from the response data
-                        // $('#editMerchantCode').val(terminal.merchant_code || '-'); // Sets the merchant code
-                        $('#editMerchantCode').val(terminal.merchant_code ? terminal.merchant_code :
-                            '-');
-                        $('#editTerminalCode').val(terminal.terminal_kode || terminal.terminal_code ||
-                            '');
-                        $('#editnama').val(terminal.nama_terminal || terminal.terminal_name || '');
-                        $('#editalamat').val(terminal.alamat_terminal || terminal.terminal_address ||
-                            '');
-                        $('#editDescription').val(terminal.deskripsi_terminal || terminal.description ||
-                            '');
-
-                        // Set selectedId for merchant ID handling
-                        selectedId = terminal.merchant_id;
-
-                        // Show the modal and refresh the table
+                        $('#editMerchantCode').val(`${terminal.merchant_code || '-'} - ${terminal.merchant_name || '-'}`);
+                        $('#editTerminalCode').val(`${terminal.terminal_code || '-'}`);
+                        $('#editnama').val(terminal.terminal_name || '-');
+                        $('#editalamat').val(terminal.terminal_address || '-');
+                        $('#editDescription').val(terminal.description || '');
+                        $('#merchantSelect').val(terminal.merchant_id);
+                        const selectedOption = $('#merchantSelect').find('option:selected');
+                        $('#editMerchantCode').val(selectedOption.data('merchant-code') + " - " + selectedOption.text().split(" - ")[1]);
                         $('#editTerminalModal').modal('show');
-                        $('#terminal-table').DataTable().ajax.reload();
                     } else {
                         showNotification('error', 'Failed to retrieve terminal data');
                     }
                 },
-                error: function() {
+                error() {
                     showNotification('error', 'Error occurred while retrieving terminal data');
                 }
             });
         });
 
-        // Update Terminal
+        // Update Terminal Functionality
         $('#updateTerminalBtn').click(function() {
             const updatedData = {
-                merchant_code: $('#editMerchantCode')
-                    .val(), // Make sure you're using the correct field
-                // terminal_code: $('#editTerminalCode').val(),
                 terminal_name: $('#editnama').val(),
                 terminal_address: $('#editalamat').val(),
                 description: $('#editDescription').val()
             };
 
+            // Validate required fields before sending request
+            if (!updatedData.terminal_name || !updatedData.terminal_address) {
+                showNotification('error', 'All fields are required.');
+                return;
+            }
+
             $.ajax({
                 url: `{{ env('API_URL') }}/terminal/${selectedId}`,
                 type: 'PUT',
                 headers: {
-                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    'Authorization': 'Bearer {{ session('token') }}'
                 },
                 data: updatedData,
-                success: function(response) {
+                success(response) {
                     if (response.status === 'success') {
                         showNotification('success', 'Terminal updated successfully');
                         $('#editTerminalModal').modal('hide');
-                        $('#terminal-table').DataTable().ajax.reload(); // Reload table data
+                        $('#terminal-table').DataTable().ajax.reload();
                     } else {
-                        showNotification('error', 'Failed to update terminal');
+                        showNotification('error', response.message || 'Failed to update terminal');
                     }
                 },
-                error: function() {
+                error() {
                     showNotification('error', 'Error occurred while updating terminal');
                 }
             });
@@ -473,7 +478,7 @@
                 },
                 {
                     data: 'description',
-                    name: 'description'
+                    name: 'description',
                 },
                 {
                     data: 'terminal_id',

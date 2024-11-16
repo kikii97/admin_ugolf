@@ -79,7 +79,6 @@
             height: 80px;
         }
     </style>
-
     <!-- Bread crumb -->
     <div class="page-breadcrumb">
         <!-- Notification Element -->
@@ -90,19 +89,19 @@
         <div class="row">
             <div class="col-7 align-self-center">
                 <h4 style="font-family: 'Kufam', sans-serif;"
-                    class="page-title text-truncate text-dark font-weight-medium mb-1">Merchant Management</h4>
+                    class="page-title text-truncate text-dark font-weight-medium mb-1">Terminal Management</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
-                            <li class="breadcrumb-item text-muted active" aria-current="page">Merchant</li>
+                            <li class="breadcrumb-item text-muted active" aria-current="page">Terminal</li>
                         </ol>
                     </nav>
                 </div>
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-end">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#addMerchantModal">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addTerminalModal">
                         <button class="custom-select-set form-control btn-gradient-purple">
                             <span style="margin-left: 12px;">Add</span>
                         </button>
@@ -114,6 +113,7 @@
 
     <!-- Container fluid  -->
     <div class="container-fluid">
+
         <!-- basic table -->
         <div class="row">
             <div class="col-12">
@@ -124,87 +124,106 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table id="merchant-table" class="table table-bordered table-striped table-hover"
+                            <table id="terminal-table" class="table table-bordered table-striped table-hover"
                                 style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
+                                        {{-- <th><input type="checkbox" id="select-all"></th> --}}
                                         <th class="d-flex justify-content-center align-items-center">No</th>
-                                        <th>Kode</th>
-                                        <th>Name</th>
+                                        <th>Merchant Kode</th>
+                                        <th>Terminal Kode</th>
+                                        <th>Nama</th>
                                         <th>Alamat</th>
+                                        <th>Status</th>
                                         <th>Deskripsi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Add Merchant Modal -->
-    <div class="modal fade" id="addMerchantModal" tabindex="-1" aria-labelledby="addMerchantModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addTerminalModal" tabindex="-1" aria-labelledby="addTerminalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
             <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
                 <div class="modal-header"
                     style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                    <h5 class="modal-title text-white" id="addMerchantModalLabel">Add New Merchant</h5>
+                    <h5 class="modal-title text-white" id="addTerminalLabel">Add New Terminal</h5>
                     <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
                         style="font-weight: bold; opacity: 1; color: white;"></button>
                 </div>
                 <div class="modal-body" style="padding: 20px;">
-                    <!-- Add Merchant Form -->
-                    <form id="addMerchantForm">
-
+                    <!-- Add Terminal Form -->
+                    <form id="addTerminalForm">
                         <div class="mb-3">
-                            <label for="merchantName" class="form-label">Merchant Name</label>
-                            <input type="text" class="form-control" id="merchantName" required>
+                            <label for="merchantCode" class="form-label">Merchant Code</label>
+                            <select class="form-select" name="merchant_id" id="merchantSelect" required>
+                                <option value="">-- Select Merchant --</option>
+                                @foreach ($merchants as $merchant)
+                                    <option value="{{ $merchant->merchant_id }}"
+                                        data-merchant-code="{{ $merchant->merchant_code }}">
+                                        {{ $merchant->merchant_code }} - {{ $merchant->merchant_name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="merchantAddress" class="form-label">Merchant Address</label>
-                            <input type="text" class="form-control" id="merchantAddress" required>
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="nama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" required>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="description" rows="3"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer" style="border-top: none; padding-top: 0;">
-                    <button type="button" id="saveMerchantBtn" class="btn btn-gradient-purple">Save Merchant</button>
+                    <button type="button" id="saveTerminalBtn" class="btn btn-gradient-purple">Save Terminal</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Edit Merchant Modal -->
-    <div class="modal fade" id="editMerchantModal" tabindex="-1" aria-labelledby="editMerchantModalLabel"
-        aria-hidden="true">
+    <!-- Edit Terminal Modal -->
+    <div class="modal fade" id="editTerminalModal" tabindex="-1" aria-labelledby="editTerminalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
             <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
                 <div class="modal-header"
                     style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                    <h5 class="modal-title text-white" id="editMerchantModalLabel">Edit Merchant</h5>
+                    <h5 class="modal-title text-white" id="editTerminalLabel">Edit Terminal</h5>
                     <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
                         style="font-weight: bold; opacity: 1; color: white;"></button>
                 </div>
                 <div class="modal-body" style="padding: 20px;">
-                    <!-- Edit Merchant Form -->
-                    <form id="editMerchantForm">
+                    <!-- Edit Terminal Form -->
+                    <form id="editTerminalForm">
                         <div class="mb-3">
                             <label for="editMerchantCode" class="form-label">Merchant Code</label>
                             <input type="text" class="form-control" id="editMerchantCode" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="editMerchantName" class="form-label">Merchant Name</label>
-                            <input type="text" class="form-control" id="editMerchantName" required>
+                            <label for="editTerminalCode" class="form-label">Terminal Code</label>
+                            <input type="text" class="form-control" id="editTerminalCode" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="editMerchantAddress" class="form-label">Merchant Address</label>
-                            <input type="text" class="form-control" id="editMerchantAddress" required>
+                            <label for="editnama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="editnama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editalamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="editalamat" required>
                         </div>
                         <div class="mb-3">
                             <label for="editDescription" class="form-label">Description</label>
@@ -213,26 +232,26 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="border-top: none; padding-top: 0;">
-                    <button type="button" id="updateMerchantBtn" class="btn btn-gradient-purple">Update
-                        Merchant</button>
+                    <button type="button" id="updateTerminalBtn" class="btn btn-gradient-purple">Update
+                        Terminal</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Delete Merchant Modal -->
-    <div class="modal fade" id="deleteMerchantModal" tabindex="-1" aria-labelledby="deleteMerchantModalLabel"
+    <!-- Delete Terminal Modal -->
+    <div class="modal fade" id="deleteTerminalModal" tabindex="-1" aria-labelledby="deleteTerminalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
                 <div class="modal-header"
                     style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                    <h5 class="modal-title text-white" id="deleteMerchantModalLabel">Delete Merchant</h5>
+                    <h5 class="modal-title text-white" id="deleteTerminalLabel">Delete Terminal</h5>
                     <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
                         style="font-weight: bold; opacity: 1; color: white;"></button>
                 </div>
                 <div class="modal-body" style="padding: 20px;">
-                    <p>Are you sure you want to delete this merchant?</p>
+                    <p>Are you sure you want to delete this terminal?</p>
                 </div>
                 <div class="modal-footer" style="border-top: none; padding-top: 0;">
                     <button type="button" id="confirmDeleteBtn" class="btn btn-gradient-purple">Delete</button>
@@ -242,95 +261,135 @@
     </div>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="../datatables/jquery.datatables.min.js"></script>
+
     <!-- DataTables Bootstrap 4 integration -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../datatables/datatables.min.css">
+    <script src="../datatables/datatables.bootstrap5.min.js"></script>
 
     <!-- Add Iconify CDN in the head section -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
     <!-- Script untuk inisialisasi DataTables -->
     <script>
-        let selectedMerchantId = null;
+        let selectedId = null;
 
-        // Save New Merchant
-        $('#saveMerchantBtn').click(function() {
-            var merchantData = { // Make sure you're using the correct field
-                merchant_name: $('#merchantName').val(),
-                merchant_address: $('#merchantAddress').val(),
-                description: $('#description').val()
+        // Save New Terminal
+        $('#saveTerminalBtn').click(function() {
+            const merchantSelect = $('#merchantSelect');
+            const merchantCode = merchantSelect.find(':selected').data('merchant-code'); // Get the merchant code
+            const terminalName = $('#nama').val();
+            const terminalAddress = $('#alamat').val();
+            const description = $('#description').val() || ''; // If description is empty, send an empty string
+
+            // Log data to ensure it's being sent correctly
+            console.log({
+                merchant_code: merchantCode,
+                terminal_name: terminalName,
+                terminal_address: terminalAddress,
+                description: description
+            });
+
+            // Validate required fields before sending request
+            if (!merchantCode || !terminalName || !terminalAddress) {
+                showNotification('error', 'Merchant Code, Terminal Name, and Terminal Address are required.');
+                return;
+            }
+
+            const terminalData = {
+                merchant_code: merchantCode,
+                terminal_name: terminalName,
+                terminal_address: terminalAddress,
+                description: description
             };
+
             $.ajax({
-                url: '{{ env('API_URL') }}/merchant',
+                url: '{{ env('API_URL') }}/terminal',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
-                data: merchantData,
+                data: terminalData,
                 success: function(response) {
                     if (response.status === 'success') {
-                        showNotification('success', 'Merchant added successfully');
-                        // $('#merchantCode').val(response.data.merchant_code);
-                        $('#addMerchantModal').modal('hide');
-                        $('#merchant-table').DataTable().ajax.reload(); // Reload table data
+                        showNotification('success', 'Terminal added successfully');
+                        $('#addTerminalModal').modal('hide');
+                        $('#terminal-table').DataTable().ajax.reload(); // Reload table data
                     } else {
-                        showNotification('error', 'Failed to added merchant');
+                        // Handle error from the API (e.g., merchant not found or duplicate terminal)
+                        showNotification('error', response.message || 'Failed to add terminal');
                     }
                 },
-                error: function() {
-                    showNotification('error', 'Error occurred while add merchant');
+                error: function(xhr, status, error) {
+                    // Handle unexpected error responses
+                    let errorMessage = 'Error occurred while adding terminal';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    showNotification('error', errorMessage);
                 }
             });
         });
 
-        // Edit Merchant
-        $('#merchant-table').on('click', '.btn-edit', function() {
-            const merchantId = $(this).data('id');
-            $('#editMerchantModal').modal('show');
+        // Edit Terminal
+        $('#terminal-table').on('click', '.btn-edit', function() {
+            const terminalId = $(this).data('id');
+            $('#editTerminalModal').modal('show');
 
             $.ajax({
-                url: `{{ env('API_URL') }}/merchant/${merchantId}`,
+                url: `{{ env('API_URL') }}/terminal/${terminalId}`,
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        const merchant = response.data;
+                        const terminal = response.data;
 
-                        $('#editMerchantCode').val(merchant.merchant_code);
-                        $('#editMerchantName').val(merchant.merchant_name);
-                        $('#editMerchantAddress').val(merchant.merchant_address);
-                        $('#editDescription').val(merchant.description);
-                        selectedMerchantId = merchant.merchant_id;
-                        $('#editMerchantModal').modal('show');
-                        $('#merchant-table').DataTable().ajax.reload();
+                        // Use the fields from the response data
+                        // $('#editMerchantCode').val(terminal.merchant_code || '-'); // Sets the merchant code
+                        $('#editMerchantCode').val(terminal.merchant_code ? terminal.merchant_code :
+                            '-');
+                        $('#editTerminalCode').val(terminal.terminal_kode || terminal.terminal_code ||
+                            '');
+                        $('#editnama').val(terminal.nama_terminal || terminal.terminal_name || '');
+                        $('#editalamat').val(terminal.alamat_terminal || terminal.terminal_address ||
+                            '');
+                        $('#editDescription').val(terminal.deskripsi_terminal || terminal.description ||
+                            '');
+
+                        // Set selectedId for merchant ID handling
+                        selectedId = terminal.merchant_id;
+
+                        // Show the modal and refresh the table
+                        $('#editTerminalModal').modal('show');
+                        $('#terminal-table').DataTable().ajax.reload();
                     } else {
-                        showNotification('error', 'Failed to update merchant');
+                        showNotification('error', 'Failed to retrieve terminal data');
                     }
                 },
                 error: function() {
-                    showNotification('error', 'Error occurred while updating merchant');
+                    showNotification('error', 'Error occurred while retrieving terminal data');
                 }
             });
         });
 
-        // Update Merchant
-        $('#updateMerchantBtn').click(function() {
+        // Update Terminal
+        $('#updateTerminalBtn').click(function() {
             const updatedData = {
-                merchant_code: $('#editMerchantCode').val(),
-                merchant_name: $('#editMerchantName').val(),
-                merchant_address: $('#editMerchantAddress').val(),
+                merchant_code: $('#editMerchantCode')
+                    .val(), // Make sure you're using the correct field
+                // terminal_code: $('#editTerminalCode').val(),
+                terminal_name: $('#editnama').val(),
+                terminal_address: $('#editalamat').val(),
                 description: $('#editDescription').val()
             };
 
             $.ajax({
-                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
+                url: `{{ env('API_URL') }}/terminal/${selectedId}`,
                 type: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -338,90 +397,99 @@
                 data: updatedData,
                 success: function(response) {
                     if (response.status === 'success') {
-                        showNotification('success', 'Merchant updated successfully');
-                        $('#editMerchantModal').modal('hide');
-                        $('#merchant-table').DataTable().ajax.reload(); // Reload table data
+                        showNotification('success', 'Terminal updated successfully');
+                        $('#editTerminalModal').modal('hide');
+                        $('#terminal-table').DataTable().ajax.reload(); // Reload table data
                     } else {
-                        showNotification('error', 'Failed to update merchant');
+                        showNotification('error', 'Failed to update terminal');
                     }
                 },
                 error: function() {
-                    showNotification('error', 'Error occurred while updating merchant');
+                    showNotification('error', 'Error occurred while updating terminal');
                 }
             });
         });
 
-        // Delete Merchant
-        $('#merchant-table').on('click', '.btn-delete', function() {
-            selectedMerchantId = $(this).data('id');
-            $('#deleteMerchantModal').modal('show');
+        // Delete Terminal
+        $('#terminal-table').on('click', '.btn-delete', function() {
+            selectedId = $(this).data('id');
+            $('#deleteTerminalModal').modal('show');
         });
 
         $('#confirmDeleteBtn').click(function() {
             $.ajax({
-                url: `{{ env('API_URL') }}/merchant/${selectedMerchantId}`,
+                url: `{{ env('API_URL') }}/terminal/${selectedId}`,
                 type: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        showNotification('success', 'Merchant deleted successfully');
-                        $('#deleteMerchantModal').modal('hide');
-                        $('#merchant-table').DataTable().ajax.reload();
+                        showNotification('success', 'Terminal deleted successfully');
+                        $('#deleteTerminalModal').modal('hide');
+                        $('#terminal-table').DataTable().ajax.reload();
                     } else {
-                        showNotification('error', 'Failed to delete merchant');
+                        showNotification('error', 'Failed to delete terminal');
                     }
                 },
                 error: function() {
-                    showNotification('error', 'Error occurred while deleting merchant');
+                    showNotification('error', 'Error occurred while deleting terminal');
                 }
             });
         });
 
-        // Initialize DataTable
-        $('#merchant-table').DataTable({
+        // $(document).ready(function() {
+        $('#terminal-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ env('API_URL') }}/merchant',
+                url: '{{ env('API_URL') }}/terminal',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
                 dataSrc: function(json) {
                     if (!json.status) {
-                        alert('Failed to fetch data: ' + json.message);
+                        alert('Gagal mengambil data: ' + json.message);
                         return [];
                     }
-                    return json.data; // Return data to DataTable
+                    console.log(json); // Log the response for debugging
+                    return json.data; // Kembalikan data untuk DataTable
                 }
             },
             columns: [{
-                    // Display row number
+                    // Menampilkan nomor urut
                     data: null,
                     orderable: false,
                     render: function(data, type, row, meta) {
-                        return meta.row + 1; // Row index (meta.row)
+                        return meta.row + 1; // Nomor urut berdasarkan indeks baris (meta.row)
                     }
                 },
                 {
                     data: 'merchant_code',
-                    name: 'merchant_code'
+                    name: 'merchants.merchant_code'
                 },
                 {
-                    data: 'merchant_name',
-                    name: 'merchant_name'
+                    data: 'terminal_code',
+                    name: 'terminal_code'
                 },
                 {
-                    data: 'merchant_address',
-                    name: 'merchant_address'
+                    data: 'terminal_name',
+                    name: 'terminal_name'
+                },
+                {
+                    data: 'terminal_address',
+                    name: 'terminal_address'
+                },
+                {
+                    data: 'status_terminal',
+                    name: 'status_terminal'
                 },
                 {
                     data: 'description',
                     name: 'description'
                 },
                 {
-                    data: 'merchant_id',
+                    data: 'terminal_id',
                     orderable: false,
                     render: function(data) {
                         return `
@@ -437,7 +505,7 @@
                 }
             ],
             order: [
-                [1, 'asc'] // Sort by merchant_code (or any other column you prefer)
+                [1, 'asc']
             ]
         });
 

@@ -15,7 +15,7 @@ class TerminalController extends Controller
     public function index()
 {
     // Attempt to fetch merchant data from the API
-    $response = Http::withToken(session('token'))->get('http://192.168.0.117/api/merchant');
+    $response = Http::withToken(session('token'))->get (env('API_URL').'/merchant');
 
     // Check if the response was successful
     if ($response->successful()) {
@@ -90,7 +90,7 @@ class TerminalController extends Controller
 
     public function edit($id)
     {
-        $response = Http::withToken(session('token'))->get(config('http://localhost') . '/terminal/' . $id);
+        $response = Http::withToken(session('token'))->get(config('app.api_url') . '/terminal/' . $id);
 
         if ($response->successful()) {
             $data = $response->json();
@@ -102,7 +102,7 @@ class TerminalController extends Controller
 
     public function update($id, Request $request)
     {
-        $response = Http::withToken(session('token'))->put(config('app.api_url') . '/customers/' . $id, $request->all());
+        $response = Http::withToken(session('token'))->put(config('app.api_url') . '/terminal/' . $id, $request->all());
 
         if ($response->successful()) {
             return redirect()->route('customer.index')->with('success', 'Data successfully updated!');
