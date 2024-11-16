@@ -28,7 +28,7 @@ Route::get('/merchant/index', [MerchantController::class, 'index']);
 Route::post('/merchant', [MerchantController::class, 'store']);
 Route::put('/merchant/{id}', [MerchantController::class, 'update']);
 
-Route::get('/terminal', [TerminalController::class, 'index']);
+Route::get('/terminal', [TerminalController::class, 'index'])->name('terminal.index');
 Route::post('/terminal', [TerminalController::class, 'store']);
 Route::put('/terminal/{id}', [TerminalController::class, 'update']);
 

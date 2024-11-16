@@ -15,7 +15,7 @@ class TerminalController extends Controller
     public function index()
 {
     // Attempt to fetch merchant data from the API
-    $response = Http::withToken(session('token'))->get('http://192.168.43.138/api/merchant');
+    $response = Http::withToken(session('token'))->get('http://192.168.0.117/api/merchant');
 
     // Check if the response was successful
     if ($response->successful()) {
@@ -24,7 +24,7 @@ class TerminalController extends Controller
             return (object) [
                 'merchant_id' => $item['merchant_id'] ?? null,
                 'merchant_code' => $item['merchant_code'] ?? null,
-                // 'merchant_name' => $item['merchant_name'] ?? null,
+                'merchant_name' => $item['merchant_name'] ?? null,
                 // 'merchant_address' => $item['merchant_address'] ?? null,
                 // 'status_merchant' => $item['status_merchant'] ?? 'inactive', // Default value if not present
             ];

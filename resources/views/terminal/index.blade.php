@@ -173,7 +173,7 @@
                                 <option value="">-- Select Merchant --</option>
                                 @foreach ($merchants as $merchant)
                                     <option value="{{ $merchant->merchant_id }}">
-                                        {{ $merchant->merchant_code }}
+                                        {{ $merchant->merchant_code }} - {{ $merchant->merchant_name }}
                                     </option>
                                 @endforeach
                             </select>
