@@ -217,7 +217,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: 'http://192.168.43.138/api/paymentType',
+                url: '{{ env('API_URL') }}/paymentType',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
@@ -304,7 +304,7 @@
                 };
 
                 $.ajax({
-                    url: 'http://192.168.43.138/api/paymentType', // API endpoint for creating a paymentType
+                    url: '{{ env('API_URL') }}/paymentType', // API endpoint for creating a paymentType
                     type: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -393,7 +393,7 @@
 
         $('#confirmDeleteBtn').click(function() {
             $.ajax({
-                url: 'http://192.168.43.138/api/paymentType', // API endpoint for creating a paymentType
+                url: '{{ env('API_URL') }}/paymentType', // API endpoint for creating a paymentType
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
@@ -446,7 +446,6 @@
             showNotification(notification.title, notification.message, notification.type);
             localStorage.removeItem('notification'); // Remove notification after showing it
         }
-    });
 </script>
 
 <script>
@@ -468,7 +467,7 @@
 
     $('#confirmDeleteBtn').click(function() {
         $.ajax({
-            url: `http://192.168.43.138/api/paymentType/${selectedMerchantId}`,
+            url: `{{ env('API_URL') }}/paymentType/${selectedMerchantId}`,
             type: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + '{{ session('token') }}'

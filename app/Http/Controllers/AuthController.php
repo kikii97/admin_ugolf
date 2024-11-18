@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         // Validate input
-        $response = Http::post('192.168.0.117/api/login', [
+        $response = Http::post(env('API_URL').'/login', [ 
             'email' => $request->email,
             'password' => $request->password,
         ]);

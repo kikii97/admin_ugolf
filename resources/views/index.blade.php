@@ -94,7 +94,7 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/dashboard" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" viewBox="0 0 23 23"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-top:-4px;" viewBox="0 0 23 23"
                                     fill="currentColor">
                                     <path
                                         d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z">
@@ -104,50 +104,41 @@
                             </a>
                         </li>
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu text-muted">Applications</span></li>
+                        <li class="nav-small-cap"><span class="hide-menu text-muted">Management</span></li>
+                        {{-- Merchant --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/merchant/index" aria-expanded="false">
-                                <i data-feather="shopping-bag" class="feather-icon"></i>
+                                <i data-feather="shopping-bag" class="feather-icon" style="margin-top:-4px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Merchant</span>
                             </a>
                         </li>
-
                         {{-- Terminal --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/terminal" aria-expanded="false">
-                                <i data-feather="tablet" class="feather-icon"></i>
+                                <i data-feather="tablet" class="feather-icon" style="margin-top:-4px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Terminal</span>
                             </a>
                         </li>
+                        {{-- Payment --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/payment-type" aria-expanded="false">
-                                <i data-feather="credit-card" class="feather-icon"></i>
+                                <i data-feather="credit-card" class="feather-icon" style="margin-top:-4px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Payment Type</span>
                             </a>
                         </li>
+                        {{-- Trx --}}
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/cms" aria-expanded="false">
-                                <i data-feather="file-text" class="feather-icon"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content
-                                    System</span>
+                            <a class="sidebar-link" href="/trx" aria-expanded="false">
+                                <i data-feather="map-pin" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
                             </a>
                         </li>
-
-                        {{-- Lokasi --}}
-                        {{-- <li class="sidebar-item">
-                            <a class="sidebar-link" href="/lokasi" aria-expanded="false">
-                                <i data-feather="map-pin" class="feather-icon" style="margin-top:-4px;"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Location</span>
-                            </a>
-                        </li> --}}
-
-                        <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu text-muted">Logout</span></li>
+                        {{--Cms --}}
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="javascript:void(0)" data-bs-toggle="modal"
-                                data-bs-target="#logoutModal" aria-expanded="false">
-                                <i data-feather="log-out" class="feather-icon"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Logout</span>
+                            <a class="sidebar-link" href="/cms" aria-expanded="false">
+                                <i data-feather="file-text" class="feather-icon" style="margin-top:-4px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content
+                                    System</span>
                             </a>
                         </li>
                     </ul>

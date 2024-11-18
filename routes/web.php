@@ -7,15 +7,6 @@ use App\Http\Controllers\TrxController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -32,32 +23,16 @@ Route::get('/terminal', [TerminalController::class, 'index'])->name('terminal.in
 Route::post('/terminal', [TerminalController::class, 'store']);
 Route::put('/terminal/{id}', [TerminalController::class, 'update']);
 
-// Route::get('/trx', [TerminalController::class, 'index']);
-// Route::post('/trx', [TerminalController::class, 'store']);
-// Route::put('/trx/{id}', [TerminalController::class, 'update']);
-
 Route::get('/payment-type', function () {
     return view('payment_type');
 });
 
+Route::get('/trx', [TrxController::class, 'index']);
+Route::post('/trx', [TrxController::class, 'store']);
+Route::put('/trx/{id}', [TrxController::class, 'update']);
+
 Route::get('/cms', function () {
     return view('cms');
-});
-
-Route::get('/transaction', function () {
-    return view('transaction/transaction');
-});
-
-Route::get('/tiket', function () {
-    return view('ticket_price');
-});
-
-Route::get('/lokasi', function () {
-    return view('location');
-});
-
-Route::get('/lokasi/create', function () {
-    return view('lokasi/index');
 });
 
 // Route::middleware(['auth'])->group(function () {
