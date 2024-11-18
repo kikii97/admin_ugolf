@@ -93,7 +93,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Dashboard</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Terminal</li>
                         </ol>
                     </nav>
@@ -130,12 +130,12 @@
                                     <tr>
                                         {{-- <th><input type="checkbox" id="select-all"></th> --}}
                                         <th class="d-flex justify-content-center align-items-center">No</th>
-                                        <th>Merchant Kode</th>
-                                        <th>Terminal Kode</th>
-                                        <th>Nama</th>
-                                        <th>Alamat</th>
+                                        <th>Merchant Code</th>
+                                        <th>Terminal Code</th>
+                                        <th>Terminal Name</th>
+                                        <th>Terminal Address</th>
                                         <th>Status</th>
-                                        <th>Deskripsi</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -176,11 +176,11 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama</label>
+                            <label for="nama" class="form-label">Terminal Name</label>
                             <input type="text" class="form-control" id="nama" required>
                         </div>
                         <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
+                            <label for="alamat" class="form-label">Terminal Address</label>
                             <input type="text" class="form-control" id="alamat" required>
                         </div>
                         <div class="mb-3">
@@ -218,11 +218,11 @@
                             <input type="text" class="form-control" id="editTerminalCode" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="editnama" class="form-label">Nama</label>
+                            <label for="editnama" class="form-label">Terminal Name</label>
                             <input type="text" class="form-control" id="editnama" required>
                         </div>
                         <div class="mb-3">
-                            <label for="editalamat" class="form-label">Alamat</label>
+                            <label for="editalamat" class="form-label">Terminal Address</label>
                             <input type="text" class="form-control" id="editalamat" required>
                         </div>
                         <div class="mb-3">
@@ -347,14 +347,16 @@
                 success(response) {
                     if (response.status === 'success') {
                         const terminal = response.data;
-                        $('#editMerchantCode').val(`${terminal.merchant_code || '-'} - ${terminal.merchant_name || '-'}`);
+                        $('#editMerchantCode').val(
+                            `${terminal.merchant_code || '-'} - ${terminal.merchant_name || '-'}`);
                         $('#editTerminalCode').val(`${terminal.terminal_code || '-'}`);
                         $('#editnama').val(terminal.terminal_name || '-');
                         $('#editalamat').val(terminal.terminal_address || '-');
                         $('#editDescription').val(terminal.description || '');
                         $('#merchantSelect').val(terminal.merchant_id);
                         const selectedOption = $('#merchantSelect').find('option:selected');
-                        $('#editMerchantCode').val(selectedOption.data('merchant-code') + " - " + selectedOption.text().split(" - ")[1]);
+                        $('#editMerchantCode').val(selectedOption.data('merchant-code') + " - " +
+                            selectedOption.text().split(" - ")[1]);
                         $('#editTerminalModal').modal('show');
                     } else {
                         showNotification('error', 'Failed to retrieve terminal data');
@@ -520,14 +522,35 @@
                     notificationClass = 'alert-info';
             }
 
-            $('#notificationTitle').text(notificationTitle);
-            $('#notificationMessage').text(message);
-            $('#notification').removeClass('alert-success alert-danger alert-info').addClass(notificationClass)
-                .fadeIn();
+            // Save notification to localStorage
+            const notification = {
+                title: notificationTitle,
+                message: message,
+                class: notificationClass
+            };
 
-            setTimeout(function() {
-                $('#notification').fadeOut();
-            }, 2500);
+            localStorage.setItem('notification', JSON.stringify(notification));
+
+            // Reload the page to trigger notification display
+            window.location.reload();
         }
+
+        // Check for notification in localStorage after page load
+        $(document).ready(function() {
+            const notification = JSON.parse(localStorage.getItem('notification'));
+            if (notification) {
+                $('#notificationTitle').text(notification.title);
+                $('#notificationMessage').text(notification.message);
+                $('#notification').removeClass('alert-success alert-danger alert-info')
+                    .addClass(notification.class).fadeIn();
+
+                setTimeout(function() {
+                    $('#notification').fadeOut();
+                }, 2500);
+
+                // Clear the notification from localStorage after showing it
+                localStorage.removeItem('notification');
+            }
+        });
     </script>
 @endsection

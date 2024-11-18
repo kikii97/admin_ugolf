@@ -94,7 +94,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Dashboard</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Merchant</li>
                         </ol>
                     </nav>
@@ -129,10 +129,10 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th class="d-flex justify-content-center align-items-center">No</th>
-                                        <th>Kode</th>
-                                        <th>Name</th>
-                                        <th>Alamat</th>
-                                        <th>Deskripsi</th>
+                                        <th>Merchant Code</th>
+                                        <th>Merchant Name</th>
+                                        <th>Merchant Address</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -260,7 +260,7 @@
 
         // Save New Merchant
         $('#saveMerchantBtn').click(function() {
-            var merchantData = { // Make sure you're using the correct field
+            var merchantData = {
                 merchant_name: $('#merchantName').val(),
                 merchant_address: $('#merchantAddress').val(),
                 description: $('#description').val()
@@ -275,15 +275,14 @@
                 success: function(response) {
                     if (response.status === 'success') {
                         showNotification('success', 'Merchant added successfully');
-                        // $('#merchantCode').val(response.data.merchant_code);
                         $('#addMerchantModal').modal('hide');
                         $('#merchant-table').DataTable().ajax.reload(); // Reload table data
                     } else {
-                        showNotification('error', 'Failed to added merchant');
+                        showNotification('error', 'Failed to add merchant');
                     }
                 },
                 error: function() {
-                    showNotification('error', 'Error occurred while add merchant');
+                    showNotification('error', 'Error occurred while adding merchant');
                 }
             });
         });
@@ -379,6 +378,56 @@
             });
         });
 
+        // Notification function
+        function showNotification(type, message) {
+            let notificationTitle = '';
+            let notificationClass = '';
+
+            switch (type) {
+                case 'success':
+                    notificationTitle = 'Sukses!';
+                    notificationClass = 'alert-success';
+                    break;
+                case 'error':
+                    notificationTitle = 'Error!';
+                    notificationClass = 'alert-danger';
+                    break;
+                default:
+                    notificationTitle = 'Notification';
+                    notificationClass = 'alert-info';
+            }
+
+            // Save notification to localStorage
+            const notification = {
+                title: notificationTitle,
+                message: message,
+                class: notificationClass
+            };
+
+            localStorage.setItem('notification', JSON.stringify(notification));
+
+            // Reload the page to trigger notification display
+            window.location.reload();
+        }
+
+        // Check for notification in localStorage after page load
+        $(document).ready(function() {
+            const notification = JSON.parse(localStorage.getItem('notification'));
+            if (notification) {
+                $('#notificationTitle').text(notification.title);
+                $('#notificationMessage').text(notification.message);
+                $('#notification').removeClass('alert-success alert-danger alert-info')
+                    .addClass(notification.class).fadeIn();
+
+                setTimeout(function() {
+                    $('#notification').fadeOut();
+                }, 2500);
+
+                // Clear the notification from localStorage after showing it
+                localStorage.removeItem('notification');
+            }
+        });
+
         // Initialize DataTable
         $('#merchant-table').DataTable({
             processing: true,
@@ -397,11 +446,10 @@
                 }
             },
             columns: [{
-                    // Display row number
                     data: null,
                     orderable: false,
                     render: function(data, type, row, meta) {
-                        return meta.row + 1; // Row index (meta.row)
+                        return meta.row + 1;
                     }
                 },
                 {
@@ -425,49 +473,21 @@
                     orderable: false,
                     render: function(data) {
                         return `
-                    <div class="d-flex">
-                        <button title="Edit" data-id="${data}" class="btn-edit btn-action">
-                            <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
-                        </button>
-                        <button title="Delete" data-id="${data}" class="btn-delete btn-action">
-                            <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
-                        </button>
-                    </div>`;
+                            <div class="d-flex">
+                                <button title="Edit" data-id="${data}" class="btn-edit btn-action">
+                                    <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
+                                </button>
+                                <button title="Delete" data-id="${data}" class="btn-delete btn-action">
+                                    <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
+                                </button>
+                            </div>`;
                     }
                 }
             ],
             order: [
                 [1, 'asc'] // Sort by merchant_code (or any other column you prefer)
-            ]
+            ],
+            autoWidth: false,
         });
-
-        // Notification function
-        function showNotification(type, message) {
-            let notificationTitle = '';
-            let notificationClass = '';
-
-            switch (type) {
-                case 'success':
-                    notificationTitle = 'Sukses!';
-                    notificationClass = 'alert-success';
-                    break;
-                case 'error':
-                    notificationTitle = 'Error!';
-                    notificationClass = 'alert-danger';
-                    break;
-                default:
-                    notificationTitle = 'Notification';
-                    notificationClass = 'alert-info';
-            }
-
-            $('#notificationTitle').text(notificationTitle);
-            $('#notificationMessage').text(message);
-            $('#notification').removeClass('alert-success alert-danger alert-info').addClass(notificationClass)
-                .fadeIn();
-
-            setTimeout(function() {
-                $('#notification').fadeOut();
-            }, 2500);
-        }
     </script>
 @endsection

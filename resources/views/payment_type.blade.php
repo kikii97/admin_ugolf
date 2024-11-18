@@ -84,7 +84,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Dashboard</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Payment Type</li>
                         </ol>
                     </nav>
@@ -121,10 +121,10 @@
                                     <tr>
                                         {{-- <th><input type="checkbox" id="select-all"></th> --}}
                                         <th class="d-flex justify-content-center align-items-center">No</th>
-                                        <th>Payment Type Kode</th>
+                                        <th>Payment Type Code</th>
                                         <th>Payment Type Name</th>
-                                        <th>Deskription</th>
-                                        <th>Aksi</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -146,7 +146,7 @@
             <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
                 <div class="modal-header"
                     style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                    <h5 class="modal-title text-white" id="addPaymentTypeLabel">Add New paymentType</h5>
+                    <h5 class="modal-title text-white" id="addPaymentTypeLabel">Add New Payment Type</h5>
                     <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
                         style="font-weight: bold; opacity: 1; color: white;"></button>
                 </div>
@@ -344,7 +344,7 @@
                             let errorMsg = 'Failed to add payment type:\n';
                             $.each(errors, function(key, value) {
                                 errorMsg += value[0] +
-                                '\n'; // Display each error message
+                                    '\n'; // Display each error message
                             });
                             localStorage.setItem('notification', JSON.stringify({
                                 title: 'Validation Error',
@@ -375,145 +375,90 @@
     </script>
 
     <script>
-        // Function to show a notification
-        function showNotification(title, message, type = 'success') {
-            $('#notificationTitle').text(title);
-            $('#notificationMessage').text(message);
-            $('#notification').removeClass().addClass(`alert alert-${type}`).show();
-            setTimeout(function() {
-                $('#notification').fadeOut(); // Hide notification after 3 seconds
-            }, 3000);
-        }
+        $(document).ready(function() {
+            // Function to show a notification
+            function showNotification(title, message, type = 'success') {
+                $('#notificationTitle').text(title);
+                $('#notificationMessage').text(message);
+                $('#notification').removeClass().addClass(`alert alert-${type}`).show();
+                setTimeout(function() {
+                    $('#notification').fadeOut(); // Hide notification after 3 seconds
+                }, 3000);
+            }
 
-        // Delete Merchant
-        $('#paymentTable').on('click', '.btn-delete', function() {
-            selectedMerchantId = $(this).data('id');
-            $('#deletePaymentModal').modal('show');
-        });
-
-        $('#confirmDeleteBtn').click(function() {
-            $.ajax({
-                url: '{{ env('API_URL') }}/paymentType', // API endpoint for creating a paymentType
-                type: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + '{{ session('token') }}'
-                },
-                success: function(response) {
-                    // Close the modal first
-                    $('#deletePaymentModal').modal('hide');
-
-                    // Check if the response has the 'message' field and use it for notification
-                    if (response.message) {
-                        // Check if the response message indicates success or failure
-                        if (response.success) {
-                            // Success: Show success notification
-                            showNotification('Success', response.message, 'success');
-                        } else {
-                            // Failure: Show failure notification
-                            showNotification('Error', response.message, 'danger');
-                        }
-                    } else {
-                        // If no message in response, show a general error
-                        showNotification('Error', 'Unknown error occurred', 'danger');
-                    }
-
-                    // Reload the page after showing notification
-                    location.reload();
-                },
-                error: function(xhr) {
-                    // Close the modal first
-                    $('#deletePaymentModal').modal('hide');
-
-                    // Handle error if there is a problem with the request
-                    let errorMessage = 'Error occurred while deleting merchant';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMessage = xhr.responseJSON
-                        .message; // Use error message from API if available
-                    }
-
-                    // Show error notification
-                    showNotification('Error', errorMessage, 'danger');
-
-                    // Reload the page after showing notification
-                    location.reload();
-                }
+            // Delete Merchant
+            $('#paymentTable').on('click', '.btn-delete', function() {
+                selectedId = $(this).data('id');
+                $('#deletePaymentModal').modal('show');
             });
-        });
 
-        // Check if notification data exists in localStorage
-        if (localStorage.getItem('notification')) {
-            const notification = JSON.parse(localStorage.getItem('notification'));
-            showNotification(notification.title, notification.message, notification.type);
-            localStorage.removeItem('notification'); // Remove notification after showing it
-        }
-</script>
+            $('#confirmDeleteBtn').click(function() {
+                $.ajax({
+                    url: `{{ env('API_URL') }}/paymentType/${selectedId}`,
+                    type: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    },
+                    success: function(response) {
+                        // Close the modal first
+                        $('#deletePaymentModal').modal('hide');
 
-<script>
-    // Function to show a notification
-    function showNotification(title, message, type = 'success') {
-        $('#notificationTitle').text(title);
-        $('#notificationMessage').text(message);
-        $('#notification').removeClass().addClass(`alert alert-${type}`).show();
-        setTimeout(function() {
-            $('#notification').fadeOut(); // Hide notification after 3 seconds
-        }, 3000);
-    }
+                        // Store success message in localStorage
+                        if (response.success) {
+                            localStorage.setItem('notification', JSON.stringify({
+                                title: 'Success',
+                                message: 'Payment type deleted successfully',
+                                type: 'success'
+                            }));
 
-    // Delete Merchant
-    $('#paymentTable').on('click', '.btn-delete', function() {
-        selectedMerchantId = $(this).data('id');
-        $('#deletePaymentModal').modal('show');
-    });
+                            // Reload the page
+                            location.reload();
+                        } else {
+                            localStorage.setItem('notification', JSON.stringify({
+                                title: 'Error',
+                                message: 'Failed to deleted payment type: ' + response
+                                    .message,
+                                type: 'danger'
+                            }));
+                            location.reload();
+                        }
+                    },
+                    error: function(xhr) {
+                        // Close the modal first
+                        $('#deletePaymentModal').modal('hide');
 
-    $('#confirmDeleteBtn').click(function() {
-        $.ajax({
-            url: `{{ env('API_URL') }}/paymentType/${selectedMerchantId}`,
-            type: 'DELETE',
-            headers: {
-                'Authorization': 'Bearer ' + '{{ session('token') }}'
-            },
-            success: function(response) {
-                // Close the modal first
-                $('#deletePaymentModal').modal('hide');
-                
-                // Check if the response has the 'message' field and use it for notification
-                if (response.message) {
-                    // Check if the response message indicates success or failure
-                    if (response.success) {
-                        // Success: Show success notification
-                        showNotification('Success', response.message, 'success');
-                    } else {
-                        // Failure: Show failure notification
-                        showNotification('Error', response.message, 'danger');
+                        // Store error message in localStorage
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            let errorMsg = 'Failed to delete payment type:\n';
+                            $.each(errors, function(key, value) {
+                                errorMsg += value[0] +
+                                    '\n'; // Display each error message
+                            });
+                            localStorage.setItem('notification', JSON.stringify({
+                                title: 'Validation Error',
+                                message: errorMsg,
+                                type: 'danger'
+                            }));
+                        } else {
+                            localStorage.setItem('notification', JSON.stringify({
+                                title: 'Error',
+                                message: 'Error occurred while delete payment type',
+                                type: 'danger'
+                            }));
+                        }
+
+                        // Reload the page
+                        location.reload();
                     }
-                } else {
-                    // If no message in response, show a general error
-                    showNotification('Error', 'Unknown error occurred', 'danger');
-                }
-
-                // Reload the page after showing notification
-                location.reload();
-            },
-            error: function(xhr) {
-                // Close the modal first
-                $('#deletePaymentModal').modal('hide');
-                
-                // Handle error if there is a problem with the request
-                let errorMessage = 'Error occurred while deleting merchant';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMessage = xhr.responseJSON.message; // Use error message from API if available
-                }
-
-                // Show error notification
-                showNotification('Error', errorMessage, 'danger');
-
-                // Reload the page after showing notification
-                location.reload();
+                });
+            });
+            // Check if notification data exists in localStorage
+            if (localStorage.getItem('notification')) {
+                const notification = JSON.parse(localStorage.getItem('notification'));
+                showNotification(notification.title, notification.message, notification.type);
+                localStorage.removeItem('notification'); // Remove notification after showing it
             }
         });
-    });
-</script>
-
-
-
+    </script>
 @endsection

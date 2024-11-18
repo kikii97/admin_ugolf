@@ -82,7 +82,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Dashboard</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">Content System</li>
                         </ol>
                     </nav>
@@ -138,7 +138,7 @@
 <script>
     // Function to load CMS data and create fields dynamically
 function loadCmsData() {
-    const url = `http://192.168.43.138/api/cms`;
+    const url = `{{ env('API_URL') }}/cms`;
 
     fetch(url)
         .then(response => response.json())
@@ -182,7 +182,7 @@ function loadCmsData() {
 }
 
 function updateCmsValue(cmsCode, cmsValue) {
-    const url = `http://192.168.43.138/api/cms/${cmsCode}`; // Update endpoint to use cms_code
+    const url = `{{ env('API_URL') }}/cms/${cmsCode}`; // Update endpoint to use cms_code
     const requestOptions = {
         method: 'PUT',
         headers: {
