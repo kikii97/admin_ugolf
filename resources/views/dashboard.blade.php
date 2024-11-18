@@ -12,11 +12,14 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">
+                    {{ $greeting }}, {{ $user->name }}!
+                </h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
                         </ol>
                     </nav>
@@ -32,31 +35,25 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <div class="d-inline-flex align-items-center">
-                                    <h2 class="text-dark mb-1 font-weight-medium">236</h2>
-                                    <span
-                                        class="badge bg-primary font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">+18.33%</span>
-                                </div>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">New Clients
-                                </h6>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ $totalQuantity }}</h2>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Quantity</h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
+                                <span class="opacity-7 text-muted"><i data-feather="package"></i></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 col-lg-3">
-                <div class="card border-end ">
+                <div class="card border-end">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                                        class="set-doller">$</sup>18,306</h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Earnings of
-                                    Month
-                                </h6>
+                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                    <sup class="set-doller">Rp.</sup>{{ number_format($totalAmount, 0, ',', '.') }}
+                                </h2>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal</h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
                                 <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
@@ -66,20 +63,22 @@
                 </div>
             </div>
             <div class="col-sm-6 col-lg-3">
-                <div class="card border-end ">
+                <div class="card border-end">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <div class="d-inline-flex align-items-center">
-                                    <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
-                                    <span
-                                        class="badge bg-danger font-12 text-white font-weight-medium rounded-pill ms-2 d-md-none d-lg-block">-18.33%</span>
-                                </div>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">New Projects
-                                </h6>
+                                <h2 class="text-dark mb-1 font-weight-medium">
+                                    {{ $ticketSold }}
+                                </h2>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Tiket Terjual</h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
+                                <span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="28"
+                                        height="28" fill="#a1a1a1" viewBox="0 0 256 256">
+                                        <path
+                                            d="M232,104a8,8,0,0,0,8-8V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V96a8,8,0,0,0,8,8,24,24,0,0,1,0,48,8,8,0,0,0-8,8v32a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V160a8,8,0,0,0-8-8,24,24,0,0,1,0-48ZM32,167.2a40,40,0,0,0,0-78.4V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.4Z">
+                                        </path>
+                                    </svg></span>
                             </div>
                         </div>
                     </div>
@@ -90,12 +89,13 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 font-weight-medium">864</h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Projects
+                                <h2 class="text-dark mb-1 font-weight-medium">
+                                    </sup>{{ number_format($totalMerchants, 0, ',', '.') }}</h2>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Merchant
                                 </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
+                                <span class="opacity-7 text-muted"><i data-feather="shopping-cart"></i></span>
                             </div>
                         </div>
                     </div>
@@ -210,6 +210,7 @@
             <div class="col-md-6 col-lg-8">
                 <div class="card">
                     <div class="card-body">
+                        <!-- Judul dan Dropdown Menu -->
                         <div class="d-flex align-items-start">
                             <h4 class="card-title mb-0">Earning Statistics</h4>
                             <div class="ms-auto">
@@ -226,15 +227,90 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Tempat Grafik Chart.js -->
                         <div class="pl-4 mb-5">
-                            <div class="stats ct-charts position-relative" style="height: 315px;"></div>
+                            <canvas id="transactionChart" class="stats ct-charts position-relative"
+                                style="height: 120px; width: 100%;"></canvas>
                         </div>
+
+                        <!-- Keterangan Grafik -->
                         <ul class="list-inline text-center mt-4 mb-0">
                             <li class="list-inline-item text-muted fst-italic">Earnings for this month</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Script Chart.js -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const transactions = @json($transactions); // Data transaksi dari controller
+
+                // Ambil tanggal transaksi dan total_amount
+                const labels = transactions.map(transaction => {
+                    const date = new Date(transaction.trx_date);
+                    return date.toLocaleDateString(); // Mengambil tanggal
+                });
+
+                // Ambil total_amount sebagai angka
+                const data = transactions.map(transaction => transaction.total_amount);
+
+                // Tentukan nilai terendah dan tertinggi dari data total_amount
+                const minValue = Math.min(...data); // Nilai terendah
+                const maxValue = Math.max(...data); // Nilai tertinggi
+
+                // Tentukan nilai Y-axis agar dimulai dari nilai yang sedikit lebih rendah dari nilai terendah
+                const adjustedMinValue = minValue - 20; // Mengurangi 20 dari nilai terendah
+                const adjustedMaxValue = maxValue + 20; // Menambahkan 20 dari nilai tertinggi
+
+                // Cek nilai terendah dan nilai tertinggi serta yang sudah disesuaikan
+                console.log('Nilai terendah:', minValue);
+                console.log('Nilai tertinggi:', maxValue);
+                console.log('Nilai terendah disesuaikan:', adjustedMinValue);
+                console.log('Nilai tertinggi disesuaikan:', adjustedMaxValue);
+
+                const ctx = document.getElementById('transactionChart').getContext('2d');
+                const transactionChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Amount',
+                            data: data,
+                            borderColor: '#4e73df',
+                            backgroundColor: 'rgba(78, 115, 223, 0.2)',
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Amount (Rp.)'
+                                },
+                                suggestedMin: adjustedMinValue, // Setel nilai minimal Y-axis
+                                suggestedMax: adjustedMaxValue, // Setel nilai maksimal Y-axis
+                                ticks: {
+                                    callback: function(value) {
+                                        return "Rp. " + value.toLocaleString(); // Format dengan "Rp."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
+
             <div class="col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-body">
