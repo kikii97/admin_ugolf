@@ -234,6 +234,7 @@
                     // Display row number
                     data: null,
                     orderable: false,
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         return meta.row + 1; // Row number based on index
                     }

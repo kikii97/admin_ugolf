@@ -454,6 +454,7 @@
                     // Menampilkan nomor urut
                     data: null,
                     orderable: false,
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         return meta.row + 1; // Nomor urut berdasarkan indeks baris (meta.row)
                     }

@@ -2,25 +2,6 @@
 
 @section('content')
     <style>
-        .btn-gradient-purple {
-            background: linear-gradient(45deg, #78296D, #D058B9);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Adds subtle shadow */
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-            /* Smooth transition */
-        }
-
-        .btn-gradient-purple:hover {
-            background: linear-gradient(45deg, #6c2563, #a1448f);
-            /* Darker gradient on hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            /* Stronger shadow on hover */
-        }
-
         .btn-action {
             background: none;
             border: none;
@@ -78,15 +59,17 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table id="merchant-table" class="table table-bordered table-striped table-hover"
-                                style="width:100%">
+                            <table id="trx-table" class="table table-bordered table-striped table-hover" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th class="d-flex justify-content-center align-items-center">No</th>
-                                        <th>Kode</th>
-                                        <th>Name</th>
-                                        <th>Alamat</th>
-                                        <th>Deskripsi</th>
+                                        <th>Transaction Code</th>
+                                        <th>Amount</th>
+                                        <th>Qty</th>
+                                        <th>Total Amount</th>
+                                        <th>Payment Type</th>
+                                        <th>Payment Status</th>
+                                        <th style="width: 177px;">Transaksi Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -94,6 +77,24 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Detail Modal -->
+    <div class="modal fade" id="transactionDetailModal" tabindex="-1" aria-labelledby="transactionDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px; width: 100%; margin-top: 28px;">
+            <div class="modal-content" style="border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+                <div class="modal-header"
+                    style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                    <h5 class="modal-title text-white" id="transactionDetailModalLabel">Transaction Details</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="transactionDetailsContent"
+                    style="max-height: 70vh; overflow-y: auto; padding: 20px; ">
+                    <!-- Transaction details will be dynamically loaded here -->
                 </div>
             </div>
         </div>
@@ -114,12 +115,62 @@
 
     <!-- Script untuk inisialisasi DataTables -->
     <script>
+        // Function to fetch transaction details and open the modal
+        function showTransactionDetails(trx_id) {
+            // Make the API call to get transaction details
+            $.ajax({
+                url: '{{ env('API_URL') }}/trx/' + trx_id, // Ensure this URL points to your API
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('token') }}', // Include token if needed
+                },
+                success: function(response) {
+                    // On success, populate the modal with transaction data
+                    let details = `
+                <div style="border-bottom: 1px solid #ddd; padding-bottom: 13px; margin-bottom: 13px;">
+                    <p style="margin-bottom: 7px;"><strong>Transaction Code:</strong> <span class="text-muted">${response.trx_code}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Reference Code:</strong> <span class="text-muted">${response.trx_reff}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Amount:</strong> <span class="text-muted">${response.amount}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Quantity:</strong> <span class="text-muted">${response.qty}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Total Amount:</strong> <span class="text-muted">${response.total_amount}</span></p>
+                </div>
+
+                <div style="border-bottom: 1px solid #ddd; padding-bottom: 13px; margin-bottom: 13px;">
+                    <p style="margin-bottom: 7px;"><strong>Payment Type:</strong> <span class="text-muted">${response.payment_type_name}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Payment Status:</strong> <span class="text-muted">${response.payment_status === 'P' ? 'Pending' : 'Success'}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Payment Date:</strong> <span class="text-muted">${response.payment_date}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Payment Name:</strong> <span class="text-muted">${response.payment_name}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Payment Phone:</strong> <span class="text-muted">${response.payment_phone}</span></p>
+                </div>
+
+                <div style="border-bottom: 1px solid #ddd; padding-bottom: 13px; margin-bottom: 13px;">
+                    <p style="margin-bottom: 7px;"><strong>Reference Number:</strong> <span class="text-muted">${response.reffnumber}</span></p>
+                    <p style="margin-bottom: 7px;"><strong>Issuer Reference Number:</strong> <span class="text-muted">${response.issuer_reffnumber}</span></p>
+                </div>
+
+                <div>
+                    <p style="margin-bottom: 30px;"><strong>Terminal:</strong> <span class="text-muted">${response.terminal_name}</span></p>
+                </div>
+            `;
+
+                    // Insert details into the modal body
+                    $('#transactionDetailsContent').html(details);
+
+                    // Show the modal
+                    $('#transactionDetailModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    alert('Error fetching transaction details: ' + error);
+                }
+            });
+        }
+
         // Initialize DataTable
-        $('#merchant-table').DataTable({
+        $('#trx-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ env('API_URL') }}/merchant',
+                url: '{{ env('API_URL') }}/trx',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('token') }}'
                 },
@@ -135,41 +186,83 @@
                     // Display row number
                     data: null,
                     orderable: false,
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         return meta.row + 1; // Row index (meta.row)
                     }
                 },
                 {
-                    data: 'merchant_code',
-                    name: 'merchant_code'
+                    data: 'trx_code',
+                    name: 'trx_code'
                 },
                 {
-                    data: 'merchant_name',
-                    name: 'merchant_name'
+                    data: 'amount',
+                    name: 'amount'
                 },
                 {
-                    data: 'merchant_address',
-                    name: 'merchant_address'
+                    data: 'qty',
+                    name: 'qty'
                 },
                 {
-                    data: 'description',
-                    name: 'description'
+                    data: 'total_amount',
+                    name: 'total_amount'
                 },
                 {
-                    data: 'merchant_id',
+                    data: 'payment_type_name',
+                    name: 'payment_types.payment_type_name'
+                },
+                {
+                    data: 'payment_status',
+                    name: 'payment_status',
+                    render: function(data, type, row, meta) {
+                        if (data === 'P') {
+                            return 'Pending'; // Menampilkan 'Pending' jika status 'P'
+                        } else if (data === 'S') {
+                            return 'Success'; // Menampilkan 'Success' jika status 'S'
+                        }
+                        return data; // Menampilkan status asli jika bukan 'P' atau 'S'
+                    }
+                },
+                {
+                    data: 'trx_date',
+                    name: 'trx_date',
+                    render: function(data, type, row, meta) {
+                        // Mengubah format tanggal
+                        let date = new Date(data);
+
+                        // Daftar nama hari dan bulan
+                        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+                            'Oct', 'Nov', 'Dec'
+                        ];
+
+                        // Format: Hari, Tanggal Bulan Tahun | Waktu
+                        let day = days[date.getDay()];
+                        let dayOfMonth = date.getDate();
+                        let month = months[date.getMonth()];
+                        let year = date.getFullYear();
+                        let hours = date.getHours().toString().padStart(2, '0');
+                        let minutes = date.getMinutes().toString().padStart(2, '0');
+
+                        // Mengembalikan hasil format tanggal dan waktu
+                        return `${day}, ${dayOfMonth} ${month} ${year} | ${hours}:${minutes}`;
+                    }
+                },
+                {
+                    data: 'trx_id',
                     orderable: false,
                     render: function(data) {
                         return `
-                    <div class="d-flex">
-                        <button title="Delete" data-id="${data}" class="btn-delete btn-action">
-                            <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
-                        </button>
-                    </div>`;
+                            <div class="d-flex">
+                                <button title="Detail" data-id="${data}" class="btn-detail btn-action" onclick="showTransactionDetails(${data})">
+                                    <span class="iconify" data-icon="heroicons:document-text" style="font-size: 22px;"></span>
+                                </button>
+                            </div>`;
                     }
                 }
             ],
             order: [
-                [1, 'asc'] // Sort by merchant_code (or any other column you prefer)
+                [1, 'asc'] // Sort by trx_code (or any other column you prefer)
             ]
         });
     </script>
