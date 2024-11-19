@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="UGOLF Dashboard">
     <meta name="author" content="UGOLF">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo.png">
+    <link rel="icon" type="image/png" sizes="20x20" href="../assets/images/UGOLF.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;700&display=swap" rel="stylesheet">
     <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                             class="ti-menu ti-close"></i></a>
                     <div class="navbar-brand">
                         <a href="#">
-                            <img src="../assets/images/freedashDark.svg" alt="UGOLF Logo" class="img-fluid">
+                            <img src="../assets/images/UGOLF.svg" alt="UGOLF Logo" class="img-fluid">
                         </a>
                     </div>
                     <a class="topbartoggler d-block d-lg-none" href="javascript:void(0)" data-bs-toggle="collapse"
@@ -99,13 +99,7 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/dashboard" aria-expanded="false">
-                                <i data-feather="bar-chart" class="feather-icon" style="margin-top:-4px;"></i>
-                                {{-- <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-top:-4px;" viewBox="0 0 23 23"
-                                    fill="currentColor">
-                                    <path
-                                        d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z">
-                                    </path>
-                                </svg> --}}
+                                <i data-feather="bar-chart-2" class="feather-icon" style="margin-left:-2px; margin-top:-8px; width: 23px; height: 24px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Dashboard</span>
                             </a>
                         </li>
@@ -121,29 +115,72 @@
                         {{-- Terminal --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/terminal" aria-expanded="false">
-                                <i data-feather="tablet" class="feather-icon" style="margin-top:-4px;"></i>
+                                {{-- <i data-feather="tablet" ></i> --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
+                                    style="margin-left:-2px; margin-top:-4px; width: 23px; height: 24px;"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-device-ipad">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M18 3a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z" />
+                                    <path d="M9 18h6" />
+                                </svg>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Terminal</span>
                             </a>
                         </li>
                         {{-- Payment --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/payment-type" aria-expanded="false">
-                                <i data-feather="credit-card" class="feather-icon" style="margin-top:-4px;"></i>
+                                {{-- <i data-feather="credit-card" ></i> --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
+                                    style="margin-left:-2px; margin-top:-4px; width: 24px; height: 24px;"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
+                                    <path d="M3 10l18 0" />
+                                    <path d="M7 15l.01 0" />
+                                    <path d="M11 15l2 0" />
+                                </svg>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Payment Type</span>
                             </a>
                         </li>
                         {{-- Trx --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/trx" aria-expanded="false">
-                                <i class="fas fa-file-invoice" class="feather-icon" style="margin-top:-4px;"></i>
-                                {{-- <i data-feather="dollar-sign"  style="margin-top:-4px;"></i> --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-left:-2px; margin-top:-4px; width: 24px; height: 24px;"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-pay">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 19h-6a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5" />
+                                    <path d="M3 10h18" />
+                                    <path d="M16 19h6" />
+                                    <path d="M19 16l3 3l-3 3" />
+                                    <path d="M7.005 15h.005" />
+                                    <path d="M11 15h2" />
+                                </svg>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
                             </a>
                         </li>
-                        {{--Cms --}}
+                        {{-- Cms --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/cms" aria-expanded="false">
-                                <i data-feather="file-text" class="feather-icon" style="margin-top:-4px;"></i>
+                                {{-- <i data-feather="file-text" class="feather-icon" style="margin-top:-4px;"></i> --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
+                                    style="margin-left:-2px; margin-top:-4px; width: 22px; height: 22px;"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-table">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
+                                    <path d="M3 10h18" />
+                                    <path d="M10 3v18" />
+                                </svg>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content
                                     System</span>
                             </a>
