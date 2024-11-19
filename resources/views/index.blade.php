@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="UGOLF Dashboard">
     <meta name="author" content="UGOLF">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo.png">
+    <link rel="icon" type="image/png" sizes="20x20" href="../assets/images/UGOLF.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;700&display=swap" rel="stylesheet">
     <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
