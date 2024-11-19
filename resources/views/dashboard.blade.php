@@ -1,6 +1,13 @@
 @extends('index')
 
 @section('content')
+
+<style>
+    #transactionChart {
+        width: 100%; /* Pastikan lebar penuh */
+        height: auto; /* Tinggi menyesuaikan */
+    }
+</style>
     <!-- Bread crumb -->
     <!-- Preloader -->
     <div class="preloader">
@@ -51,9 +58,26 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-                                    <sup class="set-doller">Rp.</sup>{{ number_format($totalAmount, 0, ',', '.') }}
+                                    <sup class="set-doller">Rp.</sup>{{ number_format($totalAmountOverall, 0, ',', '.') }}
                                 </h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal</h6>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Keseluruhan</h6>
+                            </div>
+                            <div class="ms-auto mt-md-3 mt-lg-0">
+                                <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card border-end">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                    <sup class="set-doller">Rp.</sup>{{ number_format($totalAmountSuccessful, 0, ',', '.') }}
+                                </h2>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Berhasil</h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
                                 <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
@@ -84,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            {{-- <div class="col-sm-6 col-lg-3">
                 <div class="card ">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -100,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-12">
@@ -219,59 +243,44 @@
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i data-feather="more-vertical"></i>
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
-                                        <a class="dropdown-item" href="#">Insert</a>
-                                        <a class="dropdown-item" href="#">Update</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
+            
                         <!-- Tempat Grafik Chart.js -->
                         <div class="pl-4 mb-5">
-                            <canvas id="transactionChart" class="stats ct-charts position-relative"
-                                style="height: 120px; width: 100%;"></canvas>
+                            <canvas id="transactionChart" class="stats ct-charts position-relative"></canvas>
                         </div>
-
+            
                         <!-- Keterangan Grafik -->
                         <ul class="list-inline text-center mt-4 mb-0">
-                            <li class="list-inline-item text-muted fst-italic">Earnings for this month</li>
+                            <li class="list-inline-item text-muted fst-italic">Earnings for this date</li>
                         </ul>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Script Chart.js -->
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const transactions = @json($transactions); // Data transaksi dari controller
-
+            
                 // Ambil tanggal transaksi dan total_amount
                 const labels = transactions.map(transaction => {
                     const date = new Date(transaction.trx_date);
                     return date.toLocaleDateString(); // Mengambil tanggal
                 });
-
-                // Ambil total_amount sebagai angka
+            
                 const data = transactions.map(transaction => transaction.total_amount);
-
+            
                 // Tentukan nilai terendah dan tertinggi dari data total_amount
-                const minValue = Math.min(...data); // Nilai terendah
-                const maxValue = Math.max(...data); // Nilai tertinggi
-
-                // Tentukan nilai Y-axis agar dimulai dari nilai yang sedikit lebih rendah dari nilai terendah
-                const adjustedMinValue = minValue - 20; // Mengurangi 20 dari nilai terendah
-                const adjustedMaxValue = maxValue + 20; // Menambahkan 20 dari nilai tertinggi
-
-                // Cek nilai terendah dan nilai tertinggi serta yang sudah disesuaikan
-                console.log('Nilai terendah:', minValue);
-                console.log('Nilai tertinggi:', maxValue);
-                console.log('Nilai terendah disesuaikan:', adjustedMinValue);
-                console.log('Nilai tertinggi disesuaikan:', adjustedMaxValue);
-
+                const minValue = Math.min(...data);
+                const maxValue = Math.max(...data);
+                const adjustedMinValue = minValue - 20;
+                const adjustedMaxValue = maxValue + 20;
+            
                 const ctx = document.getElementById('transactionChart').getContext('2d');
-                const transactionChart = new Chart(ctx, {
+                let transactionChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
@@ -285,7 +294,13 @@
                         }]
                     },
                     options: {
-                        responsive: true,
+                        responsive: true, // Membuat grafik responsif
+                        maintainAspectRatio: false, // Tidak mempertahankan rasio aspek
+                        plugins: {
+                            legend: {
+                                display: true,
+                            },
+                        },
                         scales: {
                             x: {
                                 title: {
@@ -298,8 +313,8 @@
                                     display: true,
                                     text: 'Amount (Rp.)'
                                 },
-                                suggestedMin: adjustedMinValue, // Setel nilai minimal Y-axis
-                                suggestedMax: adjustedMaxValue, // Setel nilai maksimal Y-axis
+                                suggestedMin: adjustedMinValue,
+                                suggestedMax: adjustedMaxValue,
                                 ticks: {
                                     callback: function(value) {
                                         return "Rp. " + value.toLocaleString(); // Format dengan "Rp."
@@ -308,6 +323,11 @@
                             }
                         }
                     }
+                });
+            
+                // Update grafik saat ukuran layar berubah
+                window.addEventListener('resize', function() {
+                    transactionChart.resize(); // Menyesuaikan ukuran grafik
                 });
             </script>
 

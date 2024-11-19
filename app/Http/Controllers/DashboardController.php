@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class DashboardController extends Controller
 {
     public function index()
-    {
+    {  
         // Ambil nama user
         $user = Auth::user();
 
@@ -21,7 +21,7 @@ class DashboardController extends Controller
         };
 
         // Ambil data transaksi dari API
-        $response = Http::get(env('API_URL') . '/trx');
+        $response = Http::get('http://192.168.43.45/api/trx');
         
         if ($response->successful()) {
             // Ambil data transaksi dan ubah menjadi koleksi
@@ -30,15 +30,20 @@ class DashboardController extends Controller
             // Hitung total quantity transaksi
             $totalQuantity = collect($transactions)->sum('qty');
 
-            // Hitung total amount transaksi
-            $totalAmount = collect($transactions)->sum('total_amount');
+            // Hitung total amount dari transaksi yang berhasil ('payment_status' == 'S')
+            $successfulTransactions = $transactions->where('payment_status', 'S');
+            $totalAmountSuccessful = $successfulTransactions->sum('total_amount');
 
-            // Misalnya transaksi dianggap berhasil jika 'payment_status' == 'success'
-            $ticketSold = $transactions->where('payment_status', 'S')->count();
+            // Hitung total amount kesekuruhan (termasuk yang gagal)
+            $totalAmountOverall = $transactions->sum('total_amount');
+
+            // Hitung jumlah tiket yang terjual (berstatus 'S' - sukses)
+            $ticketSold = $successfulTransactions->count();
         } else {
             // Default jika API gagal
             $totalQuantity = 0;
-            $totalAmount = 0;
+            $totalAmountSuccessful = 0;
+            $totalAmountOverall = 0;
             $ticketSold = 0;
         }
 
@@ -59,7 +64,8 @@ class DashboardController extends Controller
             'greeting' => $greeting,
             'user' => $user,
             'totalQuantity' => $totalQuantity,
-            'totalAmount' => $totalAmount,
+            'totalAmountSuccessful' => $totalAmountSuccessful, // Total amount transaksi berhasil
+            'totalAmountOverall' => $totalAmountOverall, // Total amount keseluruhan
             'ticketSold' => $ticketSold,
             'totalMerchants' => $totalMerchants,
             'transactions' => $transactions,

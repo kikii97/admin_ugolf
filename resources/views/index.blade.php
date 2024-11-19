@@ -14,6 +14,9 @@
     <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet">
     <link href="../dist/css/style.min.css" rel="stylesheet">
+    <!-- Menambahkan Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <title>UGOLF</title>
 </head>
 
@@ -63,19 +66,21 @@
                     <ul class="navbar-nav float-end">
                         <li class="nav-item dropdown">
                             <!-- Gunakan gambar profil dari pengguna yang sedang login -->
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">
-                                <!-- Cek apakah pengguna memiliki gambar profil -->
-                                <img src="" alt="user" class="rounded-circle" width="40">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- Cek apakah pengguna memiliki gambar profil atau menggunakan ikon -->
+                                <i class="fas fa-user-circle" style="font-size: 28px; color: #ac2daa; border: 1px padding: 2px; border-radius: 50%;"></i>                                
+                                {{-- <span class="ms-2" style="color: #ac2daa;">{{ Auth::user()->name }}</span> <!-- Menampilkan nama pengguna --> --}}
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
+                                <!-- Menu Edit Profile -->
                                 <a class="dropdown-item" href="{{ route('profile') }}">Edit Profile</a>
-                                <!-- Jika ada menu logout, tambahkan di sini -->
+                                <!-- Menu Logout -->
                                 <a class="dropdown-item" href="{{ route('profile.logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
                             </div>
-                        </li>
+                        </li>                        
                     </ul>
                     <!-- Form Logout (jika ada) -->
                     <form id="logout-form" action="{{ route('profile.logout') }}" method="POST" style="display: none;">
@@ -169,6 +174,9 @@
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
     <script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+
+    <!-- Tambahkan link CDN Iconify di dalam head -->
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
 </body>
 
 </html>
