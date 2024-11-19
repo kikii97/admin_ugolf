@@ -38,7 +38,7 @@
                             class="ti-menu ti-close"></i></a>
                     <div class="navbar-brand">
                         <a href="#">
-                            <img src="../assets/images/freedashDark.svg" alt="UGOLF Logo" class="img-fluid">
+                            <img src="../assets/images/UGOLF.svg" alt="UGOLF Logo" class="img-fluid">
                         </a>
                     </div>
                     <a class="topbartoggler d-block d-lg-none" href="javascript:void(0)" data-bs-toggle="collapse"
