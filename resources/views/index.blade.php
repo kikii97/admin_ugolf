@@ -94,13 +94,7 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/dashboard" aria-expanded="false">
-                                <i data-feather="bar-chart" class="feather-icon" style="margin-top:-4px;"></i>
-                                {{-- <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-top:-4px;" viewBox="0 0 23 23"
-                                    fill="currentColor">
-                                    <path
-                                        d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z">
-                                    </path>
-                                </svg> --}}
+                                <i data-feather="bar-chart-2" class="feather-icon" style="margin-left:-2px; margin-top:-8px; width: 23px; height: 24px;"></i>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Dashboard</span>
                             </a>
                         </li>
@@ -152,8 +146,18 @@
                         {{-- Trx --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/trx" aria-expanded="false">
-                                <i class="fas fa-file-invoice" class="feather-icon" style="margin-top:-4px;"></i>
-                                {{-- <i data-feather="dollar-sign"  style="margin-top:-4px;"></i> --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-left:-2px; margin-top:-4px; width: 24px; height: 24px;"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-pay">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 19h-6a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5" />
+                                    <path d="M3 10h18" />
+                                    <path d="M16 19h6" />
+                                    <path d="M19 16l3 3l-3 3" />
+                                    <path d="M7.005 15h.005" />
+                                    <path d="M11 15h2" />
+                                </svg>
                                 <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
                             </a>
                         </li>
@@ -161,7 +165,8 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/cms" aria-expanded="false">
                                 {{-- <i data-feather="file-text" class="feather-icon" style="margin-top:-4px;"></i> --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-left:-2px; margin-top:-4px; width: 22px; height: 22px;"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
+                                    style="margin-left:-2px; margin-top:-4px; width: 22px; height: 22px;"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-table">
