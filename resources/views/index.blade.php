@@ -48,10 +48,10 @@
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
-                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" style="height: 78px;">
                     <!-- Left-aligned dropdown menu -->
                     <ul class="navbar-nav float-left me-auto ms-3 ps-1">
-                        <li class="nav-item d-none d-md-block">
+                        {{-- <li class="nav-item d-none d-md-block">
                             <a class="nav-link" href="javascript:void(0)">
                                 <div class="customize-input">
                                     <select
@@ -61,7 +61,7 @@
                                     </select>
                                 </div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                     <ul class="navbar-nav float-end">
                         <li class="nav-item dropdown">

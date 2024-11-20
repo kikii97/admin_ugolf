@@ -21,7 +21,7 @@ class DashboardController extends Controller
         };
 
         // Ambil data transaksi dari API
-        $response = Http::get('http://192.168.43.45/api/trx');
+        $response = Http::get(env('API_URL').'/trx');
         
         if ($response->successful()) {
             // Ambil data transaksi dan ubah menjadi koleksi
@@ -48,7 +48,7 @@ class DashboardController extends Controller
         }
 
         // Ambil data merchant dari API
-        $merchantResponse = Http::get('http://192.168.43.45/api/merchant');
+        $merchantResponse = Http::get(env('API_URL').'/merchant');
 
         if ($merchantResponse->successful()) {
             // Ambil data merchant dan hitung jumlahnya

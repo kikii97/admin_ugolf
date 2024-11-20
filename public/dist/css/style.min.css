@@ -23036,7 +23036,7 @@ fieldset:disabled .btn {
 
 .topbar .navbar-collapse {
     padding: 0 10px 0 0;
-    border-bottom: 1px solid #edf2f9
+    border-bottom: none;
 }
 
 .topbar .top-navbar {

@@ -1,13 +1,14 @@
 @extends('index')
 
 @section('content')
-
-<style>
-    #transactionChart {
-        width: 100%; /* Pastikan lebar penuh */
-        height: auto; /* Tinggi menyesuaikan */
-    }
-</style>
+    <style>
+        #transactionChart {
+            width: 100%;
+            /* Pastikan lebar penuh */
+            height: auto;
+            /* Tinggi menyesuaikan */
+        }
+    </style>
     <!-- Bread crumb -->
     <!-- Preloader -->
     <div class="preloader">
@@ -60,7 +61,8 @@
                                 <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
                                     <sup class="set-doller">Rp.</sup>{{ number_format($totalAmountOverall, 0, ',', '.') }}
                                 </h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Keseluruhan</h6>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Keseluruhan
+                                </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
                                 <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
@@ -75,9 +77,11 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
-                                    <sup class="set-doller">Rp.</sup>{{ number_format($totalAmountSuccessful, 0, ',', '.') }}
+                                    <sup
+                                        class="set-doller">Rp.</sup>{{ number_format($totalAmountSuccessful, 0, ',', '.') }}
                                 </h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Berhasil</h6>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Berhasil
+                                </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
                                 <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
@@ -126,132 +130,30 @@
                 </div>
             </div> --}}
         </div>
+
+
         <div class="row">
-            <div class="col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Total Sales</h4>
-                        <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                        <ul class="list-style-none mb-0">
-                            <li>
-                                <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                <span class="text-muted">Direct Sales</span>
-                                <span class="text-dark float-end font-weight-medium">$2346</span>
-                            </li>
-                            <li class="mt-3">
-                                <i class="fas fa-circle text-danger font-10 me-2"></i>
-                                <span class="text-muted">Referral Sales</span>
-                                <span class="text-dark float-end font-weight-medium">$2108</span>
-                            </li>
-                            <li class="mt-3">
-                                <i class="fas fa-circle text-cyan font-10 me-2"></i>
-                                <span class="text-muted">Affiliate Sales</span>
-                                <span class="text-dark float-end font-weight-medium">$1204</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Net Income</h4>
-                        <div class="net-income mt-4 position-relative" style="height:294px;"></div>
-                        <ul class="list-inline text-center mt-5 mb-2">
-                            <li class="list-inline-item text-muted fst-italic">Sales for this month</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4">Earning by Location</h4>
-                        <div class="" style="height:180px">
-                            <div id="visitbylocate" style="height:100%"></div>
-                        </div>
-                        <div class="row mb-3 align-items-center mt-1 mt-5">
-                            <div class="col-4 text-end">
-                                <span class="text-muted font-14">India</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-end">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">28%</span>
-                            </div>
-                        </div>
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-4 text-end">
-                                <span class="text-muted font-14">UK</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 74%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-end">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">21%</span>
-                            </div>
-                        </div>
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-4 text-end">
-                                <span class="text-muted font-14">USA</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-cyan" role="progressbar" style="width: 60%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-end">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">18%</span>
-                            </div>
-                        </div>
-                        <div class="row align-items-center">
-                            <div class="col-4 text-end">
-                                <span class="text-muted font-14">China</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-end">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">12%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-8">
-                <div class="card">
+            <div class="col-md-6 col-lg-7">
+                <div class="card h-100">
                     <div class="card-body">
                         <!-- Judul dan Dropdown Menu -->
                         <div class="d-flex align-items-start">
                             <h4 class="card-title mb-0">Earning Statistics</h4>
-                            <div class="ms-auto">
+                            {{-- <div class="ms-auto">
                                 <div class="dropdown sub-dropdown">
                                     <button class="btn btn-link text-muted dropdown-toggle" type="button" id="dd1"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i data-feather="more-vertical"></i>
                                     </button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-            
+
                         <!-- Tempat Grafik Chart.js -->
                         <div class="pl-4 mb-5">
                             <canvas id="transactionChart" class="stats ct-charts position-relative"></canvas>
                         </div>
-            
+
                         <!-- Keterangan Grafik -->
                         <ul class="list-inline text-center mt-4 mb-0">
                             <li class="list-inline-item text-muted fst-italic">Earnings for this date</li>
@@ -259,26 +161,26 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Script Chart.js -->
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const transactions = @json($transactions); // Data transaksi dari controller
-            
+
                 // Ambil tanggal transaksi dan total_amount
                 const labels = transactions.map(transaction => {
                     const date = new Date(transaction.trx_date);
                     return date.toLocaleDateString(); // Mengambil tanggal
                 });
-            
+
                 const data = transactions.map(transaction => transaction.total_amount);
-            
+
                 // Tentukan nilai terendah dan tertinggi dari data total_amount
                 const minValue = Math.min(...data);
                 const maxValue = Math.max(...data);
                 const adjustedMinValue = minValue - 20;
                 const adjustedMaxValue = maxValue + 20;
-            
+
                 const ctx = document.getElementById('transactionChart').getContext('2d');
                 let transactionChart = new Chart(ctx, {
                     type: 'line',
@@ -324,65 +226,130 @@
                         }
                     }
                 });
-            
+
                 // Update grafik saat ukuran layar berubah
                 window.addEventListener('resize', function() {
                     transactionChart.resize(); // Menyesuaikan ukuran grafik
                 });
             </script>
 
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
+            <div class="col-md-6 col-lg-5">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title">Recent Activity</h4>
-                        <div class="mt-4 activity">
-                            <div class="d-flex align-items-start border-left-line pb-3">
-                                <div>
-                                    <a href="javascript:void(0)" class="btn btn-info btn-circle mb-2 btn-item">
-                                        <i data-feather="shopping-cart"></i>
-                                    </a>
+                        <div class="d-flex align-items-start">
+                            <h4 class="card-title mb-0">Quantity Perhari</h4>
+                            {{-- <div class="ms-auto">
+                                <div class="dropdown sub-dropdown">
+                                    <button class="btn btn-link text-muted dropdown-toggle" type="button" id="dd1"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i data-feather="more-vertical"></i>
+                                    </button>
                                 </div>
-                                <div class="ms-3 mt-2">
-                                    <h5 class="text-dark font-weight-medium mb-2">New Product Sold!</h5>
-                                    <p class="font-14 mb-2 text-muted">John Musa just purchased <br> Cannon 5M
-                                        Camera.
-                                    </p>
-                                    <span class="font-weight-light font-14 text-muted">10 Minutes Ago</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-start border-left-line pb-3">
-                                <div>
-                                    <a href="javascript:void(0)" class="btn btn-danger btn-circle mb-2 btn-item">
-                                        <i data-feather="message-square"></i>
-                                    </a>
-                                </div>
-                                <div class="ms-3 mt-2">
-                                    <h5 class="text-dark font-weight-medium mb-2">New Support Ticket</h5>
-                                    <p class="font-14 mb-2 text-muted">Richardson just create support <br>
-                                        ticket</p>
-                                    <span class="font-weight-light font-14 text-muted">25 Minutes Ago</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-start border-left-line">
-                                <div>
-                                    <a href="javascript:void(0)" class="btn btn-cyan btn-circle mb-2 btn-item">
-                                        <i data-feather="bell"></i>
-                                    </a>
-                                </div>
-                                <div class="ms-3 mt-2">
-                                    <h5 class="text-dark font-weight-medium mb-2">Notification Pending Order!
-                                    </h5>
-                                    <p class="font-14 mb-2 text-muted">One Pending order from Ryne <br> Doe</p>
-                                    <span class="font-weight-light font-14 mb-1 d-block text-muted">2 Hours
-                                        Ago</span>
-                                    <a href="javascript:void(0)" class="font-14 border-bottom pb-1 border-info">Load
-                                        More</a>
-                                </div>
-                            </div>
+                            </div> --}}
                         </div>
+
+                        <!-- Tempat Grafik Chart.js -->
+                        <div class="pl-4"> <!-- Adjusted margin-bottom here -->
+                            <div id="column-chart" style="height: 350px;"></div>
+                        </div>
+
+                        <!-- Keterangan Grafik -->
+                        <ul class="list-inline text-center mt-2 mb-0"> <!-- Adjusted margin-top here -->
+                            <li class="list-inline-item text-muted fst-italic">Days of the Week</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+
+            {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
+
+            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const apiUrl = "http://192.168.43.45/api/getWeeklyData"; // Ganti dengan endpoint API Anda.
+
+                    // Fetch data from API
+                    fetch(apiUrl)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.status) {
+                                // Extract data from the JSON response
+                                const days = data.data.days; // Days of the week
+                                const quantityS = data.data.data.S; // Data for status 'S'
+                                const quantityP = data.data.data.P; // Data for status 'P'
+
+                                // Configure chart options
+                                const chartOptions = {
+                                    chart: {
+                                        type: "bar",
+                                        height: 350
+                                    },
+                                    title: {
+                                        // text: "Jumlah Quantity Per Hari",
+                                        align: 'center',
+                                        style: {
+                                            fontSize: '16px',
+                                            fontWeight: 'bold',
+                                            color: '#333'
+                                        }
+                                    },
+                                    xaxis: {
+                                        categories: days, // Days of the week
+                                        title: {
+                                            // text: "Days of the Week",
+                                            style: {
+                                                fontSize: '12px',
+                                                fontWeight: 'bold',
+                                                color: '#666'
+                                            }
+                                        }
+                                    },
+                                    yaxis: {
+                                        title: {
+                                            text: "Quantity",
+                                            style: {
+                                                fontSize: '12px',
+                                                fontWeight: 'bold',
+                                                color: '#666'
+                                            }
+                                        }
+                                    },
+                                    series: [{
+                                            name: "Quantity Status Sukses",
+                                            data: quantityS,
+                                            color: "#1A56DB" // Blue color
+                                        },
+                                        {
+                                            name: "Quantity Status Pending",
+                                            data: quantityP,
+                                            color: "#FDBA8C" // Orange color
+                                        }
+                                    ],
+                                    tooltip: {
+                                        shared: true,
+                                        intersect: false
+                                    },
+                                    legend: {
+                                        position: 'top',
+                                        horizontalAlign: 'center'
+                                    }
+                                };
+
+                                // Render the chart
+                                const chartContainer = document.getElementById("column-chart");
+                                if (chartContainer && typeof ApexCharts !== "undefined") {
+                                    const chart = new ApexCharts(chartContainer, chartOptions);
+                                    chart.render();
+                                } else {
+                                    console.error("ApexCharts library not loaded or chart container not found.");
+                                }
+                            } else {
+                                console.error("Error fetching data:", data.message);
+                            }
+                        })
+                        .catch((error) => console.error("Fetch error:", error));
+                });
+            </script>
         </div>
     </div>
 @endsection
