@@ -58,11 +58,11 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 font-weight-medium d-flex align-items-baseline">
-                                    <sup class="set-doller">Rp.</sup>
-                                    {{ number_format($totalAmountOverall, 0, ',', '.') }}
+                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                    <sup class="set-doller">Rp.</sup>{{ number_format($totalAmountOverall, 0, ',', '.') }}
                                 </h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Nominal Keseluruhan</h6>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Keseluruhan
+                                </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
                                 <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
@@ -76,11 +76,12 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 font-weight-medium d-flex align-items-baseline">
-                                    <sup class="set-doller">Rp.</sup>
-                                    {{ number_format($totalAmountSuccessful, 0, ',', '.') }}
+                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                    <sup
+                                        class="set-doller">Rp.</sup>{{ number_format($totalAmountSuccessful, 0, ',', '.') }}
                                 </h2>
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Nominal Berhasil</h6>
+                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Nominal Berhasil
+                                </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
                                 <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
@@ -94,15 +95,18 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 font-weight-medium">{{ $ticketSold }}</h2>
+                                <h2 class="text-dark mb-1 font-weight-medium">
+                                    {{ $ticketSold }}
+                                </h2>
                                 <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Tiket Terjual</h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#a1a1a1" viewBox="0 0 256 256">
-                                        <path d="M232,104a8,8,0,0,0,8-8V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V96a8,8,0,0,0,8,8,24,24,0,0,1,0,48,8,8,0,0,0-8,8v32a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V160a8,8,0,0,0-8-8,24,24,0,0,1,0-48ZM32,167.2a40,40,0,0,0,0-78.4V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.4Z"></path>
-                                    </svg>
-                                </span>
+                                <span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="28"
+                                        height="28" fill="#a1a1a1" viewBox="0 0 256 256">
+                                        <path
+                                            d="M232,104a8,8,0,0,0,8-8V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V96a8,8,0,0,0,8,8,24,24,0,0,1,0,48,8,8,0,0,0-8,8v32a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V160a8,8,0,0,0-8-8,24,24,0,0,1,0-48ZM32,167.2a40,40,0,0,0,0-78.4V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.4Z">
+                                        </path>
+                                    </svg></span>
                             </div>
                         </div>
                     </div>
@@ -112,23 +116,32 @@
                 <div class="card h-100">
                     <div class="card-body" style="margin-bottom: -40px;">
                         <div class="flex justify-between items-center">
+                            <!-- Title and Percentage Section -->
                             <div>
-                                <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2" id="sales-this-week">$12,423</h5>
+                                <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"
+                                    id="sales-this-week">
+                                    $12,423
+                                </h5>
                                 <p class="text-base font-normal text-gray-500 dark:text-gray-400">Transaksi Per Tanggal</p>
                             </div>
-                            <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500">
+                            <!-- Percentage and Icon Section -->
+                            <div
+                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500">
                                 <span id="sales-percentage">23%</span>
-                                <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
                                 </svg>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Reduced margin-top and padding on the chart section -->
                     <div id="labels-chart" class="px-2.5 mt-0 p-4 md:p-6 pt-0 md:pt-0"></div>
                 </div>
             </div>
         </div>
-        
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -136,6 +149,8 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.status) {
+                            // Ekstrak data untuk chart
+                            // const categories = data.data.map(item => item.trx_date);  // Tanggal transaksi
                             // Ekstrak data untuk chart
                             const categories = data.data.map(item => {
                                 const date = new Date(item.trx_date);
@@ -146,8 +161,9 @@
                                     year: 'numeric'
                                 });
                             }); // Tanggal transaksi dengan format yang diinginkan
-                            const seriesData = data.data.map(item => item.unique_transactions); // Jumlah transaksi unik
-        
+                            const seriesData = data.data.map(item => item
+                                .unique_transactions); // Jumlah transaksi unik
+
                             // Render chart
                             renderChart(categories, seriesData);
                         } else {
@@ -156,7 +172,7 @@
                     })
                     .catch(error => console.error("Error:", error));
             });
-        
+
             function renderChart(categories, seriesData) {
                 const options = {
                     chart: {
@@ -184,6 +200,15 @@
                             show: false,
                         },
                     },
+                    // yaxis: {
+                    //     labels: {
+                    //         show: true,
+                    //         style: {
+                    //             fontFamily: "Inter, sans-serif",
+                    //             cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                    //         },
+                    //     },
+                    // },
                     yaxis: {
                         labels: {
                             show: true,
@@ -199,8 +224,8 @@
                     series: [{
                         name: 'Jumlah Transaksi',
                         data: seriesData, // Jumlah transaksi unik pada sumbu Y
-                        color: "#8C2D79", // Warna ungu (purple)
-                    }],
+                        color: "#1A56DB",
+                    }, ],
                     tooltip: {
                         enabled: true,
                         x: {
@@ -210,10 +235,10 @@
                     fill: {
                         type: "gradient",
                         gradient: {
-                            // opacityFrom: 0.55,
+                            opacityFrom: 0.55,
                             opacityTo: 0,
-                            shade: "#c84b9f", // Ungu cerah
-                            gradientToColors: ["#d89ac4"], // Ungu muda lebih cerah
+                            shade: "#1C64F2",
+                            gradientToColors: ["#1C64F2"],
                         },
                     },
                     dataLabels: {
@@ -229,11 +254,11 @@
                         show: false,
                     },
                 };
-        
+
                 const chart = new ApexCharts(document.getElementById("labels-chart"), options);
                 chart.render();
             }
-        </script>        
+        </script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 fetch('http://192.168.43.45/api/trxSalesData') // Ganti URL dengan API endpoint yang sesuai
@@ -315,7 +340,7 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const transactions = @json($transactions); // Data transaksi dari controller
-            
+
                 // Ambil tanggal transaksi dan total_amount
                 const labels = transactions.map(transaction => {
                     const date = new Date(transaction.trx_date);
@@ -325,27 +350,20 @@
                         year: 'numeric'
                     });
                 });
-            
+                // const labels = transactions.map(transaction => {
+                //     const date = new Date(transaction.trx_date);
+                //     return date.toLocaleDateString(); // Mengambil tanggal
+                // });
+
                 const data = transactions.map(transaction => transaction.total_amount);
-            
+
                 // Tentukan nilai terendah dan tertinggi dari data total_amount
                 const minValue = Math.min(...data);
                 const maxValue = Math.max(...data);
                 const adjustedMinValue = minValue - 20;
                 const adjustedMaxValue = maxValue + 20;
-            
+
                 const ctx = document.getElementById('transactionChart').getContext('2d');
-            
-                // Create gradient for the background with much lighter shades of purple
-                const gradientBg = ctx.createLinearGradient(0, 0, 0, 400); // Create vertical gradient
-                gradientBg.addColorStop(0, 'rgba(208, 88, 185, 0.6)'); // Lighter lavender purple with opacity
-                gradientBg.addColorStop(1, 'rgba(253, 233, 251, 0)'); // Very soft light purple with full transparency
-            
-                // Create gradient for the border with opacity
-                const gradientBorder = ctx.createLinearGradient(0, 0, 0, 400); // Create vertical gradient
-                gradientBorder.addColorStop(0, 'rgba(120, 41, 109, 0.8)'); // Dark purple with opacity
-                gradientBorder.addColorStop(1, 'rgba(140, 45, 121, 0)'); // Light purple with full transparency
-            
                 let transactionChart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -353,8 +371,8 @@
                         datasets: [{
                             label: 'Amount',
                             data: data,
-                            borderColor: gradientBorder, // Gradient border color with opacity
-                            backgroundColor: gradientBg, // Gradient background color with opacity
+                            borderColor: '#4e73df',
+                            backgroundColor: 'rgba(78, 115, 223, 0.2)',
                             fill: true,
                             tension: 0.1
                         }]
@@ -368,6 +386,12 @@
                             },
                         },
                         scales: {
+                            // x: {
+                            //     title: {
+                            //         display: true,
+                            //         text: 'Date'
+                            //     }
+                            // },
                             y: {
                                 title: {
                                     display: true,
@@ -379,31 +403,17 @@
                                     callback: function(value) {
                                         return "Rp. " + value.toLocaleString(); // Format dengan "Rp."
                                     }
-                                },
-                                grid: {
-                                    color: 'rgba(120, 41, 109, 0.2)', // Warna grid lines yang lebih lembut
-                                    lineWidth: 0.6, // Ukuran garis grid
-                                    borderDash: [5, 5], // Membuat garis putus-putus (opsional)
-                                }
-                            },
-                            x: {
-                                grid: {
-                                    color: 'rgba(120, 41, 109, 0.1)', // Warna grid untuk sumbu X
-                                    lineWidth: 0.6, // Ukuran garis grid
-                                    borderDash: [5, 5], // Garis putus-putus pada grid sumbu X (opsional)
                                 }
                             }
                         }
                     }
                 });
-            
+
                 // Update grafik saat ukuran layar berubah
                 window.addEventListener('resize', function() {
                     transactionChart.resize(); // Menyesuaikan ukuran grafik
                 });
             </script>
-            
-                        
 
             <div class="col-md-6 col-lg-5">
                 <div class="card h-100">
@@ -439,7 +449,7 @@
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
                     const apiUrl = "http://192.168.43.45/api/getWeeklyData"; // Ganti dengan endpoint API Anda.
-            
+
                     // Fetch data from API
                     fetch(apiUrl)
                         .then((response) => response.json())
@@ -449,10 +459,10 @@
                                 let days = data.data.days; // Days of the week
                                 const quantityS = data.data.data.S; // Data for status 'S'
                                 const quantityP = data.data.data.P; // Data for status 'P'
-            
+
                                 // Shorten the days to 3-letter abbreviations
                                 days = days.map(day => day.substring(0, 3));
-            
+
                                 // Configure chart options
                                 const chartOptions = {
                                     chart: {
@@ -490,12 +500,12 @@
                                     series: [{
                                             name: "Quantity Status Sukses",
                                             data: quantityS,
-                                            color: "#8C2D79" // Updated to purple color
+                                            color: "#1A56DB" // Blue color
                                         },
                                         {
                                             name: "Quantity Status Pending",
                                             data: quantityP,
-                                            color: "#D058B9" // Updated to pinkish color
+                                            color: "#FDBA8C" // Orange color
                                         }
                                     ],
                                     tooltip: {
@@ -507,7 +517,7 @@
                                         horizontalAlign: 'center'
                                     }
                                 };
-            
+
                                 // Render the chart
                                 const chartContainer = document.getElementById("column-chart");
                                 if (chartContainer && typeof ApexCharts !== "undefined") {

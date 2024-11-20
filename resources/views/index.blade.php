@@ -8,14 +8,15 @@
     <meta name="description" content="UGOLF Dashboard">
     <meta name="author" content="UGOLF">
     <link rel="icon" type="image/png" sizes="20x20" href="../assets/images/UGOLF.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> --}}
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;700&display=swap" rel="stylesheet">
     <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet">
     <link href="../dist/css/style.min.css" rel="stylesheet">
+    <link href="../dist/css/icons/font-awesome/css/fontawesome-all.min.css" rel="stylesheet">
     <!-- Menambahkan Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> --}}
 
     <title>UGOLF</title>
 </head>
