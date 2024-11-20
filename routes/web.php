@@ -43,6 +43,10 @@ Route::get('/cms', function () {
     return view('cms');
 });
 
+Route::get('/role', function () {
+    return view('role');
+});
+
 // Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

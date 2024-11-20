@@ -7435,7 +7435,8 @@ button.close {
 }
 
 .p-2 {
-    padding: .5rem !important
+    padding: .5rem !important;
+    margin-left: 10px
 }
 
 .p-3 {

@@ -66,9 +66,11 @@
                     <ul class="navbar-nav float-end">
                         <li class="nav-item dropdown">
                             <!-- Gunakan gambar profil dari pengguna yang sedang login -->
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="javascript:void(0)"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <!-- Cek apakah pengguna memiliki gambar profil atau menggunakan ikon -->
-                                <i class="fas fa-user-circle" style="font-size: 28px; color: #ac2daa; border: 1px padding: 2px; border-radius: 50%;"></i>                                
+                                <i class="fas fa-user-circle"
+                                    style="font-size: 28px; color: #ac2daa; border: 1px padding: 2px; border-radius: 50%;"></i>
                                 {{-- <span class="ms-2" style="color: #ac2daa;">{{ Auth::user()->name }}</span> <!-- Menampilkan nama pengguna --> --}}
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -80,7 +82,7 @@
                                     Logout
                                 </a>
                             </div>
-                        </li>                        
+                        </li>
                     </ul>
                     <!-- Form Logout (jika ada) -->
                     <form id="logout-form" action="{{ route('profile.logout') }}" method="POST" style="display: none;">
@@ -99,8 +101,9 @@
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/dashboard" aria-expanded="false">
-                                <i data-feather="bar-chart-2" class="feather-icon" style="margin-left:-2px; margin-top:-8px; width: 23px; height: 24px;"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Dashboard</span>
+                                <i data-feather="bar-chart-2" class="feather-icon"
+                                    style="margin-left:-2px; margin-top:-8px; width: 23px; height: 24px;"></i>
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Dashboard</span>
                             </a>
                         </li>
                         <li class="list-divider"></li>
@@ -109,7 +112,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/merchant/index" aria-expanded="false">
                                 <i data-feather="shopping-bag" class="feather-icon" style="margin-top:-4px;"></i>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Merchant</span>
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:11px;" class="hide-menu">Merchant</span>
                             </a>
                         </li>
                         {{-- Terminal --}}
@@ -126,7 +129,7 @@
                                         d="M18 3a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z" />
                                     <path d="M9 18h6" />
                                 </svg>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Terminal</span>
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Terminal</span>
                             </a>
                         </li>
                         {{-- Payment --}}
@@ -145,13 +148,14 @@
                                     <path d="M7 15l.01 0" />
                                     <path d="M11 15l2 0" />
                                 </svg>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Payment Type</span>
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Payment Type</span>
                             </a>
                         </li>
                         {{-- Trx --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/trx" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon" style="margin-left:-2px; margin-top:-4px; width: 24px; height: 24px;"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
+                                    style="margin-left:-2px; margin-top:-4px; width: 24px; height: 24px;"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-pay">
@@ -163,7 +167,7 @@
                                     <path d="M7.005 15h.005" />
                                     <path d="M11 15h2" />
                                 </svg>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Transaction</span>
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Transaction</span>
                             </a>
                         </li>
                         {{-- Cms --}}
@@ -171,7 +175,7 @@
                             <a class="sidebar-link" href="/cms" aria-expanded="false">
                                 {{-- <i data-feather="file-text" class="feather-icon" style="margin-top:-4px;"></i> --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
-                                    style="margin-left:-2px; margin-top:-4px; width: 22px; height: 22px;"
+                                    style="margin-left:-1px; margin-top:-4px; width: 22px; height: 22px;"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-table">
@@ -181,8 +185,24 @@
                                     <path d="M3 10h18" />
                                     <path d="M10 3v18" />
                                 </svg>
-                                <span style="font-family: 'Kufam', sans-serif;" class="hide-menu">Content
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:12px;" class="hide-menu">Content
                                     System</span>
+                            </a>
+                        </li>
+                        {{-- Role --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/role" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
+                                    style="margin-left:-1px; margin-top:-4px; width: 22px; height: 22px;"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-circles">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                    <path d="M6.5 17m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                    <path d="M17.5 17m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                </svg>
+                                <span style="font-family: 'Kufam', sans-serif; margin-left:12px;" class="hide-menu">Role</span>
                             </a>
                         </li>
                     </ul>
