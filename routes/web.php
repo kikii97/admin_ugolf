@@ -17,11 +17,14 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Rute Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth:api');
 
 Route::get('/merchant/index', [MerchantController::class, 'index']);
 Route::post('/merchant', [MerchantController::class, 'store']);
@@ -48,7 +51,13 @@ Route::get('/role', function () {
 });
 
 // Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    // Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
 // });
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});

@@ -1,76 +1,104 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
-    // Menampilkan halaman edit profil
-    public function index()
+    /**
+     * Menampilkan form edit profil
+     */
+    public function edit()
     {
-        // Ambil data pengguna yang sedang login
-        // $user = Auth::user();
+        $response = Http::withToken(session('jwt_token'))
+            ->get(env('API_URL') . '/user');
 
-        // // Pastikan pengguna sudah terautentikasi
-        // if (!$user) {
-        //     return redirect()->route('login')->with('error', 'Please log in to access your profile.');
-        // }
-
-        return view('profile.profile');
+        if ($response->successful()) {
+            $user = $response->json();
+            return view('profile.coba_profile', compact('user'));
+        } else {
+            return redirect()->route('dashboard')->withErrors(['error' => 'Tidak dapat mengambil data pengguna.']);
+        }
     }
 
-    // Memperbarui data profil pengguna
-    public function update(Request $request)
+    public function updatePhoto(Request $request)
     {
-        // Validasi data input
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore(Auth::id()),
-            ],
-            'password' => 'nullable|string|min:8|confirmed',
-            
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Ambil pengguna yang sedang login
-        $user = Auth::user();
-        return redirect()->route('profile')->with('success','Berhasil memperbarui data!');
-        
-        // Update nama dan email
-        $user->name = $request->name;
-        $user->email = $request->email;
+        try {
+            $http = Http::withToken(session('jwt_token'))
+                ->attach(
+                    'photo',
+                    file_get_contents($request->file('photo')->getPathname()),
+                    $request->file('photo')->getClientOriginalName()
+                )
+                ->asMultipart()
+                ->post(env('API_URL') . '/user/update-photo');
 
-        // Jika password diisi, maka ubah password
+            if ($http->successful()) {
+                return response()->json(['success' => true, 'message' => 'Foto berhasil diperbarui.']);
+            }
+
+            // Tambahkan logging error dari Laravel B
+            \Log::error('Error dari API Laravel B:', $http->json());
+            return response()->json(['success' => false, 'message' => 'Gagal mengunggah foto.', 'error' => $http->json()]);
+        } catch (\Exception $e) {
+            \Log::error('Error di Laravel A:', ['message' => $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghubungi API.', 'error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Proses pembaruan profil
+     */
+    public function update(Request $request)
+    {
+        // Validasi input di Laravel A
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        // Persiapkan data untuk dikirim ke API
+        $data = [
+            '_method' => 'PUT', // Simulasikan metode PUT
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
         if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+            $data['password'] = $request->password;
+            $data['password_confirmation'] = $request->password_confirmation;
         }
 
-        // Simpan perubahan data pengguna
-        $user->save();
+        // Inisialisasi HTTP Client dengan token
+        $http = Http::withToken(session('jwt_token'));
 
-        $request->session()->flash('success', 'Profile updated successfully!');
-    return redirect()->route('profile.update');
+        // Jika ada foto, lampirkan sebagai multipart
+        if ($request->hasFile('profile_photo')) {
+            $http = $http->attach(
+                'photo',
+                file_get_contents($request->file('profile_photo')->getPathname()),
+                $request->file('profile_photo')->getClientOriginalName()
+            );
+        }
+
+        // Kirim permintaan POST dengan data multipart
+        $response = $http->asMultipart()->post(env('API_URL') . '/user/update', $data);
+
+        if ($response->successful()) {
+            return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
+        } else {
+            // Jika ada kesalahan validasi dari API
+            return back()->withErrors($response->json());
+        }
     }
 
-    // Fungsi untuk logout pengguna
-    public function logout(Request $request)
-    {
-        // Melakukan logout pengguna
-        Auth::logout();
-
-        // Menghapus sesi pengguna
-        $request->session()->invalidate();
-
-        // Mengenerate ulang token CSRF
-        $request->session()->regenerateToken();
-
-        // Redirect ke halaman login setelah logout
-        return redirect()->route('login')->with('success', 'You have been logged out successfully.');
-    }
 }
