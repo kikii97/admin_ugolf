@@ -7064,7 +7064,8 @@ progress {
 
 .col-5 {
     flex: 0 0 auto;
-    width: 41.66666667%
+    margin-top: -15px;
+    margin-bottom: 15px;
 }
 
 .col-6 {
