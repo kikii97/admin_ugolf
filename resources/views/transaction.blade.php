@@ -140,30 +140,61 @@
                 success: function(response) {
                     // On success, populate the modal with transaction data
                     let details = `
-                <div style="border-bottom: 1px solid #ddd; padding-bottom: 13px; margin-bottom: 13px;">
-                    <p style="margin-bottom: 7px;"><strong>Transaction Code:</strong> <span class="text-muted">${response.trx_code}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Reference Code:</strong> <span class="text-muted">${response.trx_reff}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Amount:</strong> <span class="text-muted">${response.amount}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Quantity:</strong> <span class="text-muted">${response.qty}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Total Amount:</strong> <span class="text-muted">${response.total_amount}</span></p>
-                </div>
-
-                <div style="border-bottom: 1px solid #ddd; padding-bottom: 13px; margin-bottom: 13px;">
-                    <p style="margin-bottom: 7px;"><strong>Payment Type:</strong> <span class="text-muted">${response.payment_type_name}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Payment Status:</strong> <span class="text-muted">${response.payment_status === 'P' ? 'Pending' : 'Success'}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Payment Date:</strong> <span class="text-muted">${response.payment_date}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Payment Name:</strong> <span class="text-muted">${response.payment_name}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Payment Phone:</strong> <span class="text-muted">${response.payment_phone}</span></p>
-                </div>
-
-                <div style="border-bottom: 1px solid #ddd; padding-bottom: 13px; margin-bottom: 13px;">
-                    <p style="margin-bottom: 7px;"><strong>Reference Number:</strong> <span class="text-muted">${response.reffnumber}</span></p>
-                    <p style="margin-bottom: 7px;"><strong>Issuer Reference Number:</strong> <span class="text-muted">${response.issuer_reffnumber}</span></p>
-                </div>
-
-                <div>
-                    <p style="margin-bottom: 30px;"><strong>Terminal:</strong> <span class="text-muted">${response.terminal_name}</span></p>
-                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Transaction Code</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.trx_code}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Reference Code</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.trx_reff}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Amount</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.amount}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Quantity</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.qty}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Total Amount</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.total_amount}</span></div>
+                                </div>
+                                <hr class="col-span-10 my-3">
+                                <div class="row">
+                                    <div class="col-4"><strong>Payment Type</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.payment_type_name}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Payment Status</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.payment_status === 'P' ? 'Pending' : 'Success'}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Payment Date</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.payment_date}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Payment Name</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.payment_name}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Payment Phone</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.payment_phone}</span></div>
+                                </div>
+                                <hr class="col-span-10 my-3">
+                                <div class="row">
+                                    <div class="col-4"><strong>Reference Number</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.reffnumber}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><strong>Issuer Reference Number</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.issuer_reffnumber}</span></div>
+                                </div>
+                                <hr class="col-span-10 my-3">
+                                <div class="row">
+                                    <div class="col-4"><strong>Terminal</strong></div>:
+                                    <div class="col-5"><span class="text-muted">${response.terminal_name}</span></div>
+                                </div>
             `;
 
                     // Insert details into the modal body
