@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
@@ -15,7 +14,7 @@ class AuthController extends Controller
     }
 
     // Handle the login request
-    public function login(Request $request)
+    public function loginD(Request $request)
     {
         // Validate input
         $response = Http::post(env('API_URL').'/login', [ 
@@ -35,10 +34,29 @@ class AuthController extends Controller
         return back()->withErrors(['loginError' => 'Invalid credentials']);
     }
 
+    public function login(Request $request)
+    {
+        $response = Http::post(env('API_URL').'/login', [
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        if ($response->successful()) {
+            $data = $response->json();
+            session(['jwt_token' => $data['token']]);
+            session(['user_name' => $data['user']['name']]);
+
+            return redirect()->route('dashboard')->with('success', 'Login berhasil');
+        } else {
+            return back()->withErrors(['error' => 'Login gagal, periksa kredensial Anda.']);
+        }
+    }
+
     // Logout method
     public function logout()
     {
-        Auth::logout();
+        //Auth::logout();
+        session()->forget(['jwt_token', 'user_name', 'roles', 'permissions']);
         return redirect('/login')->with('success', 'Logged out successfully');
     }
 }

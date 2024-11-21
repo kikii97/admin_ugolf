@@ -192,7 +192,7 @@
                         </li>
                         {{-- Role --}}
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/role" aria-expanded="false">
+                            <a class="sidebar-link" href="/roles" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="feather-icon"
                                     style="margin-left:-1px; margin-top:-4px; width: 22px; height: 22px;"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
