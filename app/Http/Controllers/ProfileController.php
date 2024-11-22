@@ -57,48 +57,51 @@ class ProfileController extends Controller
      * Proses pembaruan profil
      */
     public function update(Request $request)
-    {
-        // Validasi input di Laravel A
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'password' => 'nullable|string|min:6|confirmed',
-        ]);
+{
+    // Validate input in Laravel A
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        // 'password' => 'nullable|string|min:6|confirmed',
+        'password' => 'nullable|confirmed|min:8',
+        'password_confirmation' => 'nullable|min:8',
+    ]);
 
-        // Persiapkan data untuk dikirim ke API
-        $data = [
-            '_method' => 'PUT', // Simulasikan metode PUT
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
+    // Prepare data to send to API
+    $data = [
+        '_method' => 'PUT', // Simulate PUT method
+        'name' => $request->name,
+        'email' => $request->email,
+    ];
 
-        if ($request->filled('password')) {
-            $data['password'] = $request->password;
-            $data['password_confirmation'] = $request->password_confirmation;
-        }
-
-        // Inisialisasi HTTP Client dengan token
-        $http = Http::withToken(session('jwt_token'));
-
-        // Jika ada foto, lampirkan sebagai multipart
-        if ($request->hasFile('profile_photo')) {
-            $http = $http->attach(
-                'photo',
-                file_get_contents($request->file('profile_photo')->getPathname()),
-                $request->file('profile_photo')->getClientOriginalName()
-            );
-        }
-
-        // Kirim permintaan POST dengan data multipart
-        $response = $http->asMultipart()->post(env('API_URL') . '/user/update', $data);
-
-        if ($response->successful()) {
-            return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
-        } else {
-            // Jika ada kesalahan validasi dari API
-            return back()->withErrors($response->json());
-        }
+    if ($request->filled('password')) {
+        $data['password'] = $request->password;
+        $data['password_confirmation'] = $request->password_confirmation;
     }
 
+    // Initialize HTTP client with token
+    $http = Http::withToken(session('jwt_token'));
+
+    // If there is a photo, attach as multipart
+    if ($request->hasFile('profile_photo')) {
+        $http = $http->attach(
+            'photo',
+            file_get_contents($request->file('profile_photo')->getPathname()),
+            $request->file('profile_photo')->getClientOriginalName()
+        );
+    }
+
+    // Send POST request with multipart data
+    $response = $http->asMultipart()->post(env('API_URL') . '/user/update', $data);
+
+    if ($response->successful()) {
+        // Flash success message to session
+        session()->flash('success', 'Profile updated successfully.');
+        return redirect()->route('profile');
+    } else {
+        // If API response is an error, pass errors back to the view
+        return back()->withErrors($response->json());
+    }
+}
 }

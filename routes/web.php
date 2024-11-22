@@ -16,22 +16,18 @@ Route::get('/', function () {
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-<<<<<<< HEAD
-
-=======
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 });
->>>>>>> e0a3c5327214161cff270a5dd21f69ce1680f56c
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // });
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Rute Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth:api');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('jwt_token');
 
 Route::get('/merchant/index', [MerchantController::class, 'index']);
 Route::post('/merchant', [MerchantController::class, 'store']);
@@ -62,24 +58,15 @@ Route::middleware('jwt_token')->group(function () {
     Route::get('/roles/assign', [RoleController::class, 'indexAssignRole']);
     Route::put('/roles/assign/{user}', [RoleController::class, 'assignRole'])->name('roles.assign');
 
-
-<<<<<<< HEAD
+});
 // Route::middleware(['auth'])->group(function () {
     // Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     // Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('profile.logout');
 // });
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('jwt_token')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
-=======
-    // Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/logout', [ProfileController::class, 'logout'])->name('profile.logout');
-    // });
-});
->>>>>>> e0a3c5327214161cff270a5dd21f69ce1680f56c

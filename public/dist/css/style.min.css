@@ -10501,7 +10501,7 @@ fieldset:disabled .btn {
 .dropdown-item:active {
     color: var(--bs-dropdown-link-active-color);
     text-decoration: none;
-    background-color: var(--bs-dropdown-link-active-bg)
+    background: linear-gradient(to right, #78296D, #8C2D79, #A03385, #B43A92, #D058B9);
 }
 
 .dropdown-item.disabled,

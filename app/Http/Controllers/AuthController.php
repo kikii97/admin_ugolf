@@ -48,7 +48,7 @@ class AuthController extends Controller
 
             return redirect()->route('dashboard')->with('success', 'Login berhasil');
         } else {
-            return back()->withErrors(['error' => 'Login gagal, periksa kredensial Anda.']);
+            return back()->withErrors(['error' => 'Login gagal, cek kredensial Anda.']);
         }
     }
 

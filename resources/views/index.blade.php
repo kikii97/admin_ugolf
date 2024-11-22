@@ -10,6 +10,8 @@
     <link rel="icon" type="image/png" sizes="20x20" href="../assets/images/UGOLF.svg">
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> --}}
     <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet">
@@ -64,23 +66,32 @@
                             </a>
                         </li> --}}
                     </ul>
-                    <ul class="navbar-nav float-end">
+                    <ul class="navbar-nav float-end" style="visibility: visible !important">
                         <li class="nav-item dropdown">
-                            <!-- Gunakan gambar profil dari pengguna yang sedang login -->
+                            <!-- Jika pengguna tidak memiliki foto profil -->
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="javascript:void(0)"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <!-- Cek apakah pengguna memiliki gambar profil atau menggunakan ikon -->
-                                <i class="fas fa-user-circle"
-                                    style="font-size: 28px; color: #ac2daa; border: 1px padding: 2px; border-radius: 50%;"></i>
-                                {{-- <span class="ms-2" style="color: #ac2daa;">{{ Auth::user()->name }}</span> <!-- Menampilkan nama pengguna --> --}}
+                                    @if (session('photo'))
+                                        <!-- Jika foto profil tersedia di sesi -->
+                                        <img id="previewPhoto" 
+                                            class="rounded-circle shadow-sm border" 
+                                            style="width: 32px; height: 32px;" 
+                                            alt="Profile Photo" 
+                                            src="{{ rtrim(env('API_URL'), '/api') }}/assets/photo_profile/{{ session('photo') }}">
+                                    @else
+                                        <!-- Jika tidak ada foto profil, gunakan ikon -->
+                                        <i class="fas fa-user-circle"
+                                        style="font-size: 28px; color: #ac2daa; border: 1px; padding: 2px; border-radius: 50%;"></i>
+                                @endif
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end">
+                            <div class="dropdown-menu dropdown-menu-end" style="border-radius: 9px">
                                 <!-- Menu Edit Profile -->
-                                <a class="dropdown-item" href="{{ route('profile') }}">Edit Profile</a>
-                                <!-- Menu Logout -->
+                                <a class="dropdown-item {{ Request::routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
+                                    <i class="fas fa-sliders-h fa-fw"></i> Edit Profile
+                                </a>                                <!-- Menu Logout -->
                                 <a class="dropdown-item" href="{{ route('profile.logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Logout
+                                    <i class="fas fa-sign-out-alt fa-fw"></i> Logout
                                 </a>
                             </div>
                         </li>

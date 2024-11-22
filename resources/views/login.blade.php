@@ -15,6 +15,14 @@
             height: 100vh;
             font-family: 'Poppins', sans-serif;
         }
+
+        .alert-danger {
+            color: #ffffff;
+            background-color: #ba0e6e;
+            font-size: 15px;
+            border-radius: 10px;
+            border: none;
+        }
     </style>
 </head>
 
@@ -22,17 +30,16 @@
     <div class="container">
         <!-- SVG element positioned in the top right corner -->
         <img class="svg-right" src="../assets/images/right.svg" alt="Shape" />
-        
+
         <!-- SVG element positioned in the bottom left corner -->
         <img class="svg-left" src="../assets/images/left.svg" alt="Shape" />
 
         <div class="wrapper">
             <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
 
-            <!-- Alert for login error -->
-            @if ($errors->has('loginError'))
-                <div class="alert alert-danger">
-                    {{ $errors->first('loginError') }}
+            @if ($errors->has('error'))
+                <div id="login-error-alert" class="alert alert-danger">
+                    {{ $errors->first('error') }}
                 </div>
             @endif
 
@@ -40,16 +47,15 @@
                 @csrf <!-- Add CSRF token for security -->
                 <div class="form-group py-2">
                     <div class="input-field">
-                        <span class="far fa-user p-2"></span>
+                        <span class="far fa-envelope p-2"></span>
                         <input style="background: transparent;" class="input-form" type="text" name="email"
-                            placeholder="Username" value="{{ old('email') }}" required>
+                            placeholder="Email" value="{{ old('email') }}" required>
                     </div>
                 </div>
                 <div class="form-group py-1 pb-2">
                     <div class="input-field">
                         <span class="fas fa-lock p-2"></span>
-                        <input class="input-form" type="password" name="password" placeholder="Password"
-                            required>
+                        <input class="input-form" type="password" name="password" placeholder="Password" required>
                     </div>
                 </div>
                 <!-- Remember me and Forgot Password -->
@@ -59,6 +65,19 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertBox = document.getElementById('login-error-alert');
+            if (alertBox) {
+                setTimeout(() => {
+                    alertBox.style.transition = 'opacity 0.5s';
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.remove(), 500); // Hapus elemen setelah transisi
+                }, 3000); // 3000 ms = 3 detik
+            }
+        });
+    </script>
 </body>
 
 </html>
