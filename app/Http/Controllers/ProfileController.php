@@ -18,7 +18,7 @@ class ProfileController extends Controller
 
         if ($response->successful()) {
             $user = $response->json();
-            return view('profile.coba_profile', compact('user'));
+            return view('profile.profile_user', compact('user'));
         } else {
             return redirect()->route('dashboard')->withErrors(['error' => 'Tidak dapat mengambil data pengguna.']);
         }

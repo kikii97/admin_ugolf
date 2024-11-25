@@ -132,7 +132,7 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                fetch('http://192.168.43.45/api/trxDailyCount') // Ganti URL ke yang benar
+                fetch('{{ env('API_URL') }}/trxDailyCount') // Ganti URL ke yang benar
                     .then(response => response.json())
                     .then(data => {
                         if (data.status) {
@@ -236,7 +236,7 @@
         </script>        
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                fetch('http://192.168.43.45/api/trxSalesData') // Ganti URL dengan API endpoint yang sesuai
+                fetch('{{ env('API_URL') }}/trxSalesData') // Ganti URL dengan API endpoint yang sesuai
                     .then(response => response.json())
                     .then(data => {
                         if (data.status) {
@@ -437,7 +437,7 @@
             <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                    const apiUrl = "http://192.168.43.45/api/getWeeklyData"; // Ganti dengan endpoint API Anda.
+                    const apiUrl = "{{ env('API_URL') }}/getWeeklyData"; // Ganti dengan endpoint API Anda.
             
                     // Fetch data from API
                     fetch(apiUrl)

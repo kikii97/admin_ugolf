@@ -74,8 +74,8 @@
                                     @if (session('photo'))
                                         <!-- Jika foto profil tersedia di sesi -->
                                         <img id="previewPhoto" 
-                                            class="rounded-circle shadow-sm border" 
-                                            style="width: 32px; height: 32px;" 
+                                            class="rounded-circle shadow-sm" 
+                                            style="width: 33px; height: 33px; border: 1px solid #ac2daa; padding: 2px;" 
                                             alt="Profile Photo" 
                                             src="{{ rtrim(env('API_URL'), '/api') }}/assets/photo_profile/{{ session('photo') }}">
                                     @else
