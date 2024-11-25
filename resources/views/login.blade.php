@@ -18,7 +18,15 @@
 
         .alert-danger {
             color: #ffffff;
-            background-color: #ba0e6e;
+            background-color: #ff000069;
+            font-size: 15px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .alert-success {
+            color: white;
+            background-color: #52ff7c8f;
             font-size: 15px;
             border-radius: 10px;
             border: none;
@@ -38,8 +46,14 @@
             <h1 style="font-family: 'Kufam', sans-serif;">UGOLF</h1>
 
             @if ($errors->has('error'))
-                <div id="login-error-alert" class="alert alert-danger">
+                <div id="login-error-alert" class="alert alert-danger" style="border-radius: 10px">
                     {{ $errors->first('error') }}
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div id="login-success-alert" class="alert alert-success">
+                    {{ session('success') }}
                 </div>
             @endif
 
@@ -74,6 +88,19 @@
                     alertBox.style.transition = 'opacity 0.5s';
                     alertBox.style.opacity = '0';
                     setTimeout(() => alertBox.remove(), 500); // Hapus elemen setelah transisi
+                }, 3000); // 3000 ms = 3 detik
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertBox2 = document.getElementById('login-success-alert');
+            if (alertBox2) {
+                setTimeout(() => {
+                    alertBox2.style.transition = 'opacity 0.5s';
+                    alertBox2.style.opacity = '0';
+                    setTimeout(() => alertBox2.remove(), 500); // Hapus elemen setelah transisi
                 }, 3000); // 3000 ms = 3 detik
             }
         });
