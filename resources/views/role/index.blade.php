@@ -1,6 +1,7 @@
 @extends('index')
 
 @section('content')
+
     <style>
         .btn-gradient-purple {
             background: linear-gradient(45deg, #78296D, #D058B9);
@@ -224,7 +225,7 @@
                                                     <input type="checkbox" name="permissions[]"
                                                         value="{{ $permission['name'] }}" class="form-check-input"
                                                         id="permission-{{ $permission['id'] }}"
-                                                        onchange="handlePermissionCheck(this, '{{ $permission['name'] }}')">
+                                                        onchange="session('jwt_token')(this, '{{ $permission['name'] }}')">
                                                     <label class="form-check-label"
                                                         for="permission-{{ $permission['id'] }}">
                                                         {{ $permissionNames[$permission['name']] ?? ucfirst(str_replace("{$module}.", '', $permission['name'])) }}
@@ -342,7 +343,7 @@
                                                             value="{{ $permission['name'] }}" class="form-check-input"
                                                             id="permission-{{ $permission['id'] }}"
                                                             {{ in_array($permission['name'], old('permissions', $rolePermissions ?? [])) ? 'checked' : '' }}
-                                                            onclick="handlePermissionCheck(this, '{{ $permission['name'] }}')">
+                                                            onclick="session('jwt_token')(this, '{{ $permission['name'] }}')">
                                                         <label class="form-check-label"
                                                             for="permission-{{ $permission['id'] }}">
                                                             {{ $permissionNames[$permission['name']] ?? ucfirst(str_replace("{$module}.", '', $permission['name'])) }}
@@ -355,7 +356,7 @@
                                 @endforeach
 
                                 <script>
-                                    function handlePermissionCheck(checkbox, permissionName) {
+                                    function session('jwt_token')(checkbox, permissionName) {
                                         if (permissionName === 'item request.viewAll' || permissionName === 'item request.viewFilterbyUser') {
                                             const viewAll = document.querySelector('input[value="item request.viewAll"]');
                                             const viewFilter = document.querySelector('input[value="item request.viewFilterbyUser"]');
@@ -394,7 +395,7 @@
                         url: `{{ env('API_URL') }}/roles/${selectedId}`,
                         type: 'GET',
                         headers: {
-                            'Authorization': 'Bearer {{ session('token') }}'
+                            'Authorization': 'Bearer {{ session('jwt_token') }}'
                         },
                         success: function(response) {
                             if (response.status === 'success') {
@@ -437,7 +438,7 @@
                         url: `{{ env('API_URL') }}/roles/${selectedId}`,
                         type: 'PUT',
                         headers: {
-                            'Authorization': 'Bearer {{ session('token') }}'
+                            'Authorization': 'Bearer {{ session('jwt_token') }}'
                         },
                         data: updatedData,
                         success: function(response) {
@@ -522,7 +523,7 @@
                 url: '{{ env('API_URL') }}/roles',
                 type: 'POST',
                 headers: {
-                    Authorization: 'Bearer {{ session('token') }}',
+                    Authorization: 'Bearer {{ session('jwt_token') }}',
                 },
                 contentType: 'application/json', // Pastikan format data dikirim sebagai JSON
                 data: JSON.stringify(roleData),
@@ -558,7 +559,7 @@
                 url: `{{ env('API_URL') }}/roles/${selectedId}`,
                 type: 'DELETE',
                 headers: {
-                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
                 },
                 success: function(response) {
                     if (response.status === 'success') {
@@ -634,7 +635,7 @@
             ajax: {
                 url: '{{ env('API_URL') }}/roles',
                 headers: {
-                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
                 },
                 dataSrc: 'data'
             },
@@ -701,7 +702,7 @@
             ajax: {
                 url: '{{ env('API_URL') }}/roles/assign',
                 headers: {
-                    'Authorization': 'Bearer ' + '{{ session('token') }}'
+                    'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
                 },
             },
             columns: [{

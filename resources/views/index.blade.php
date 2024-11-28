@@ -87,11 +87,11 @@
                             <div class="dropdown-menu dropdown-menu-end" style="border-radius: 9px">
                                 <!-- Menu Edit Profile -->
                                 <a class="dropdown-item {{ Request::routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
-                                    <i class="fas fa-sliders-h fa-fw"></i> Edit Profile
+                                    <i style="font-size: 14px;" class="fas fa-sliders-h fa-fw"></i> Edit Profile
                                 </a>                                <!-- Menu Logout -->
                                 <a class="dropdown-item" href="{{ route('profile.logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt fa-fw"></i> Logout
+                                    <i style="font-size: 14px;" class="fas fa-sign-out-alt fa-fw"></i> Logout
                                 </a>
                             </div>
                         </li>

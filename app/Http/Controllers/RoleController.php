@@ -50,7 +50,7 @@ class RoleController extends Controller
     {
         $permissionNames = $this->permissionNames;
 
-        $response = Http::get("{$this->apiUrl}/roles/create");
+        $response = Http::withToken(session('jwt_token'))->get("{$this->apiUrl}/roles/create");
         return view('role.index', [
             'permissionNames' => $permissionNames,
             'groupedPermissions' => $response->json('permissions'),
