@@ -125,10 +125,20 @@ class RoleController extends Controller
         return back()->withErrors(['error' => 'Failed to delete role.']);
     }
 
+
+    public function indexAssignRole(Request $request)
+    {
+        $response = Http::withToken(session('jwt_token'))->get("{$this->apiUrl}/roles/create");
+        return view('role.assign', [
+            'roles' => $response->json('roles'),
+            'groupedPermissions' => $response->json('permissions'),
+        ]);
+    }
+
     public function assignRole(Request $request, $userId)
     {
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . session('auth_token'),
+            'Authorization' => 'Bearer ' . session('jwt_token'),
             'Accept' => 'application/json',
         ])->put(env('API_URL') . "/roles/assign/{$userId}", [
             'roles' => $request->roles,

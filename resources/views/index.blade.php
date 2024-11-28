@@ -23,7 +23,9 @@
 
     <title>UGOLF</title>
 </head>
-
+<style>
+.btn-gradient-purple{background:linear-gradient(45deg,#78296D,#D058B9);color:white;border:none;border-radius:30px;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,.2);transition:background .3s ease,box-shadow .3s ease}.btn-gradient-purple:hover{background:linear-gradient(45deg,#6c2563,#a1448f);box-shadow:0 6px 12px rgba(0,0,0,.3)}.btn-action{background:none;border:none;padding:10px;cursor:pointer;transition:transform .2s ease,box-shadow .3s ease}.btn-action:hover{transform:scale(1.1);box-shadow:0 4px 8px rgba(0,0,0,.2)}.iconify{font-size:22px;color:#6c2563}.iconify:hover{color:#D058B9}#notification{position:fixed;top:10px;right:10px;width:300px;padding:15px;border-radius:5px;z-index:9999;display:none;text-align:center;justify-content:flex-start;align-items:center;text-align:left}.alert-success{background-color:#c3e6cb;color:#449e59;border:1px solid #c3e6cb;height:80px}.alert-danger{background-color:#f5c6cb;color:#c4616b;border:1px solid #f5c6cb;height:80px}
+</style>
 <body>
     <!-- Preloader -->
     <div class="preloader">

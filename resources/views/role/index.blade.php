@@ -1,75 +1,7 @@
 @extends('index')
 
 @section('content')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <style>
-        .btn-gradient-purple {
-            background: linear-gradient(45deg, #78296D, #D058B9);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
-            transition: background .3s ease, box-shadow .3s ease
-        }
-
-        .btn-gradient-purple:hover {
-            background: linear-gradient(45deg, #6c2563, #a1448f);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, .3)
-        }
-
-        .btn-action {
-            background: none;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            transition: transform .2s ease, box-shadow .3s ease
-        }
-
-        .btn-action:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, .2)
-        }
-
-        .iconify {
-            font-size: 22px;
-            color: #6c2563
-        }
-
-        .iconify:hover {
-            color: #D058B9
-        }
-
-        #notification {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 300px;
-            padding: 15px;
-            border-radius: 5px;
-            z-index: 9999;
-            display: none;
-            text-align: center;
-            justify-content: flex-start;
-            align-items: center;
-            text-align: left
-        }
-
-        .alert-success {
-            background-color: #c3e6cb;
-            color: #449e59;
-            border: 1px solid #c3e6cb;
-            height: 80px
-        }
-
-        .alert-danger {
-            background-color: #f5c6cb;
-            color: #c4616b;
-            border: 1px solid #f5c6cb;
-            height: 80px
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Bread crumb -->
     <div class="page-breadcrumb">
@@ -97,6 +29,13 @@
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">
                             <button class="custom-select-set form-control btn-gradient-purple">
                                 <span style="margin-left: 12px;">Add</span>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
+                        <a href="{{ route('indexAssignRole') }}">
+                            <button class="custom-select-set form-control btn-gradient-purple">
+                                <span style="margin-left: 12px;">Assign Roles</span>
                             </button>
                         </a>
                     </div>
@@ -203,98 +142,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- basic table -->
-        <div class="row">
-            <div class="align-self-center"
-                style="display: flex;align-items: center;justify-content: space-between;margin-bottom:30px">
-                <div style="display: flex;align-items: center;">
-                    <h4 style="font-family: 'Kufam', sans-serif;margin:0"
-                        class="page-title text-truncate text-dark font-weight-medium">Assign Roles</h4>
-                </div>
-                <div style="display: flex;">
-                    <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                            <button class="custom-select-set form-control btn-gradient-purple">
-                                <span style="margin-left: 12px;">Add</span>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="card">
-
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Column -->
-                    </div>
-                    <div class="table-responsive">
-                        <table id="user-table" class="table table-bordered table-striped table-hover" style="width:100%">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th class="d-flex justify-content-center align-items-center">No</th>
-                                    <th>User</th>
-                                    <th>Email</th>
-                                    <th>Roles</th>
-                                    @can('role.edit')
-                                        <th>Action</th>
-                                    @endcan
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    </div>
-
-    <!-- Add User Modal -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addRoleLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
-            <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
-                <div class="modal-header"
-                    style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                    <h5 class="modal-title text-white" id="addRoleLabel">Add New User</h5>
-                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
-                        style="font-weight: bold; opacity: 1; color: white;"></button>
-                </div>
-                <form action="{{ route('roles.newUser') }}" method="POST">
-                    <div class="modal-body" style="padding: 20px;">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="roleSelected" class="form-label">Role</label>
-                            <select class="form-select" name="role_id" id="roleSelect" required>
-                                <option value="">-- Select Role --</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role['id'] }}">
-                                        {{ $role['name'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="border-top: none; padding-top: 0;">
-                        <button type="submit" class="btn btn-gradient-purple">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <!-- Edit role -->
@@ -743,25 +591,30 @@
                     'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
                 }
             },
-            columns: [
-                {
+            columns: [{
                     data: null,
                     orderable: false,
                     className: 'text-center',
                     render: (data, type, row, meta) => meta.row + 1
                 },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
                 {
                     data: 'roles',
                     name: 'roles',
                     render: (data) => data ? data.join(', ') : ''
                 },
                 @can('role.edit')
-                {
-                    data: 'id',
-                    orderable: false,
-                    render: (data) => `
+                    {
+                        data: 'id',
+                        orderable: false,
+                        render: (data) => `
                         <div class="d-flex">
                             <button type="button" class="btn-edit btn-action" 
                                 data-bs-toggle="modal" 
@@ -773,10 +626,12 @@
                                 <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
                             </button>
                         </div>`
-                }
+                    }
                 @endcan
             ],
-            order: [[1, 'asc']],
+            order: [
+                [1, 'asc']
+            ],
             autoWidth: false
         });
 
@@ -791,7 +646,9 @@
             try {
                 // Ambil roles dari API dan isi dropdown
                 const response = await fetch('{{ env('API_URL') }}/roles', {
-                    headers: { 'Authorization': 'Bearer ' + '{{ session('jwt_token') }}' }
+                    headers: {
+                        'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
+                    }
                 });
                 const data = await response.json();
 
@@ -813,7 +670,9 @@
                 const response = await fetch(editRoleForm.action, {
                     method: editRoleForm.method,
                     body: new URLSearchParams(new FormData(editRoleForm)),
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
                 });
 
                 if (response.ok) {
