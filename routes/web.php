@@ -55,6 +55,7 @@ Route::middleware('jwt_token')->group(function () {
     Route::get('/roles/{id}/edit', [RoleController::class, 'edit']);
     Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::post('/roles/newuser', [RoleController::class, 'newUser'])->name('roles.newUser');
     Route::get('/roles/assign', [RoleController::class, 'indexAssignRole']);
     Route::put('/roles/assign/{user}', [RoleController::class, 'assignRole'])->name('roles.assign');
 
