@@ -9,43 +9,35 @@
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Adds subtle shadow */
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-            /* Smooth transition */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+            transition: background .3s ease, box-shadow .3s ease
         }
 
         .btn-gradient-purple:hover {
             background: linear-gradient(45deg, #6c2563, #a1448f);
-            /* Darker gradient on hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            /* Stronger shadow on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .3)
         }
 
         .btn-action {
             background: none;
             border: none;
-            /* Remove border */
             padding: 10px;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            transition: transform .2s ease, box-shadow .3s ease
         }
 
         .btn-action:hover {
             transform: scale(1.1);
-            /* Slightly enlarge icon on hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Add shadow on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .2)
         }
 
         .iconify {
             font-size: 22px;
-            color: #6c2563;
+            color: #6c2563
         }
 
         .iconify:hover {
-            color: #D058B9;
-            /* Change color on hover */
+            color: #D058B9
         }
 
         #notification {
@@ -59,25 +51,22 @@
             display: none;
             text-align: center;
             justify-content: flex-start;
-            /* Tetap di sebelah kiri */
             align-items: center;
-            text-align: left;
-            /* Teks tetap rata kiri */
-            /* Hidden by default */
+            text-align: left
         }
 
         .alert-success {
             background-color: #c3e6cb;
             color: #449e59;
             border: 1px solid #c3e6cb;
-            height: 80px;
+            height: 80px
         }
 
         .alert-danger {
             background-color: #f5c6cb;
             color: #c4616b;
             border: 1px solid #f5c6cb;
-            height: 80px;
+            height: 80px
         }
     </style>
 
@@ -89,27 +78,29 @@
             <p id="notificationMessage"></p>
         </div>
         <div class="row">
-            <div class="col-7 align-self-center">
-                <h4 style="font-family: 'Kufam', sans-serif;"
-                    class="page-title text-truncate text-dark font-weight-medium mb-1">Role Management</h4>
-                <div class="d-flex align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Dashboard</a></li>
-                            <li class="breadcrumb-item text-muted active" aria-current="page">Role</li>
-                        </ol>
-                    </nav>
+            <div class="align-self-center" style="display: flex;align-items: center;justify-content: space-between;">
+                <div style="display: flex;gap:20px;align-items: center;">
+                    <h4 style="font-family: 'Kufam', sans-serif;"
+                        class="page-title text-truncate text-dark font-weight-medium">Role Management</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb m-0 p-0">
+                                <li class="breadcrumb-item"><a href="/dashboard" class="text-muted">Dashboard</a></li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Role</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">
+                            <button class="custom-select-set form-control btn-gradient-purple">
+                                <span style="margin-left: 12px;">Add</span>
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
-            {{-- <div class="col-5 align-self-center">
-                <div class="customize-input float-end">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">
-                        <button class="custom-select-set form-control btn-gradient-purple">
-                            <span style="margin-left: 12px;">Add</span>
-                        </button>
-                    </a>
-                </div>
-            </div> --}}
         </div>
     </div>
 
@@ -117,15 +108,6 @@
     <div class="container-fluid">
         <!-- basic table -->
         <div class="row">
-            <div class="col-5 align-self-center">
-                <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">
-                        <button class="custom-select-set form-control btn-gradient-purple">
-                            <span style="margin-left: 12px;">Add</span>
-                        </button>
-                    </a>
-                </div>
-            </div>
             <div class="col-12">
                 <div class="card">
 
@@ -154,43 +136,42 @@
         <!-- basic table -->
         <div class="row">
             <div class="col-5 align-self-center" style="margin-top:10px;">
-                    <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">
-                            <button class="custom-select-set form-control btn-gradient-purple">
-                                <span style="margin-left: 12px;">Add</span>
-                            </button>
-                        </a>
-                    </div>
+                <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <button class="custom-select-set form-control btn-gradient-purple">
+                            <span style="margin-left: 12px;">Add</span>
+                        </button>
+                    </a>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card">
-                    
-                    <div class="card-body">
-                        <div class="row">
-                            <!-- Column -->
-                        </div>
-                        <div class="table-responsive">
-                            <table id="user-table" class="table table-bordered table-striped table-hover"
-                                style="width:100%">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th class="d-flex justify-content-center align-items-center">No</th>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Roles</th>
-                                        @can('role.edit')
-                                            <th>Action</th>
-                                        @endcan
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Column -->
+                    </div>
+                    <div class="table-responsive">
+                        <table id="user-table" class="table table-bordered table-striped table-hover" style="width:100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="d-flex justify-content-center align-items-center">No</th>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    @can('role.edit')
+                                        <th>Action</th>
+                                    @endcan
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Add role Modal -->
@@ -218,14 +199,13 @@
                                     <div class="card-header">
                                         <h5 class="mb-0">Modul {{ ucfirst($module) }}</h5>
                                     </div>
-                                    <div id="{{ $module }}Permissions" class="collapse show">
+                                    <div id="{{ $module }}Permissions" class="show">
                                         <div class="card-body">
                                             @foreach ($permissions as $permission)
                                                 <div class="form-check form-switch">
                                                     <input type="checkbox" name="permissions[]"
                                                         value="{{ $permission['name'] }}" class="form-check-input"
-                                                        id="permission-{{ $permission['id'] }}"
-                                                        onchange="session('jwt_token')(this, '{{ $permission['name'] }}')">
+                                                        id="permission-{{ $permission['id'] }}">
                                                     <label class="form-check-label"
                                                         for="permission-{{ $permission['id'] }}">
                                                         {{ $permissionNames[$permission['name']] ?? ucfirst(str_replace("{$module}.", '', $permission['name'])) }}
@@ -236,6 +216,7 @@
                                     </div>
                                 </div>
                             @endforeach
+
                             <script>
                                 function handlePermissionCheck(checkbox, permissionName) {
                                     if (permissionName === 'item request.viewAll' || permissionName === 'item request.viewFilterbyUser') {
@@ -263,7 +244,7 @@
     </div>
 
     <!-- Add User Modal -->
-    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleLabel" aria-hidden="true">
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addRoleLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
             <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
                 <div class="modal-header"
@@ -297,12 +278,12 @@
                         </div>
                     </form>
                 </div>
-                </div>
-                <div class="modal-footer" style="border-top: none; padding-top: 0;">
-                    <button type="button" id="save" class="btn btn-gradient-purple">Save Role</button>
-                </div>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                <button type="button" id="save" class="btn btn-gradient-purple">Save Role</button>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Edit role -->
@@ -562,13 +543,9 @@
                     'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
                 },
                 success: function(response) {
-                    if (response.status === 'success') {
-                        showNotification('success', 'Role deleted successfully');
-                        $('#deleteRoleModal').modal('hide');
-                        $('#role-table').DataTable().ajax.reload();
-                    } else {
-                        showNotification('error', 'Failed to delete role');
-                    }
+                    showNotification('success', 'Role deleted successfully');
+                    $('#deleteRoleModal').modal('hide');
+                    $('#role-table').DataTable().ajax.reload();
                 },
                 error: function() {
                     showNotification('error', 'Error occurred while deleting role');
@@ -694,6 +671,24 @@
             ],
             autoWidth: false,
         });
+
+        function showPermissions(permissionText, roleName) {
+            // Ubah permissionText menjadi array dan gunakan Bootstrap list group untuk tampilannya
+            const permissionsArray = permissionText.split(', ').map(permission =>
+                `<li class="list-group-item" style="color:#3c3c3c !important;font-size:16px">${permission}</li>`);
+            const permissionsHtml = `<ul class="list-group">${permissionsArray.join('')}</ul>`;
+
+            Swal.fire({
+                title: `Permissions for ${roleName}`,
+                html: `<div style="max-height: 300px; overflow-y: auto;">${permissionsHtml}</div>`,
+                icon: 'info',
+                confirmButtonText: 'Close',
+                confirmButtonColor: 'white',
+                customClass: {
+                    confirmButton: 'btn-gradient-purple'
+                }
+            });
+        }
 
         // Initialize DataTable
         $('#user-table').DataTable({
