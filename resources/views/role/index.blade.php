@@ -40,7 +40,7 @@
                     <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal" onclick="$('input[name^=permissions]').prop('checked', false);">
                             <button class="custom-select-set form-control btn-gradient-purple">
-                                <span style="margin-left: 12px;">Add</span>
+                                <span style="margin-left: 12px;">Add Role</span>
                             </button>
                         </a>
                     </div>

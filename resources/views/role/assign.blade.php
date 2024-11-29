@@ -1,6 +1,12 @@
 @extends('index')
 
 @section('content')
+    <script src="../js/jquery.min.js"></script>
+    <script src="../datatables/jquery.datatables.min.js"></script>
+    <link rel="stylesheet" href="../datatables/datatables.min.css">
+    <script src="../datatables/datatables.bootstrap5.min.js"></script>
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+
     <!-- Bread crumb -->
     <div class="page-breadcrumb">
         <!-- Notification Element -->
@@ -27,7 +33,7 @@
                     <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addUserModal">
                             <button class="custom-select-set form-control btn-gradient-purple">
-                                <span style="margin-left: 12px;">Add</span>
+                                <span style="margin-left: 12px;">Add User</span>
                             </button>
                         </a>
                     </div>
@@ -77,40 +83,89 @@
                     <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
                         style="font-weight: bold; opacity: 1; color: white;"></button>
                 </div>
-                <form action="{{ route('roles.newUser') }}" method="POST">
+                <form id="addUserForm" method="POST" onsubmit="return false;">
+                    @csrf
                     <div class="modal-body" style="padding: 20px;">
-                        @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="invalid-feedback">Name is required.</div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="invalid-feedback">A valid email is required.</div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="invalid-feedback">Password is required.</div>
                         </div>
                         <div class="mb-3">
                             <label for="roleSelected" class="form-label">Role</label>
-                            <select class="form-select" name="role_id" id="roleSelect" required>
+                            <select class="form-select" name="role" id="roleSelect" required>
                                 <option value="">-- Select Role --</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role['id'] }}">
+                                    <option value="{{ $role['name'] }}">
                                         {{ $role['name'] }}
                                     </option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback">Please select a role.</div>
                         </div>
                     </div>
                     <div class="modal-footer" style="border-top: none; padding-top: 0;">
                         <button type="submit" class="btn btn-gradient-purple">Submit</button>
                     </div>
                 </form>
+                <script>
+                    $(document).ready(function() {
+                        $('#addUserForm').on('submit', function(e) {
+                            e.preventDefault();
+
+                            const data = {
+                                name: $('#name').val(),
+                                email: $('#email').val(),
+                                password: $('#password').val(),
+                                role: $('#roleSelect').val(),
+                            };
+
+                            $.ajax({
+                                url: '{{ env('API_URL') }}/roles/user',
+                                type: 'POST',
+                                data: JSON.stringify(data),
+                                contentType: 'application/json',
+                                headers: {
+                                    Authorization: 'Bearer ' + '{{ session('jwt_token') }}',
+                                },
+                                beforeSend: function() {
+                                    $('#addUserForm input, #addUserForm select').removeClass('is-invalid');
+                                },
+                                success: function(response) {
+                                    showNotification('success', 'User added successfully.');
+                                    $('#addUserModal').modal('hide');
+                                    $('#user-table').DataTable().ajax.reload();
+                                },
+                                error: function(xhr) {
+                                    console.error('Error:', xhr);
+                                    if (xhr.status === 422) {
+                                        const errors = xhr.responseJSON.errors;
+                                        for (const [field, messages] of Object.entries(errors)) {
+                                            $(`#${field}`).addClass('is-invalid');
+                                            $(`#${field}`).siblings('.invalid-feedback').text(messages[0]);
+                                        }
+                                    } else {
+                                        showNotification('error', 'Failed to add user. Please try again.');
+                                    }
+                                },
+                            });
+                        });
+                    });
+                </script>
             </div>
         </div>
     </div>
+
 
     <!-- Delete Role -->
     <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteRoleLabel" aria-hidden="true">
@@ -162,13 +217,6 @@
             </div>
         </div>
     @endcan
-
-
-    <script src="../js/jquery.min.js"></script>
-    <script src="../datatables/jquery.datatables.min.js"></script>
-    <link rel="stylesheet" href="../datatables/datatables.min.css">
-    <script src="../datatables/datatables.bootstrap5.min.js"></script>
-    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
     <script>
         // Delete user
