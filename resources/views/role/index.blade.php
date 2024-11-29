@@ -2,6 +2,18 @@
 
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="../js/jquery.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="../datatables/jquery.datatables.min.js"></script>
+
+    <!-- DataTables Bootstrap 4 integration -->
+    <link rel="stylesheet" href="../datatables/datatables.min.css">
+    <script src="../datatables/datatables.bootstrap5.min.js"></script>
+
+    <!-- Add Iconify CDN in the head section -->
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
     <!-- Bread crumb -->
     <div class="page-breadcrumb">
@@ -146,7 +158,7 @@
     </div>
 
     <!-- Edit role -->
-    @can('roles.edit')
+    @can('role.edit')
         <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
                 <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
@@ -156,12 +168,11 @@
                         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
                             style="font-weight: bold; opacity: 1; color: white;"></button>
                     </div>
-                    <div class="modal-body" style="padding: 20px;">
-                        <!-- Edit Role -->
-                        <form id="editRoleForm">
-                            @csrf
-                            @method('PUT')
-
+                    <!-- Edit Role -->
+                    <form id="editRoleForm">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body" style="padding: 20px;">
                             <div class="mb-3">
                                 <label for="editname" class="form-label">Role</label>
                                 <input type="text" name="editname" id="editname" class="form-control" required>
@@ -175,15 +186,15 @@
                                         <div class="card-header">
                                             <h5 class="mb-0">Modul {{ ucfirst($module) }}</h5>
                                         </div>
-                                        <div id="{{ $module }}Permissions" class="collapse show">
+                                        <div id="{{ $module }}Permissions" class="show">
                                             <div class="card-body">
                                                 @foreach ($permissions as $permission)
                                                     <div class="form-check form-switch">
                                                         <input type="checkbox" name="permissions[]"
                                                             value="{{ $permission['name'] }}" class="form-check-input"
                                                             id="permission-{{ $permission['id'] }}"
-                                                            {{ in_array($permission['name'], old('permissions', $rolePermissions ?? [])) ? 'checked' : '' }}
-                                                            onclick="session('jwt_token')(this, '{{ $permission['name'] }}')">
+                                                            {{ in_array($permission['name'], old('permissions', $rolePermissions ?? [])) ? 'checked' : '' }}>
+
                                                         <label class="form-check-label"
                                                             for="permission-{{ $permission['id'] }}">
                                                             {{ $permissionNames[$permission['name']] ?? ucfirst(str_replace("{$module}.", '', $permission['name'])) }}
@@ -194,110 +205,96 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-                                <script>
-                                    function session('jwt_token')(checkbox, permissionName) {
-                                        if (permissionName === 'item request.viewAll' || permissionName === 'item request.viewFilterbyUser') {
-                                            const viewAll = document.querySelector('input[value="item request.viewAll"]');
-                                            const viewFilter = document.querySelector('input[value="item request.viewFilterbyUser"]');
-
-                                            if (checkbox.checked) {
-                                                if (permissionName === 'item request.viewAll') {
-                                                    viewFilter.checked = false;
-                                                } else {
-                                                    viewAll.checked = false;
-                                                }
-                                            }
-                                        }
-                                    }
-                                </script>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer" style="border-top: none; padding-top: 0;">
-                        <button type="button" id="updateBtn" class="btn btn-gradient-purple">Update Role</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                            <button type="submit" class="btn btn-gradient-purple">Update Role</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- Script to handle edit button click -->
+        <!-- Handle tombol edit -->
         <script>
-            $(document).ready(function() {
-                let selectedId = null; // Define global variable to store selected role ID
+            let selectedId = null;
 
-                // Handle edit button click
-                $('#role-table').on('click', '.btn-edit', function() {
-                    selectedId = $(this).data('id'); // Store role ID globally
+            $('#editRoleModal').on('show.bs.modal', function() {
+                $('input[name^=permissions]').prop('checked', false);
+            });
 
-                    // Fetch role data from API
-                    $.ajax({
-                        url: `{{ env('API_URL') }}/roles/${selectedId}`,
-                        type: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer {{ session('jwt_token') }}'
-                        },
-                        success: function(response) {
-                            if (response.status === 'success') {
-                                const role = response.data;
-                                $('#editname').val(role.name); // Set role name
+            $('#role-table').off('click', '.btn-edit').on('click', '.btn-edit', function() {
+                selectedId = $(this).data('id');
 
-                                // Uncheck all permissions first
-                                $('input[name^=permissions]').prop('checked', false);
+                $.ajax({
+                    url: `{{ env('API_URL') }}/roles/${selectedId}/edit`,
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer {{ session('jwt_token') }}'
+                    },
+                    success: function(response) {
+                        const role = response.role;
+                        const permissions = role.permissions;
 
-                                // Check permissions based on fetched role data
-                                if (role.permissions && role.permissions.length) {
-                                    role.permissions.forEach(permission => {
-                                        $(`input[value="${permission}"]`).prop('checked',
-                                            true);
-                                    });
-                                }
+                        $('#editname').val(role.name);
+                        $('input[name^=permissions]').prop('checked', false);
 
-                                $('#editRoleModal').modal('show'); // Show modal
-                            } else {
-                                showNotification('error', 'Failed to fetch role data');
-                            }
-                        },
-                        error: function() {
-                            showNotification('error', 'Error occurred while fetching role data');
+                        if (permissions && permissions.length) {
+                            permissions.forEach(permission => {
+                                $(`input[value="${permission.name}"]`).prop('checked', true);
+                            });
                         }
-                    });
+
+                        $('#editRoleModal').modal('show');
+                    },
+                    error: function() {
+                        showNotification('error', 'Error occurred while fetching role data');
+                    }
+                });
+            });
+
+            $('#editRoleForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+
+                const updatedData = {
+                    name: $('#editname').val(),
+                    permissions: []
+                };
+
+                // Hanya mengambil permission yang dipilih
+                $('#editRoleModal input[name^=permissions]:checked').each(function() {
+                    const value = $(this).val();
+                    updatedData.permissions.push(value);
                 });
 
-                // Handle update button click
-                $('#updateBtn').click(function() {
-                    const updatedData = {
-                        name: $('#editname').val(),
-                        permissions: $('input[name^=permissions]:checked').map(function() {
-                            return $(this).val();
-                        }).get()
-                    };
+                // Hapus permissions yang duplikat
+                updatedData.permissions = [...new Set(updatedData.permissions)];
 
-                    // Send updated data to API
-                    $.ajax({
-                        url: `{{ env('API_URL') }}/roles/${selectedId}`,
-                        type: 'PUT',
-                        headers: {
-                            'Authorization': 'Bearer {{ session('jwt_token') }}'
-                        },
-                        data: updatedData,
-                        success: function(response) {
-                            if (response.status === 'success') {
-                                showNotification('success', 'Role updated successfully');
-                                $('#editRoleModal').modal('hide'); // Hide modal
-                                $('#role-table').DataTable().ajax.reload(); // Reload table
-                            } else {
-                                showNotification('error', 'Failed to update role');
-                            }
-                        },
-                        error: function() {
-                            showNotification('error', 'Error occurred while updating role');
+                $.ajax({
+                    url: `{{ env('API_URL') }}/roles/${selectedId}`,
+                    type: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer {{ session('jwt_token') }}'
+                    },
+                    data: JSON.stringify(updatedData),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            showNotification('success', 'Role updated successfully');
+                            $('#editRoleModal').modal('hide');
+                            $('#role-table').DataTable().ajax.reload();
+                        } else {
+                            showNotification('error', 'Failed to update role');
                         }
-                    });
+                    },
+                    error: function() {
+                        showNotification('error', 'Error occurred while updating role');
+                    }
                 });
             });
         </script>
     @endcan
+
 
     <!-- Delete Role -->
     <div class="modal fade" id="deleteRoleModal" tabindex="-1" aria-labelledby="deleteRoleLabel" aria-hidden="true">
@@ -348,23 +345,8 @@
         </div>
     @endcan
 
-    <!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
-
-    <!-- DataTables JS -->
-    <script src="../datatables/jquery.datatables.min.js"></script>
-
-    <!-- DataTables Bootstrap 4 integration -->
-    <link rel="stylesheet" href="../datatables/datatables.min.css">
-    <script src="../datatables/datatables.bootstrap5.min.js"></script>
-
-    <!-- Add Iconify CDN in the head section -->
-    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-
     <!-- Script untuk inisialisasi DataTables -->
     <script>
-        let selectedId = null;
-
         // Save New role
         $('#saveBtn').click(function() {
             // Ambil data dari form
@@ -577,112 +559,5 @@
                 }
             });
         }
-
-        // Initialize DataTable
-        const editUserModal = document.getElementById('editUserModal');
-        const rolesSelect = document.getElementById('rolesSelect');
-        const editRoleForm = document.getElementById('editRoleForm');
-        const usersTable = $('#user-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: '{{ env('API_URL') }}/roles/assign',
-                headers: {
-                    'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
-                }
-            },
-            columns: [{
-                    data: null,
-                    orderable: false,
-                    className: 'text-center',
-                    render: (data, type, row, meta) => meta.row + 1
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'roles',
-                    name: 'roles',
-                    render: (data) => data ? data.join(', ') : ''
-                },
-                @can('role.edit')
-                    {
-                        data: 'id',
-                        orderable: false,
-                        render: (data) => `
-                        <div class="d-flex">
-                            <button type="button" class="btn-edit btn-action" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#editUserModal" 
-                                data-user-id="${data}">
-                                <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
-                            </button>
-                            <button class="btn-delete btn-action" data-id="${data}">
-                                <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
-                            </button>
-                        </div>`
-                    }
-                @endcan
-            ],
-            order: [
-                [1, 'asc']
-            ],
-            autoWidth: false
-        });
-
-        // Event saat modal ditampilkan
-        editUserModal.addEventListener('show.bs.modal', async (event) => {
-            const button = event.relatedTarget;
-            const userId = button.getAttribute('data-user-id');
-
-            // Set form action
-            editRoleForm.action = `/roles/assign-role/${userId}`;
-
-            try {
-                // Ambil roles dari API dan isi dropdown
-                const response = await fetch('{{ env('API_URL') }}/roles', {
-                    headers: {
-                        'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
-                    }
-                });
-                const data = await response.json();
-
-                // Kosongkan dan isi ulang rolesSelect
-                rolesSelect.innerHTML = data.data.map(role =>
-                    `<option value="${role.name}">${role.name}</option>`
-                ).join('');
-            } catch (error) {
-                console.error('Error fetching roles:', error);
-            }
-        });
-
-        // Event saat form disubmit
-        editRoleForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            $('#editUserModal').modal('hide');
-
-            try {
-                const response = await fetch(editRoleForm.action, {
-                    method: editRoleForm.method,
-                    body: new URLSearchParams(new FormData(editRoleForm)),
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                });
-
-                if (response.ok) {
-                    usersTable.ajax.reload();
-                } else {
-                    console.error('Failed to update roles:', await response.text());
-                }
-            } catch (error) {
-                console.error('Error updating roles:', error);
-            }
-        });
     </script>
 @endsection
