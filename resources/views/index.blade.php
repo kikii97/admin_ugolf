@@ -123,6 +123,7 @@
                         </li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu text-muted">Management</span></li>
+                        @can('merchant.view')
                         {{-- Merchant --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/merchant/index" aria-expanded="false">
@@ -130,6 +131,8 @@
                                 <span style="font-family: 'Kufam', sans-serif; margin-left:11px;" class="hide-menu">Merchant</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('terminal.view')
                         {{-- Terminal --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/terminal" aria-expanded="false">
@@ -147,6 +150,8 @@
                                 <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Terminal</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('payment type.view')
                         {{-- Payment --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/payment-type" aria-expanded="false">
@@ -166,6 +171,8 @@
                                 <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Payment Type</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('transaction.view')
                         {{-- Trx --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/trx" aria-expanded="false">
@@ -185,6 +192,8 @@
                                 <span style="font-family: 'Kufam', sans-serif; margin-left:10px;" class="hide-menu">Transaction</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('cms.view')
                         {{-- Cms --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/cms" aria-expanded="false">
@@ -204,6 +213,8 @@
                                     System</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('role.view')
                         {{-- Role --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/roles" aria-expanded="false">
@@ -220,6 +231,7 @@
                                 <span style="font-family: 'Kufam', sans-serif; margin-left:12px;" class="hide-menu">Role</span>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </nav>
             </div>
