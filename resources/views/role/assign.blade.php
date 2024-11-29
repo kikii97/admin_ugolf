@@ -150,8 +150,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="roles" class="form-label">Select Roles</label>
-                                    <select name="roles[]" id="rolesSelect" class="form-select">
-                                    </select>
+                                    <select name="roles[]" id="rolesSelect" class="form-select"></select>
                                 </div>
                             </div>
                         </div>
@@ -163,6 +162,7 @@
             </div>
         </div>
     @endcan
+
 
     <script src="../js/jquery.min.js"></script>
     <script src="../datatables/jquery.datatables.min.js"></script>
@@ -245,6 +245,7 @@
             }
         });
 
+        // Inisialisasi DataTable
         $('#user-table').DataTable({
             processing: true,
             serverSide: true,
@@ -252,7 +253,8 @@
                 url: '{{ env('API_URL') }}/roles/assign',
                 headers: {
                     'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
-                }
+                },
+                cache: false // Pastikan data baru dimuat
             },
             columns: [{
                     data: null,
@@ -278,14 +280,14 @@
                         data: 'id',
                         orderable: false,
                         render: (data, type, row) => `
-                        <div class="d-flex">
-                            <button type="button" class="btn-edit btn-action" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="${data}" data-name="${row.name}" data-roles="${row.roles.join(',')}">
-                                <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
-                            </button>
-                            <button class="btn-delete btn-action" data-id="${data}">
-                                <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
-                            </button>
-                        </div>`
+                <div class="d-flex">
+                    <button type="button" class="btn-edit btn-action" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="${data}" data-name="${row.name}" data-roles="${row.roles.join(',')}">
+                        <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
+                    </button>
+                    <button class="btn-delete btn-action" data-id="${data}">
+                        <span class="iconify" data-icon="heroicons:trash" style="font-size: 22px;"></span>
+                    </button>
+                </div>`
                     }
                 @endcan
             ],
@@ -295,25 +297,24 @@
             autoWidth: false
         });
 
-        const editUserModal = document.getElementById('editUserModal');
-
+        // Event saat tombol Edit diklik
         $('#user-table').on('click', '.btn-edit', function() {
             const userId = $(this).data('id');
             const userName = $(this).data('name');
             const userRoles = $(this).data('roles');
 
             const form = document.getElementById('editUserRoleForm');
-            form.action = `/roles/assign/${userId}`;
+            form.action = `{{ env('API_URL') }}/roles/assign/${userId}`;
 
             // Update title modal
-            const modalTitle = editUserModal.querySelector('.modal-title');
+            const modalTitle = document.querySelector('#editUserModal .modal-title');
             modalTitle.textContent = `Edit Roles for ${userName}`;
 
             // Ambil data roles dari API untuk mengisi select box
             $.ajax({
                 url: '{{ env('API_URL') }}/roles',
                 headers: {
-                    'Authorization': 'Bearer ' + '{{ $jwt_token }}'
+                    'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
                 },
                 success: function(response) {
                     const rolesSelect = document.getElementById('rolesSelect');
@@ -330,21 +331,42 @@
             });
         });
 
+        // Bersihkan modal saat ditutup
+        $('#editUserModal').on('hidden.bs.modal', function() {
+            const rolesSelect = document.getElementById('rolesSelect');
+            rolesSelect.innerHTML = '';
+        });
+
         // Handle form submission
         document.getElementById('editUserRoleForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = e.target;
-            $('#editUserModal').modal('hide');
-            showNotification('success', 'Role updated successfully.');
-            $('#user-table').DataTable().ajax.reload();
-            // $.ajax({
-            //     url: form.action,
-            //     method: form.method,
-            //     data: $(form).serialize(),
-            //     success: function(response) {
-            //         $('#user-table').DataTable().ajax.reload();
-            //     }
-            // });
+
+            $.ajax({
+                url: form.action,
+                method: form.method,
+                data: $(form).serialize(),
+                headers: {
+                    'Authorization': 'Bearer ' + '{{ session('jwt_token') }}'
+                },
+                success: function() {
+                    $('#editUserModal').modal('hide');
+                    showNotification('success', 'Role updated successfully.');
+                    $('#user-table').DataTable().ajax.reload();
+                },
+                error: function(xhr) {
+                    console.error('Error Details:', xhr);
+                    if (xhr.status === 500) {
+                        showNotification('error', 'Server error. Please try again later.');
+                    } else if (xhr.status === 422) {
+                        showNotification('error', 'Validation failed. Please check the input.');
+                    } else {
+                        showNotification('error',
+                            `Failed to update role. (${xhr.status}: ${xhr.statusText})`);
+                    }
+                }
+            });
+
         });
     </script>
 @endsection

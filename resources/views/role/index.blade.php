@@ -38,7 +38,7 @@
                 </div>
                 <div style="display: flex;">
                     <div class="customize-input float-end" style="margin-left:20px; margin-buttom:15px;">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#addRoleModal" onclick="$('input[name^=permissions]').prop('checked', false);">
                             <button class="custom-select-set form-control btn-gradient-purple">
                                 <span style="margin-left: 12px;">Add</span>
                             </button>
@@ -98,23 +98,6 @@
                                     </div>
                                 </div>
                             @endforeach
-
-                            <script>
-                                function handlePermissionCheck(checkbox, permissionName) {
-                                    if (permissionName === 'item request.viewAll' || permissionName === 'item request.viewFilterbyUser') {
-                                        const viewAll = document.querySelector('input[value="item request.viewAll"]');
-                                        const viewFilter = document.querySelector('input[value="item request.viewFilterbyUser"]');
-
-                                        if (checkbox.checked) {
-                                            if (permissionName === 'item request.viewAll') {
-                                                viewFilter.checked = false;
-                                            } else {
-                                                viewAll.checked = false;
-                                            }
-                                        }
-                                    }
-                                }
-                            </script>
                         </div>
                     </form>
                 </div>

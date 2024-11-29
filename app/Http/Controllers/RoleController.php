@@ -39,10 +39,10 @@ class RoleController extends Controller
             'transaction.create' => 'Tambah Data Transaction',
             'transaction.edit' => 'Edit Data Transaction',
             'transaction.delete' => 'Hapus Data Transaction',
-            'roles.view' => 'Lihat Data Role',
-            'roles.create' => 'Tambah Data Role',
-            'roles.edit' => 'Edit Data Role',
-            'roles.delete' => 'Hapus Data Role',
+            'role.view' => 'Lihat Data Role',
+            'role.create' => 'Tambah Data Role',
+            'role.edit' => 'Edit Data Role',
+            'role.delete' => 'Hapus Data Role',
         ];    
     }
 
