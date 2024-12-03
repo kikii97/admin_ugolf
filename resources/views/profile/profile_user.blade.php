@@ -279,7 +279,7 @@
                         @csrf
                         @method('PUT')
 
-                        @if (session('success'))
+                        {{-- @if (session('success'))
                             <div class="alert alert-success" id="successNotification" style="border-radius: 10px;">
                                 {{ session('success') }}
                             </div>
@@ -311,7 +311,7 @@
                                     }, 3000); // Hide after 3 seconds
                                 }
                             });
-                        </script>
+                        </script> --}}
 
                         <div class="row">
                             <!-- Name Field with Icon Inside -->
@@ -498,7 +498,7 @@
                         });
                     </script>
 
-                    <script>
+                    {{-- <script>
                         // Ambil elemen input password dan konfirmasi password
                         const passwordField = document.getElementById('password');
                         const passwordConfirmationField = document.getElementById('password_confirmation');
@@ -523,7 +523,7 @@
                             if (passwordField.value !== '' && passwordConfirmationField.value !== '') {
                                 if (passwordField.value !== passwordConfirmationField.value) {
                                     passwordConfirmationError.style.display = 'block';
-                                    passwordConfirmationError.textContent = 'Password tidak sesuai sama';
+                                    passwordConfirmationError.textContent = 'Password tidak sama';
                                     isValid = false;
                                 }
                             }
@@ -534,6 +534,60 @@
                         // Event listener untuk memvalidasi saat password atau konfirmasi password berubah
                         passwordField.addEventListener('input', validatePassword);
                         passwordConfirmationField.addEventListener('input', validatePassword);
+                    </script> --}}
+
+                    <script>
+                        // Ambil elemen input password dan konfirmasi password
+                        const passwordField = document.getElementById('password');
+                        const passwordConfirmationField = document.getElementById('password_confirmation');
+                        const passwordError = document.getElementById('passwordError');
+                        const passwordConfirmationError = document.getElementById('passwordConfirmationError');
+                        const submitButton = document.getElementById('submitButton'); // Pastikan ID tombol benar
+                    
+                        // Fungsi untuk validasi form
+                        function validatePassword() {
+                            // Reset error messages
+                            passwordError.style.display = 'none';
+                            passwordConfirmationError.style.display = 'none';
+                    
+                            let isValid = true;
+                    
+                            // Validasi panjang password
+                            if (passwordField.value.length > 0 && passwordField.value.length < 8) {
+                                passwordError.style.display = 'block';
+                                passwordError.textContent = 'Password tidak boleh kurang dari 8 karakter';
+                                isValid = false;
+                            }
+                    
+                            // Validasi kecocokan password
+                            if (passwordField.value !== '' && passwordConfirmationField.value !== '') {
+                                if (passwordField.value !== passwordConfirmationField.value) {
+                                    passwordConfirmationError.style.display = 'block';
+                                    passwordConfirmationError.textContent = 'Password tidak sama';
+                                    isValid = false;
+                                }
+                            }
+                    
+                            // Atur status tombol submit
+                            submitButton.disabled = 
+                                (!isValid) || 
+                                (passwordField.value !== '' && passwordConfirmationField.value === '') || 
+                                (passwordField.value === '' && passwordConfirmationField.value !== '');
+                    
+                            return isValid;
+                        }
+                    
+                        // Event listener untuk memvalidasi saat password atau konfirmasi password berubah
+                        passwordField.addEventListener('input', validatePassword);
+                        passwordConfirmationField.addEventListener('input', validatePassword);
+                    
+                        // Tambahkan validasi tambahan pada saat form dikirimkan (opsional jika diperlukan)
+                        const form = document.querySelector('form'); // Pastikan form ini sesuai
+                        form.addEventListener('submit', function (e) {
+                            if (!validatePassword()) {
+                                e.preventDefault(); // Batalkan pengiriman jika tidak valid
+                            }
+                        });
                     </script>
 
                     <script>
