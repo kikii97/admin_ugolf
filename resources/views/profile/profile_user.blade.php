@@ -163,43 +163,20 @@
                                 $('#notification').fadeOut();
                             }, 3000);
                         }
-
-                        // Kondisi untuk menampilkan notifikasi jika ada session success atau error
-                        $(document).ready(function() {
-                            @if (session('success'))
-                                showNotification('success', '{{ session('success') }}');
-                            @endif
-
-                            @if ($errors->any())
-                                let errorMessage = '';
-                                @foreach ($errors->all() as $error)
-                                    errorMessage += '{{ is_array($error) ? implode(', ', $error) : $error }}' + '\n';
-                                @endforeach
-                                showNotification('error', errorMessage.trim());
-                            @endif
-                        });
                     </script>
 
                     <!-- Edit Foto Form -->
                     <div class="text-center mb-4" style="margin-top: -20px;">
                         <div class="d-inline-block position-relative">
-                            {{-- <img id="previewPhoto" class="rounded-circle shadow-sm border" width="100" height="100" alt="Profile Photo" 
-        src="{{ isset($user['photo']) && $user['photo'] ? (rtrim(env('API_URL'), '/api') . '/assets/photo_profile/' . $user['photo']) : 'default_photo_url_here' }}">  --}}
-                            <!-- Menampilkan Foto Profil atau Ikon Default -->
                             @if (isset($user['photo']) && $user['photo'])
                                 <!-- Jika pengguna memiliki foto profil -->
-                                <img id="previewPhoto" class="rounded-circle shadow-sm"
-                                    style="width: 90px; height: 90px; border: 1px solid #ac2daa; padding: 3px;"
-                                    alt="Profile Photo"
-                                    src="{{ session('photo') ? (($apiUrl = rtrim(env('API_URL'), '/api')) ? $apiUrl . '/assets/photo_profile/' . session('photo') : 'default_photo_url_here') : 'default_photo_url_here' }}">
+                                <img id="previewPhoto" class="rounded-circle shadow-sm" style="width: 90px; height: 90px; border: 1px solid #ac2daa; padding: 3px;" alt="Profile Photo" src="{{ session('photo') ? (($apiUrl = rtrim(env('API_URL'), '/api')) ? $apiUrl . '/assets/photo_profile/' . session('photo') : 'default_photo_url_here') : 'default_photo_url_here' }}">
                             @else
                                 <!-- Jika pengguna tidak memiliki foto profil -->
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="javascript:void(0)"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user-circle"
-                                        style="font-size: 80px; color: #ac2daa; border: 2px solid #ac2daa; padding: 2px; border-radius: 50%;"></i>
-                                    {{-- <span class="ms-2" style="color: #ac2daa;">{{ Auth::user()->name }}</span> --}}
+                                <a id="defaultPhoto" style="display: flex" class="nav-link dropdown-toggle align-items-center" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle" style="font-size: 80px; color: #ac2daa; border: 2px solid #ac2daa; padding: 2px; border-radius: 50%;"></i>
                                 </a>
+                                <img id="previewPhoto" class="rounded-circle shadow-sm" style="display:none;width: 90px; height: 90px; border: 1px solid #ac2daa; padding: 3px;" alt="Profile Photo" src="">
                             @endif
 
                         </div>
@@ -247,6 +224,10 @@
                             if (file) {
                                 const reader = new FileReader();
                                 reader.onload = function(event) {
+                                    if (document.getElementById('defaultPhoto')) {
+                                        document.getElementById('defaultPhoto').style.display = 'none';
+                                    }
+                                    document.getElementById('previewPhoto').style.display = 'block';
                                     document.getElementById('previewPhoto').src = event.target.result;
                                     document.getElementById('modalPreviewPhoto').src = event.target.result;
                                     const modal = new bootstrap.Modal(document.getElementById('uploadPhotoModal'));
@@ -338,7 +319,7 @@
                                 <label style="color: #7e7a7a;" for="name" class="form-label">Name</label>
                                 <div class="input-group">
                                     <input type="text" style="border-radius: 6px;" class="form-control ps-5"
-                                        name="name" value="{{ $user['name'] }}" required />
+                                        name="name" value="{{ $user['name'] ?? NULL }}" required />
                                     <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ms-2"></i>
                                 </div>
                             </div>
@@ -416,8 +397,8 @@
                             const form = document.getElementById('profileForm');
                             const submitButton = document.getElementById('submitButton');
                             const loadingIcon = document.getElementById('loadingIcon');
-                            const nameInput = document.getElementById('name');
-                            const emailInput = document.getElementById('email');
+                            const nameInput = document.getElementsByName('name')[0];
+                            const emailInput = document.getElementsByName('email')[0];
                             const passwordInput = document.getElementById('password');
                             const confirmPasswordInput = document.getElementById('password_confirmation');
                             const notification = document.getElementById('notification');
@@ -611,6 +592,18 @@
                                     loadingIcon.style.display = 'inline-block';
                                 }
                             });
+
+                            @if (session('success'))
+                                showNotification('success', '{{ session('success') }}');
+                            @endif
+
+                            @if ($errors->any())
+                                let errorMessage = '';
+                                @foreach ($errors->all() as $error)
+                                    errorMessage += '{{ is_array($error) ? implode(', ', $error) : $error }}' + '\n';
+                                @endforeach
+                                showNotification('error', errorMessage.trim());
+                            @endif
                         });
                     </script>
 

@@ -4,7 +4,8 @@
 
 {{-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script> --}}
-
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <style>
     /* CSS untuk mengatur warna placeholder menjadi abu-abu */
     .form-control::placeholder {
@@ -95,21 +96,6 @@
                     $('#notification').fadeOut();
                 }, 3000);
             }
-
-            // Kondisi untuk menampilkan notifikasi jika ada session success atau error
-            $(document).ready(function() {
-                @if (session('success'))
-                    showNotification('success', '{{ session('success') }}');
-                @endif
-
-                @if ($errors->any())
-                    let errorMessage = '';
-                    @foreach ($errors->all() as $error)
-                        errorMessage += '{{ is_array($error) ? implode(", ", $error) : $error }}' + '\n';
-                    @endforeach
-                    showNotification('error', errorMessage.trim());
-                @endif
-            });
     </script>
 
     <!-- Edit Foto Form -->
@@ -323,6 +309,18 @@
         //         notification.style.display = 'none';
         //     }, 3000); // Hide notification after 3 seconds
         // }
+
+        @if (session('success'))
+            showNotification('success', '{{ session('success') }}');
+        @endif
+
+                @if ($errors->any())
+                    let errorMessage = '';
+                    @foreach ($errors->all() as $error)
+                        errorMessage += '{{ is_array($error) ? implode(", ", $error) : $error }}' + '\n';
+                    @endforeach
+                    showNotification('error', errorMessage.trim());
+                @endif
     });
 </script>
 </div>
