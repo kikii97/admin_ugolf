@@ -176,6 +176,42 @@
         </div>
     </div>
 
+    <!-- Edit Payment Type Modal -->
+<div class="modal fade" id="editPaymentType" tabindex="-1" aria-labelledby="editPaymentTypeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 40%;">
+        <div class="modal-content" style="border-radius: 20px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
+            <div class="modal-header"
+                style="background: linear-gradient(135deg, #78296D, #D058B9); border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                <h5 class="modal-title text-white" id="editPaymentTypeLabel">Edit Payment Type</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"
+                    style="font-weight: bold; opacity: 1; color: white;"></button>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <!-- Edit paymentType Form -->
+                <form id="editPaymentForm">
+                    <input type="hidden" id="editPaymentTypeId"> <!-- Hidden field for ID -->
+                    <div class="mb-3">
+                        <label for="editPaymentTypeCode" class="form-label">Payment Type Code</label>
+                        <input type="text" class="form-control" id="editPaymentTypeCode" name="payment_type_code"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPaymentTypeName" class="form-label">Payment Type Name</label>
+                        <input type="text" class="form-control" id="editPaymentTypeName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                <button type="button" id="updatePaymentTypeBtn" class="btn btn-gradient-purple">Update Payment Type</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Delete Merchant Modal -->
     <div class="modal fade" id="deletePaymentModal" tabindex="-1" aria-labelledby="deletePaymentModalLabel"
         aria-hidden="true">
@@ -257,7 +293,7 @@
                     render: function(data) {
                         return `
                             <div class="d-flex">
-                                <button title="Edit" data-id="${data}" class="btn-edit btn-action">
+                                <button title="Edit" data-id="${data}" class="btn btn-action btn-edit">
                                     <span class="iconify" data-icon="heroicons:pencil" style="font-size: 22px;"></span>
                                 </button>
                                 <button title="Delete" data-id="${data}" class="btn-delete btn-action">
@@ -374,6 +410,133 @@
             }
         });
     </script>
+
+<script>
+    $(document).ready(function () {
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(title, message, type = 'success') {
+            $('#notificationTitle').text(title);
+            $('#notificationMessage').text(message);
+            $('#notification')
+                .removeClass()
+                .addClass(`alert alert-${type}`)
+                .show();
+            setTimeout(function () {
+                $('#notification').fadeOut();
+            }, 3000);
+        }
+
+        // Event untuk membuka modal edit dan mengisi data dengan detail yang sudah ada
+        $(document).on('click', '.btn-edit', function () {
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: `{{ env('API_URL') }}/paymentType/${id}`,
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + '{{ session('token') }}',
+                },
+                success: function (response) {
+                    if (response.success) {
+                        const paymentType = response.data;
+                        $('#editPaymentTypeId').val(paymentType.payment_type_id);  // Adjusted to use payment_type_id
+                        $('#editPaymentTypeCode').val(paymentType.payment_type_code);
+                        $('#editPaymentTypeName').val(paymentType.payment_type_name);
+                        $('#editDescription').val(paymentType.description);
+                        $('#editPaymentType').modal('show');
+                    } else {
+                        showNotification('Error', 'Failed to fetch payment type details.', 'danger');
+                    }
+                },
+                error: function () {
+                    showNotification('Error', 'Error occurred while fetching payment type details.', 'danger');
+                },
+            });
+        });
+
+        // Event untuk mengupdate payment type
+        $('#updatePaymentTypeBtn').click(function () {
+            const id = $('#editPaymentTypeId').val();  // Use payment_type_id for the ID
+            const paymentTypeData = {
+                payment_type_code: $('#editPaymentTypeCode').val(),
+                payment_type_name: $('#editPaymentTypeName').val(),
+                description: $('#editDescription').val(),
+            };
+
+            $.ajax({
+                url: `{{ env('API_URL') }}/paymentType/${id}`,
+                type: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + '{{ session('token') }}',
+                },
+                data: paymentTypeData,
+                success: function (response) {
+                    $('#editPaymentType').modal('hide');
+
+                    if (response.success) {
+                        localStorage.setItem(
+                            'notification',
+                            JSON.stringify({
+                                title: 'Success',
+                                message: 'Payment type updated successfully',
+                                type: 'success',
+                            })
+                        );
+                    } else {
+                        localStorage.setItem(
+                            'notification',
+                            JSON.stringify({
+                                title: 'Error',
+                                message: `Failed to update payment type: ${response.message}`,
+                                type: 'danger',
+                            })
+                        );
+                    }
+
+                    location.reload();
+                },
+                error: function (xhr) {
+                    $('#editPaymentType').modal('hide');
+
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        let errorMsg = 'Validation Error:\n';
+                        $.each(errors, function (key, value) {
+                            errorMsg += value[0] + '\n';
+                        });
+                        localStorage.setItem(
+                            'notification',
+                            JSON.stringify({
+                                title: 'Validation Error',
+                                message: errorMsg,
+                                type: 'danger',
+                            })
+                        );
+                    } else {
+                        localStorage.setItem(
+                            'notification',
+                            JSON.stringify({
+                                title: 'Error',
+                                message: 'Error occurred while updating payment type',
+                                type: 'danger',
+                            })
+                        );
+                    }
+
+                    location.reload();
+                },
+            });
+        });
+
+        // Periksa apakah ada notifikasi yang tersimpan di localStorage
+        if (localStorage.getItem('notification')) {
+            const notification = JSON.parse(localStorage.getItem('notification'));
+            showNotification(notification.title, notification.message, notification.type);
+            localStorage.removeItem('notification');
+        }
+    });
+</script>
+
 
     <script>
         $(document).ready(function() {
