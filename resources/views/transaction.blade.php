@@ -142,58 +142,58 @@
                     let details = `
                                 <div class="row">
                                     <div class="col-4"><strong>Transaction Code</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.trx_code}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.trx_code}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Reference Code</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.trx_reff}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.trx_reff}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Amount</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.amount}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.amount}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Quantity</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.qty}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.qty}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Total Amount</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.total_amount}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.total_amount}</span></div>
                                 </div>
                                 <hr class="col-span-10 my-3">
                                 <div class="row">
                                     <div class="col-4"><strong>Payment Type</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.payment_type_name}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.payment_type_name}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Payment Status</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.payment_status === 'P' ? 'Pending' : 'Success'}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.payment_status === 'P' ? 'Pending' : 'Success'}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Payment Date</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.payment_date}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.payment_date}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Payment Name</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.payment_name}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.payment_name}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Payment Phone</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.payment_phone}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.payment_phone}</span></div>
                                 </div>
                                 <hr class="col-span-10 my-3">
                                 <div class="row">
                                     <div class="col-4"><strong>Reference Number</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.reffnumber}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.reffnumber}</span></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4"><strong>Issuer Reference Number</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.issuer_reffnumber}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.issuer_reffnumber}</span></div>
                                 </div>
                                 <hr class="col-span-10 my-3">
                                 <div class="row">
                                     <div class="col-4"><strong>Terminal</strong></div>:
-                                    <div class="col-5"><span class="text-muted">${response.terminal_name}</span></div>
+                                    <div class="col-4"><span class="text-muted">${response.terminal_name}</span></div>
                                 </div>
             `;
 
